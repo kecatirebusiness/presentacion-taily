@@ -1662,6 +1662,343 @@ body.pointer-on, body.pointer-on *{ cursor: none !important; }
   color: rgba(243,236,222,0.6);
 }
 
+/* ═════════ COMPETITIVE ANALYSIS SLIDES (13-16) ═══════════════════════════ */
+
+/* ─── SLIDE 13: Competitive landscape map ─── */
+.war-wrap{ display: grid; grid-template-columns: 1fr 1.1fr; gap: 40px; height: 100%; align-items: center; }
+.war-left .stat-row{
+  display: grid; grid-template-columns: auto 1fr; gap: 14px 18px;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+.war-left .stat-row .k{
+  font-family: var(--ff-mono); font-size: 10.5px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--ink-muted);
+  align-self: baseline;
+  white-space: nowrap;
+}
+.war-left .stat-row .v{
+  font-family: var(--ff-display);
+  font-weight: 500;
+  font-size: 17px; line-height: 1.25;
+  color: var(--ink);
+}
+.war-left .stat-row .v strong{ color: var(--cobalt); font-weight: 700; }
+.war-left .stat-row .v em{ font-style: italic; color: var(--coral); font-family: var(--ff-accent); }
+
+.tier-stack{ display: flex; flex-direction: column; gap: 12px; }
+.tier-bar{
+  position: relative;
+  padding: 14px 18px 14px 22px;
+  border-radius: 10px;
+  background: var(--pure);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--tc, var(--cobalt));
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 16px;
+  align-items: center;
+  box-shadow: 0 6px 18px -14px rgba(12,14,26,0.15);
+  transform-origin: left center;
+  animation: tierSlide 600ms cubic-bezier(.2,.82,.3,1) both;
+}
+.slide.active .tier-bar{ animation-play-state: running; }
+.tier-bar.t1{ animation-delay: 0.2s; --tc: var(--coral); }
+.tier-bar.t2{ animation-delay: 0.35s; --tc: var(--mustard); }
+.tier-bar.t3{ animation-delay: 0.5s; --tc: var(--sage); }
+.tier-bar.t4{ animation-delay: 0.65s; --tc: var(--lilac); }
+@keyframes tierSlide{
+  from{ opacity: 0; transform: translateX(-12px) scaleX(0.98); }
+  to  { opacity: 1; transform: translateX(0) scaleX(1); }
+}
+.tier-label{
+  display: flex; flex-direction: column; gap: 2px;
+}
+.tier-label .num{
+  font-family: var(--ff-mono); font-size: 10px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--tc);
+}
+.tier-label .name{
+  font-family: var(--ff-display);
+  font-weight: 800; font-size: 16px;
+  text-transform: lowercase;
+  color: var(--ink);
+}
+.tier-chips{ display: flex; gap: 6px; flex-wrap: wrap; }
+.tier-chips span{
+  font-family: var(--ff-mono); font-size: 10px; font-weight: 700;
+  letter-spacing: 0.1em;
+  padding: 4px 9px; border-radius: 999px;
+  background: color-mix(in srgb, var(--tc) 8%, transparent);
+  color: var(--ink);
+  border: 1px solid color-mix(in srgb, var(--tc) 30%, transparent);
+  white-space: nowrap;
+}
+.tier-chips .lead{
+  background: var(--tc);
+  color: var(--pure);
+  font-weight: 800;
+}
+
+/* ─── SLIDE 14: Head-to-head matrix ─── */
+.matrix-wrap{ display: flex; flex-direction: column; height: 100%; gap: 14px; }
+.matrix-head{ display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: end; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+.matrix-head h2{ margin: 4px 0 2px; font-size: clamp(40px, 4.8vw, 68px); }
+.matrix-head .hint{ font-family: var(--ff-accent); font-style: italic; font-size: 16px; color: var(--ink-soft); max-width: 360px; line-height: 1.3; }
+
+.matrix{
+  display: grid;
+  grid-template-columns: 150px repeat(5, 1fr);
+  gap: 0;
+  flex: 1;
+  align-content: start;
+}
+.matrix .mcell{
+  padding: 10px 10px;
+  border-bottom: 1px dashed var(--border);
+  display: flex; align-items: center;
+  font-family: var(--ff-body);
+  font-size: 13px;
+  color: var(--ink-soft);
+  min-height: 42px;
+}
+.matrix .mcell.row-k{
+  font-family: var(--ff-mono); font-size: 10.5px; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--ink-muted);
+  padding-right: 12px;
+}
+.matrix .mcell.header{
+  padding-top: 14px; padding-bottom: 14px;
+  border-bottom: 2px solid var(--border-strong);
+  font-family: var(--ff-display);
+  font-weight: 800;
+  font-size: 15px;
+  text-transform: lowercase;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  justify-content: center;
+  text-align: center;
+}
+.matrix .mcell.header.taily{
+  background: var(--cobalt);
+  color: var(--cream);
+  border-radius: 10px 10px 0 0;
+  border-bottom-color: var(--cobalt-deep);
+}
+.matrix .mcell.col-taily{
+  background: color-mix(in srgb, var(--cobalt) 6%, transparent);
+  border-right: 1px solid color-mix(in srgb, var(--cobalt) 25%, transparent);
+  border-left: 1px solid color-mix(in srgb, var(--cobalt) 25%, transparent);
+  font-weight: 500;
+  color: var(--ink);
+  justify-content: center;
+  text-align: center;
+  font-size: 13.5px;
+}
+.matrix .mcell.col-taily.last{ border-radius: 0 0 10px 10px; border-bottom: 1px solid color-mix(in srgb, var(--cobalt) 25%, transparent); }
+.matrix .mcell.col-comp{
+  justify-content: center; text-align: center;
+  font-size: 12.5px;
+}
+.matrix .mcell.col-comp.low{ color: var(--coral); }
+.matrix .mcell.col-comp.mid{ color: var(--ink-muted); }
+.matrix .mcell .check{
+  display: inline-block;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: var(--sage);
+  color: var(--pure);
+  font-family: var(--ff-mono);
+  font-size: 11px; font-weight: 800;
+  display: grid; place-items: center;
+  line-height: 1;
+}
+.matrix .mcell .x{
+  display: inline-grid; place-items: center;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: var(--coral);
+  color: var(--pure);
+  font-family: var(--ff-mono); font-size: 11px; font-weight: 800;
+  line-height: 1;
+}
+
+/* ─── SLIDE 15: Moats grid ─── */
+.moats-wrap{ display:flex; flex-direction: column; height: 100%; gap: 16px; }
+.moats-head{ display: grid; grid-template-columns: 1fr auto; gap: 30px; align-items: end; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+.moats-head h2{ margin: 4px 0 2px; font-size: clamp(40px, 4.8vw, 68px); }
+.moats-head .hint{ font-family: var(--ff-accent); font-style: italic; font-size: 16px; color: var(--ink-soft); max-width: 360px; line-height: 1.3; }
+
+.moats-grid{
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 14px;
+  flex: 1;
+}
+.moat-card{
+  position: relative;
+  padding: 22px 20px;
+  border-radius: 14px;
+  background: var(--pure);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--mc, var(--cobalt));
+  display: flex; flex-direction: column; gap: 10px;
+  transition: transform 360ms cubic-bezier(.2,.8,.2,1), box-shadow 360ms, border-color 360ms;
+  overflow: hidden;
+}
+.moat-card:hover{
+  transform: translateY(-4px);
+  box-shadow: 0 22px 40px -24px color-mix(in srgb, var(--mc) 35%, transparent);
+}
+.moat-card.m1{ --mc: var(--cobalt); }
+.moat-card.m2{ --mc: var(--coral); }
+.moat-card.m3{ --mc: var(--mustard); }
+.moat-card.m4{ --mc: var(--sage); }
+.moat-card.m5{ --mc: var(--lilac); }
+.moat-card .moat-icon{
+  width: 38px; height: 38px;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--mc) 10%, transparent);
+  border: 1px solid color-mix(in srgb, var(--mc) 35%, transparent);
+  display: grid; place-items: center;
+  color: var(--mc);
+}
+.moat-card .stat{
+  font-family: var(--ff-display);
+  font-weight: 800;
+  font-size: 38px; line-height: 1;
+  letter-spacing: -0.035em;
+  color: var(--mc);
+  margin-top: 4px;
+}
+.moat-card .stat small{
+  font-family: var(--ff-mono); font-size: 11px;
+  font-weight: 600;
+  color: var(--ink-muted);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  display: block;
+  margin-top: 4px;
+}
+.moat-card h4{
+  font-family: var(--ff-display);
+  font-weight: 800; font-size: 18px;
+  text-transform: lowercase;
+  letter-spacing: -0.02em;
+  margin: 4px 0 2px;
+  line-height: 1.15;
+  color: var(--ink);
+}
+.moat-card p{
+  font-size: 12.5px;
+  color: var(--ink-soft);
+  line-height: 1.42;
+  margin: 0;
+}
+.moat-card .vs-who{
+  font-family: var(--ff-mono); font-size: 9px; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--mc);
+  padding-top: 8px;
+  margin-top: auto;
+  border-top: 1px dashed var(--border);
+}
+
+/* ─── SLIDE 16: Battle plan ─── */
+.battle-wrap{ display: flex; flex-direction: column; height: 100%; gap: 14px; }
+.battle-head{ display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: end; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+.battle-head h2{ margin: 4px 0 2px; font-size: clamp(40px, 4.8vw, 68px); }
+.battle-head .hint{ font-family: var(--ff-accent); font-style: italic; font-size: 16px; color: var(--ink-soft); max-width: 380px; line-height: 1.3; }
+
+.battle-rows{ display: flex; flex-direction: column; gap: 12px; flex: 1; }
+.battle-row{
+  display: grid;
+  grid-template-columns: 1.3fr auto 1.3fr auto 1fr;
+  gap: 20px;
+  align-items: center;
+  padding: 16px 20px;
+  background: var(--pure);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  transition: transform 360ms cubic-bezier(.2,.8,.2,1);
+}
+.battle-row:hover{ transform: translateX(4px); }
+.battle-enemy{
+  display: flex; flex-direction: column; gap: 2px;
+}
+.battle-enemy .lbl{
+  font-family: var(--ff-mono); font-size: 9.5px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--ink-muted);
+}
+.battle-enemy .name{
+  font-family: var(--ff-display);
+  font-weight: 800; font-size: 20px;
+  color: var(--coral);
+  text-transform: lowercase;
+  letter-spacing: -0.02em;
+}
+.battle-enemy .move{
+  font-family: var(--ff-accent); font-style: italic;
+  font-size: 13px;
+  color: var(--ink-soft);
+  line-height: 1.3;
+  margin-top: 2px;
+}
+.battle-vs{
+  font-family: var(--ff-display);
+  font-weight: 800;
+  font-size: 20px;
+  color: var(--ink-muted);
+  letter-spacing: 0.04em;
+  padding: 6px 11px;
+  border: 1.5px solid var(--border-strong);
+  border-radius: 999px;
+  background: var(--cream);
+  text-transform: lowercase;
+}
+.battle-counter{
+  display: flex; flex-direction: column; gap: 2px;
+}
+.battle-counter .lbl{
+  font-family: var(--ff-mono); font-size: 9.5px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--cobalt);
+}
+.battle-counter .name{
+  font-family: var(--ff-display);
+  font-weight: 800; font-size: 20px;
+  color: var(--cobalt);
+  text-transform: lowercase;
+  letter-spacing: -0.02em;
+}
+.battle-counter .move{
+  font-family: var(--ff-accent); font-style: italic;
+  font-size: 13px;
+  color: var(--ink);
+  line-height: 1.3;
+  margin-top: 2px;
+}
+.battle-arrow{
+  font-family: var(--ff-mono);
+  font-size: 20px;
+  color: var(--cobalt);
+}
+.battle-outcome{
+  font-family: var(--ff-display);
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--ink);
+  line-height: 1.3;
+  text-transform: lowercase;
+  letter-spacing: -0.01em;
+}
+.battle-outcome strong{ color: var(--cobalt); font-weight: 800; }
+
 /* ═════════ MOBILE PIPELINE — static SVG diagram (no animations) ═════════ */
 .pipe-mobile{ display: none; width: 100%; max-width: 420px; margin: 0 auto; }
 .diagram-m{
@@ -3060,11 +3397,285 @@ body.pointer-on, body.pointer-on *{ cursor: none !important; }
     <div class="side-num">12</div>
   </section>
 
+  <!-- ══ SLIDE 13 — COMPETITIVE LANDSCAPE ══════════════════════════════ -->
+  <section class="slide" data-title="El mapa de la competencia">
+    <div class="war-wrap">
+      <div class="war-left">
+        <div class="eyebrow anim d1">12 · el terreno</div>
+        <h2 class="display anim d2" style="font-size: clamp(42px, 5vw, 72px);">
+          un <em>océano</em> rojo<br>
+          con <em class="coral">una diferencia.</em>
+        </h2>
+        <p class="lede anim d3" style="max-width: 480px; font-size: 17px; margin-top: 14px;">El sector de suplementos para perros es masivo y saturado — pero casi nadie ocupa el hueco exacto donde Taily puede vivir.</p>
+        <div class="stat-row anim d4">
+          <div class="k">Tier 1</div><div class="v"><strong>Finn</strong> — estética parecida, pero son <em>chews</em>. No líquido.</div>
+          <div class="k">Tier 2</div><div class="v"><strong>Codeage</strong> — fórmula + sabor bacon clone. Sin brand pet-first.</div>
+          <div class="k">Tier 3</div><div class="v"><strong>Zesty Paws</strong> — el titán de shelf. Pero <em>cartoon-pharmacy aesthetic</em>.</div>
+          <div class="k">Hueco</div><div class="v">premium-editorial · liquid · Gen Z/Millennial · content-driven. <strong>Nadie lo tiene.</strong></div>
+        </div>
+      </div>
+
+      <div class="tier-stack anim d3">
+        <div class="tier-bar t1">
+          <div class="tier-label"><span class="num">Tier 01 · direct D2C</span><span class="name">competencia real</span></div>
+          <div class="tier-chips">
+            <span class="lead">Finn</span>
+            <span>PetLab</span>
+            <span>Native Pet</span>
+            <span>Super Buddy</span>
+            <span>Furevery</span>
+          </div>
+        </div>
+        <div class="tier-bar t2">
+          <div class="tier-label"><span class="num">Tier 02 · liquid copies</span><span class="name">mismo formato</span></div>
+          <div class="tier-chips">
+            <span class="lead">Codeage</span>
+            <span>Wonder Paws</span>
+            <span>VETIQ</span>
+            <span>Pure Majesty</span>
+            <span>Special Breed</span>
+          </div>
+        </div>
+        <div class="tier-bar t3">
+          <div class="tier-label"><span class="num">Tier 03 · shelf giants</span><span class="name">los gigantes</span></div>
+          <div class="tier-chips">
+            <span class="lead">Zesty Paws</span>
+            <span>Nutramax</span>
+            <span>PetHonesty</span>
+            <span>NaturVet</span>
+            <span>Fera Pet</span>
+          </div>
+        </div>
+        <div class="tier-bar t4">
+          <div class="tier-label"><span class="num">Tier 04 · wallet share</span><span class="name">adyacentes</span></div>
+          <div class="tier-chips">
+            <span class="lead">The Farmer's Dog</span>
+            <span>Maev</span>
+            <span>Open Farm</span>
+            <span>Honest Kitchen</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="side-num">13</div>
+  </section>
+
+  <!-- ══ SLIDE 14 — HEAD-TO-HEAD MATRIX ══════════════════════════════════ -->
+  <section class="slide" data-title="Head-to-head · dónde ganamos">
+    <div class="matrix-wrap">
+      <div class="matrix-head">
+        <div>
+          <div class="eyebrow anim d1">13 · head to head</div>
+          <h2 class="display anim d2">dónde <em>ganamos</em> · uno por uno.</h2>
+        </div>
+        <p class="hint anim d3">Seis dimensiones · cinco competidores · una diferencia clara que puedes señalar en la próxima call con Daily.</p>
+      </div>
+
+      <div class="matrix anim d4">
+        <div class="mcell row-k"></div>
+        <div class="mcell header taily">taily</div>
+        <div class="mcell header">finn</div>
+        <div class="mcell header">zesty paws</div>
+        <div class="mcell header">codeage</div>
+        <div class="mcell header">native pet</div>
+
+        <div class="mcell row-k">Formato</div>
+        <div class="mcell col-taily"><span class="check">✓</span>&nbsp; líquido</div>
+        <div class="mcell col-comp low"><span class="x">✗</span>&nbsp; chews</div>
+        <div class="mcell col-comp mid">ambos</div>
+        <div class="mcell col-comp"><span class="check">✓</span>&nbsp; líquido</div>
+        <div class="mcell col-comp low"><span class="x">✗</span>&nbsp; chews</div>
+
+        <div class="mcell row-k">Sabor</div>
+        <div class="mcell col-taily"><span class="check">✓</span>&nbsp; bacon</div>
+        <div class="mcell col-comp mid">pollo</div>
+        <div class="mcell col-comp mid">pollo/queso</div>
+        <div class="mcell col-comp"><span class="check">✓</span>&nbsp; bacon</div>
+        <div class="mcell col-comp mid">salmón</div>
+
+        <div class="mcell row-k">Aesthetic</div>
+        <div class="mcell col-taily"><span class="check">✓</span>&nbsp; editorial premium</div>
+        <div class="mcell col-comp">clean modern</div>
+        <div class="mcell col-comp low">cartoon pharma</div>
+        <div class="mcell col-comp low">human-brand</div>
+        <div class="mcell col-comp">clean</div>
+        
+        <div class="mcell row-k">Bioavailability</div>
+        <div class="mcell col-taily">90-95%</div>
+        <div class="mcell col-comp low">~60%</div>
+        <div class="mcell col-comp low">~60%</div>
+        <div class="mcell col-comp">90-95%</div>
+        <div class="mcell col-comp low">~60%</div>
+
+        <div class="mcell row-k">Content IA</div>
+        <div class="mcell col-taily"><span class="check">✓</span>&nbsp; 5 influencers</div>
+        <div class="mcell col-comp low"><span class="x">✗</span>&nbsp; —</div>
+        <div class="mcell col-comp low"><span class="x">✗</span>&nbsp; —</div>
+        <div class="mcell col-comp low"><span class="x">✗</span>&nbsp; —</div>
+        <div class="mcell col-comp low"><span class="x">✗</span>&nbsp; —</div>
+
+        <div class="mcell row-k">Brand-as-lifestyle</div>
+        <div class="mcell col-taily last"><span class="check">✓</span>&nbsp; Ollie CTO · tagline™</div>
+        <div class="mcell col-comp">parcial</div>
+        <div class="mcell col-comp low"><span class="x">✗</span>&nbsp; —</div>
+        <div class="mcell col-comp low"><span class="x">✗</span>&nbsp; —</div>
+        <div class="mcell col-comp">parcial</div>
+      </div>
+    </div>
+    <div class="side-num">14</div>
+  </section>
+
+  <!-- ══ SLIDE 15 — MOATS / DIFERENCIADORES ══════════════════════════════ -->
+  <section class="slide" data-title="Los 5 fosos">
+    <div class="moats-wrap">
+      <div class="moats-head">
+        <div>
+          <div class="eyebrow anim d1">14 · los fosos</div>
+          <h2 class="display anim d2">cinco <em>ventajas</em> que nadie copia rápido.</h2>
+        </div>
+        <p class="hint anim d3">Cada foso es una razón por la que el pet parent correcto elige a Taily antes que al resto. Juntos, son la trinchera.</p>
+      </div>
+
+      <div class="moats-grid">
+        <div class="moat-card m1 anim d4">
+          <div class="moat-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v6M12 10l-4 8a4 4 0 0 0 8 0l-4-8z"/></svg>
+          </div>
+          <div class="stat">90%<small>absorción</small></div>
+          <h4>formato líquido</h4>
+          <p>Hidrolizado, gotero, pre-digerido. Los chews se quedan en 60%. Niamh lo explica en 15 segundos.</p>
+          <div class="vs-who">vs Finn · Native Pet · Zesty Paws</div>
+        </div>
+
+        <div class="moat-card m2 anim d5">
+          <div class="moat-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12c0 4 4 7 9 7s9-3 9-7"/><path d="M6 8c1-3 3-4 6-4s5 1 6 4"/></svg>
+          </div>
+          <div class="stat">1/3<small>con sabor bacon</small></div>
+          <h4>palatabilidad brutal</h4>
+          <p>El perro lo pide. Solo Codeage lo imita. El resto sigue en pollo/salmón aburrido.</p>
+          <div class="vs-who">vs todos menos Codeage</div>
+        </div>
+
+        <div class="moat-card m3 anim d6">
+          <div class="moat-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h8M8 11h5"/></svg>
+          </div>
+          <div class="stat">16<small>páginas de brand</small></div>
+          <h4>estética editorial</h4>
+          <p>Brand manual riguroso. Open Sans + Libre Baskerville. Zesty Paws/PetLab se ven cheap al lado.</p>
+          <div class="vs-who">vs Zesty Paws · PetLab · VETIQ</div>
+        </div>
+
+        <div class="moat-card m4 anim d6">
+          <div class="moat-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>
+          </div>
+          <div class="stat">5×3<small>videos / semana</small></div>
+          <h4>squad IA</h4>
+          <p>15 videos semanales sin filmar. El foso más difícil de copiar. Ninguno del top 10 lo hace.</p>
+          <div class="vs-who">vs todos · único en el mercado</div>
+        </div>
+
+        <div class="moat-card m5 anim d7">
+          <div class="moat-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1 7.8 7.8 7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>
+          </div>
+          <div class="stat">™<small>happy tails on a daily</small></div>
+          <h4>brand-as-lifestyle</h4>
+          <p>Ollie, Chief Tasting Officer. Mascot system. Tagline ™. La marca es el producto, no al revés.</p>
+          <div class="vs-who">vs los que venden SKUs sueltos</div>
+        </div>
+      </div>
+    </div>
+    <div class="side-num">15</div>
+  </section>
+
+  <!-- ══ SLIDE 16 — BATTLE PLAN ══════════════════════════════════════════ -->
+  <section class="slide" data-title="El plan de ataque">
+    <div class="battle-wrap">
+      <div class="battle-head">
+        <div>
+          <div class="eyebrow anim d1">15 · plan de ataque</div>
+          <h2 class="display anim d2">mientras ellos <em>compiten</em>, nosotros <em class="coral">atacamos</em>.</h2>
+        </div>
+        <p class="hint anim d3">A cada competidor lo derrotamos con un ángulo y un personaje. Nunca los nombramos — atacamos el patrón.</p>
+      </div>
+
+      <div class="battle-rows">
+        <div class="battle-row anim d4">
+          <div class="battle-enemy">
+            <span class="lbl">Enemigo</span>
+            <span class="name">finn</span>
+            <span class="move">vende chews "wellness" con aesthetic clean</span>
+          </div>
+          <span class="battle-vs">vs</span>
+          <div class="battle-counter">
+            <span class="lbl">Nuestra arma</span>
+            <span class="name">niamh · la científica</span>
+            <span class="move">"pastillas absorben 60%, líquido 90%. es matemática."</span>
+          </div>
+          <span class="battle-arrow">→</span>
+          <div class="battle-outcome">ataque al <strong>formato</strong> · sin nombrarlo</div>
+        </div>
+
+        <div class="battle-row anim d5">
+          <div class="battle-enemy">
+            <span class="lbl">Enemigo</span>
+            <span class="name">zesty paws</span>
+            <span class="move">domina shelf con estética pharmacy-cartoon</span>
+          </div>
+          <span class="battle-vs">vs</span>
+          <div class="battle-counter">
+            <span class="lbl">Nuestra arma</span>
+            <span class="name">yuki · la groomer</span>
+            <span class="move">"pelaje opaco a espejo en 30 días" · demo visual</span>
+          </div>
+          <span class="battle-arrow">→</span>
+          <div class="battle-outcome">ataque a la <strong>aesthetic</strong> · resultado visible</div>
+        </div>
+
+        <div class="battle-row anim d6">
+          <div class="battle-enemy">
+            <span class="lbl">Enemigo</span>
+            <span class="name">codeage</span>
+            <span class="move">clone de fórmula · marca humana entrando a pets</span>
+          </div>
+          <span class="battle-vs">vs</span>
+          <div class="battle-counter">
+            <span class="lbl">Nuestra arma</span>
+            <span class="name">frank · el vet</span>
+            <span class="move">"40 años viendo perros" · autoridad pet-first</span>
+          </div>
+          <span class="battle-arrow">→</span>
+          <div class="battle-outcome">ataque al <strong>brand DNA</strong> · somos pet nativos</div>
+        </div>
+
+        <div class="battle-row anim d7">
+          <div class="battle-enemy">
+            <span class="lbl">Enemigo</span>
+            <span class="name">the farmer's dog · maev</span>
+            <span class="move">se comen $120/mes del wallet con fresh food</span>
+          </div>
+          <span class="battle-vs">vs</span>
+          <div class="battle-counter">
+            <span class="lbl">Nuestra arma</span>
+            <span class="name">marcus · el rescatista</span>
+            <span class="move">"transformación 30/60/90 días" · el add-on inevitable</span>
+          </div>
+          <span class="battle-arrow">→</span>
+          <div class="battle-outcome">ataque al <strong>uso</strong> · somos el complemento</div>
+        </div>
+      </div>
+    </div>
+    <div class="side-num">16</div>
+  </section>
+
   <!-- ══ SLIDE 12 — NEXT STEPS ══════════════════════════════════════════ -->
   <section class="slide" data-title="Próximos pasos · 7 días">
     <div class="next">
       <div>
-        <div class="eyebrow anim d1">12 · Roadmap · 7 días</div>
+        <div class="eyebrow anim d1">16 · Roadmap · 7 días</div>
         <h2 class="display anim d2">Primer lote<br>en <em>72 horas.</em></h2>
         <ol class="step-list">
           <li class="anim d3">
@@ -3104,7 +3715,7 @@ body.pointer-on, body.pointer-on *{ cursor: none !important; }
         <div class="kpi coral"><div class="n">60d</div><div class="lbl">Plazo medir tracción</div></div>
       </div>
     </div>
-    <div class="side-num">13</div>
+    <div class="side-num">17</div>
   </section>
 
   <!-- ══ SLIDE 13 — CLOSE ═══════════════════════════════════════════════ -->
