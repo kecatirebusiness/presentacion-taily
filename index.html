@@ -2209,6 +2209,60 @@ body.pointer-on, body.pointer-on *{ cursor: none !important; }
   .toast{ bottom: 100px; padding: 10px 16px; font-size: 9.5px; letter-spacing: 0.1em; }
   .key-ghost{ font-size: 110px; }
 
+  /* competitive slides — mobile */
+  .war-wrap{ grid-template-columns: 1fr; gap: 22px; height: auto; align-items: flex-start; }
+  .war-left h2{ font-size: clamp(34px, 9vw, 56px); }
+  .war-left .stat-row{ grid-template-columns: 1fr; gap: 6px; margin-top: 14px; padding-top: 14px; }
+  .war-left .stat-row .k{ font-size: 9.5px; }
+  .war-left .stat-row .v{ font-size: 14px; margin-bottom: 8px; }
+  .tier-stack{ gap: 10px; }
+  .tier-bar{ grid-template-columns: 1fr; gap: 8px; padding: 12px 14px 12px 16px; }
+  .tier-chips span{ font-size: 9.5px; padding: 3px 7px; }
+
+  .matrix-head{ grid-template-columns: 1fr; gap: 10px; }
+  .matrix-head h2{ font-size: clamp(32px, 8.5vw, 52px); }
+  .matrix-head .hint{ font-size: 14px; max-width: none; }
+  .matrix{ grid-template-columns: 86px repeat(3, 1fr); font-size: 12px; }
+  .matrix .mcell{ padding: 7px 6px; min-height: 36px; font-size: 11px; }
+  .matrix .mcell.header{ font-size: 12px; padding: 10px 4px; }
+  .matrix .mcell.row-k{ font-size: 9px; letter-spacing: 0.14em; padding-right: 4px; }
+  .matrix .mcell .check, .matrix .mcell .x{ width: 14px; height: 14px; font-size: 9px; }
+
+  .moats-head{ grid-template-columns: 1fr; gap: 10px; }
+  .moats-head h2{ font-size: clamp(32px, 8.5vw, 52px); }
+  .moats-head .hint{ font-size: 14px; max-width: none; }
+  .moats-grid{ grid-template-columns: 1fr 1fr; gap: 10px; }
+  .moat-card{ padding: 16px 14px; gap: 8px; }
+  .moat-card .stat{ font-size: 28px; }
+  .moat-card h4{ font-size: 15.5px; }
+  .moat-card p{ font-size: 11.5px; }
+  .moat-card .vs-who{ font-size: 8.5px; }
+  .moat-card.m5{ grid-column: 1 / -1; }
+
+  .battle-head{ grid-template-columns: 1fr; gap: 10px; }
+  .battle-head h2{ font-size: clamp(30px, 8vw, 50px); }
+  .battle-head .hint{ font-size: 14px; max-width: none; }
+  .battle-rows{ gap: 10px; }
+  .battle-row{
+    grid-template-columns: 1fr;
+    grid-template-areas: "enemy" "arrow" "counter" "outcome";
+    gap: 10px; padding: 14px;
+  }
+  .battle-row:hover{ transform: none; }
+  .battle-enemy{ grid-area: enemy; }
+  .battle-counter{ grid-area: counter; }
+  .battle-outcome{ grid-area: outcome; font-size: 12.5px; border-top: 1px dashed var(--border); padding-top: 8px; }
+  .battle-enemy .name, .battle-counter .name{ font-size: 17px; }
+  .battle-enemy .move, .battle-counter .move{ font-size: 12.5px; }
+  .battle-vs{ display: none; }
+  .battle-arrow{
+    grid-area: arrow;
+    align-self: center; justify-self: center;
+    transform: rotate(90deg);
+    font-size: 14px;
+    color: var(--ink-muted);
+  }
+
   /* invoice — mobile stack */
   .invoice-head{ grid-template-columns: 1fr; gap: 10px; padding-bottom: 6px; }
   .invoice-head h2{ font-size: clamp(40px, 11vw, 66px); }
