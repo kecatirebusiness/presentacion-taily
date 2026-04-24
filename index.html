@@ -2642,10 +2642,9 @@ body.pointer-on, body.pointer-on *{ cursor: none !important; }
         </svg>
       </div>
 
-      <!-- MOBILE pipeline — static SVG diagram (no animations = reliable on all browsers) -->
+      <!-- MOBILE pipeline — flat SVG, absolute coords, zero transforms on groups -->
       <div class="pipe-mobile anim d4">
         <svg xmlns="http://www.w3.org/2000/svg" class="diagram-m"
-             width="400" height="980"
              viewBox="0 0 400 980"
              preserveAspectRatio="xMidYMid meet">
 
@@ -2672,166 +2671,141 @@ body.pointer-on, body.pointer-on *{ cursor: none !important; }
             </radialGradient>
           </defs>
 
-          <!-- ─── CONNECTING PATHS (static, no animation) ─── -->
-          <!-- guion → 5 agents (fan out, blue) -->
+          <!-- ─── CONNECTING PATHS ─── -->
+          <!-- guion → 5 agents -->
           <path d="M200 85 C 200 135, 62 165, 62 202" stroke="#155DD7" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0.55"/>
           <path d="M200 85 C 200 135, 131 165, 131 202" stroke="#155DD7" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0.72"/>
           <path d="M200 85 L 200 202" stroke="#155DD7" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.9"/>
           <path d="M200 85 C 200 135, 269 165, 269 202" stroke="#155DD7" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0.72"/>
           <path d="M200 85 C 200 135, 338 165, 338 202" stroke="#155DD7" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0.55"/>
 
-          <!-- 5 agents → Nano Banana (converge, coral) -->
+          <!-- 5 agents → Nano Banana -->
           <path d="M62 248 C 62 300, 200 310, 200 340" stroke="#ef5f4a" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0.55"/>
           <path d="M131 248 C 131 300, 200 310, 200 340" stroke="#ef5f4a" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0.72"/>
           <path d="M200 248 L 200 340" stroke="#ef5f4a" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.9"/>
           <path d="M269 248 C 269 300, 200 310, 200 340" stroke="#ef5f4a" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0.72"/>
           <path d="M338 248 C 338 300, 200 310, 200 340" stroke="#ef5f4a" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0.55"/>
 
-          <!-- central agent → Higgsfield (dashed blue) -->
+          <!-- central agent → Higgsfield (dashed) -->
           <path d="M200 248 C 270 300, 310 490, 310 596" stroke="#155DD7" stroke-width="1.4" fill="none" stroke-linecap="round" opacity="0.32" stroke-dasharray="3 6"/>
 
           <!-- Nano Banana → HeyGen -->
-          <path d="M200 405 L 200 470" stroke="#2970e3" stroke-width="2.4" fill="none" stroke-linecap="round" opacity="0.9"/>
+          <path d="M200 418 L 200 463" stroke="#2970e3" stroke-width="2.4" fill="none" stroke-linecap="round" opacity="0.9"/>
 
-          <!-- HeyGen → Editor (merge) -->
-          <path d="M200 540 C 200 600, 180 680, 175 720" stroke="#2970e3" stroke-width="2.4" fill="none" stroke-linecap="round" opacity="0.9"/>
+          <!-- HeyGen → Editor -->
+          <path d="M200 547 C 200 600, 180 680, 175 720" stroke="#2970e3" stroke-width="2.4" fill="none" stroke-linecap="round" opacity="0.9"/>
 
-          <!-- Higgsfield → Editor (merge) -->
-          <path d="M310 650 C 310 690, 240 710, 225 720" stroke="#d9a21c" stroke-width="2.4" fill="none" stroke-linecap="round" opacity="0.9"/>
+          <!-- Higgsfield → Editor -->
+          <path d="M310 661 C 310 690, 240 710, 225 720" stroke="#d9a21c" stroke-width="2.4" fill="none" stroke-linecap="round" opacity="0.9"/>
 
           <!-- Editor → .mp4 -->
           <path d="M200 828 L 200 894" stroke="#6f9360" stroke-width="2.6" fill="none" stroke-linecap="round" opacity="0.95"/>
 
-          <!-- ─── STATIC "PULSE" MARKERS (decorative dots at mid-path) ─── -->
-          <g opacity="0.9">
-            <circle cx="120" cy="152" r="3.5" fill="#ffffff" stroke="#155DD7" stroke-width="1"/>
-            <circle cx="165" cy="152" r="3.5" fill="#ffffff" stroke="#155DD7" stroke-width="1"/>
-            <circle cx="200" cy="142" r="4" fill="#ffffff" stroke="#155DD7" stroke-width="1"/>
-            <circle cx="235" cy="152" r="3.5" fill="#ffffff" stroke="#155DD7" stroke-width="1"/>
-            <circle cx="280" cy="152" r="3.5" fill="#ffffff" stroke="#155DD7" stroke-width="1"/>
+          <!-- ─── Decorative static pulse dots on paths ─── -->
+          <circle cx="120" cy="152" r="3.5" fill="#ffffff" stroke="#155DD7" stroke-width="1"/>
+          <circle cx="165" cy="152" r="3.5" fill="#ffffff" stroke="#155DD7" stroke-width="1"/>
+          <circle cx="200" cy="142" r="4" fill="#ffffff" stroke="#155DD7" stroke-width="1"/>
+          <circle cx="235" cy="152" r="3.5" fill="#ffffff" stroke="#155DD7" stroke-width="1"/>
+          <circle cx="280" cy="152" r="3.5" fill="#ffffff" stroke="#155DD7" stroke-width="1"/>
+          <circle cx="120" cy="296" r="3.5" fill="#ffffff" stroke="#ef5f4a" stroke-width="1"/>
+          <circle cx="165" cy="296" r="3.5" fill="#ffffff" stroke="#ef5f4a" stroke-width="1"/>
+          <circle cx="200" cy="300" r="4" fill="#ffffff" stroke="#ef5f4a" stroke-width="1"/>
+          <circle cx="235" cy="296" r="3.5" fill="#ffffff" stroke="#ef5f4a" stroke-width="1"/>
+          <circle cx="280" cy="296" r="3.5" fill="#ffffff" stroke="#ef5f4a" stroke-width="1"/>
+          <circle cx="200" cy="442" r="4.5" fill="#ffffff" stroke="#2970e3" stroke-width="1"/>
+          <circle cx="190" cy="628" r="4.5" fill="#ffffff" stroke="#2970e3" stroke-width="1"/>
+          <circle cx="268" cy="680" r="4" fill="#ffffff" stroke="#d9a21c" stroke-width="1"/>
+          <circle cx="200" cy="860" r="5" fill="#6f9360"/>
+          <circle cx="200" cy="860" r="2.5" fill="#ffffff"/>
 
-            <circle cx="120" cy="296" r="3.5" fill="#ffffff" stroke="#ef5f4a" stroke-width="1"/>
-            <circle cx="165" cy="296" r="3.5" fill="#ffffff" stroke="#ef5f4a" stroke-width="1"/>
-            <circle cx="200" cy="300" r="4" fill="#ffffff" stroke="#ef5f4a" stroke-width="1"/>
-            <circle cx="235" cy="296" r="3.5" fill="#ffffff" stroke="#ef5f4a" stroke-width="1"/>
-            <circle cx="280" cy="296" r="3.5" fill="#ffffff" stroke="#ef5f4a" stroke-width="1"/>
+          <!-- ═══ NODE 1: guion.md document (absolute coords) ═══ -->
+          <rect x="140" y="22" width="120" height="62" rx="10" fill="url(#sInk)" stroke="rgba(12,14,26,0.35)" stroke-width="1"/>
+          <rect x="150" y="32" width="46" height="6" rx="1.5" fill="rgba(255,255,255,0.6)"/>
+          <rect x="150" y="44" width="100" height="3" rx="1" fill="rgba(255,255,255,0.28)"/>
+          <rect x="150" y="51" width="82" height="3" rx="1" fill="rgba(255,255,255,0.28)"/>
+          <rect x="150" y="58" width="92" height="3" rx="1" fill="rgba(255,255,255,0.28)"/>
+          <text x="200" y="77" text-anchor="middle" font-family="Open Sans, sans-serif" font-weight="800" font-size="13" fill="#f3ecde">guión.md</text>
 
-            <circle cx="200" cy="438" r="4.5" fill="#ffffff" stroke="#2970e3" stroke-width="1"/>
-            <circle cx="190" cy="628" r="4.5" fill="#ffffff" stroke="#2970e3" stroke-width="1"/>
-            <circle cx="268" cy="680" r="4" fill="#ffffff" stroke="#d9a21c" stroke-width="1"/>
-            <circle cx="200" cy="860" r="5" fill="#6f9360"/>
-            <circle cx="200" cy="860" r="2.5" fill="#ffffff"/>
-          </g>
+          <!-- ═══ 5 AGENTS (all absolute) ═══ -->
+          <!-- Frank -->
+          <circle cx="62" cy="225" r="23" fill="url(#sInk)" stroke="#2970e3" stroke-width="1.6"/>
+          <circle cx="62" cy="225" r="7.5" fill="#2970e3"/>
+          <text x="62" y="228.5" text-anchor="middle" font-family="Open Sans, sans-serif" font-size="9" font-weight="800" fill="#ffffff">F</text>
+          <text x="62" y="265" text-anchor="middle" font-family="Open Sans, sans-serif" font-size="7.5" letter-spacing="1.1" font-weight="800" fill="rgba(12,14,26,0.68)">FRANK</text>
 
-          <!-- ═══ NODE 1: guion.md ═══ -->
-          <g transform="translate(140, 22)">
-            <rect x="0" y="0" width="120" height="62" rx="10" fill="url(#sInk)" stroke="rgba(12,14,26,0.35)" stroke-width="1"/>
-            <rect x="10" y="10" width="46" height="6" rx="1.5" fill="rgba(255,255,255,0.6)"/>
-            <rect x="10" y="22" width="100" height="3" rx="1" fill="rgba(255,255,255,0.28)"/>
-            <rect x="10" y="29" width="82" height="3" rx="1" fill="rgba(255,255,255,0.28)"/>
-            <rect x="10" y="36" width="92" height="3" rx="1" fill="rgba(255,255,255,0.28)"/>
-            <text x="60" y="55" text-anchor="middle" font-family="Open Sans, sans-serif" font-weight="800" font-size="13" fill="#f3ecde">guión.md</text>
-          </g>
+          <!-- Yuki -->
+          <circle cx="131" cy="225" r="23" fill="url(#sInk)" stroke="#e85a95" stroke-width="1.6"/>
+          <circle cx="131" cy="225" r="7.5" fill="#e85a95"/>
+          <text x="131" y="228.5" text-anchor="middle" font-family="Open Sans, sans-serif" font-size="9" font-weight="800" fill="#ffffff">Y</text>
+          <text x="131" y="265" text-anchor="middle" font-family="Open Sans, sans-serif" font-size="7.5" letter-spacing="1.1" font-weight="800" fill="rgba(12,14,26,0.68)">YUKI</text>
 
-          <!-- ═══ 5 AGENTS (circles with initial + name label) ═══ -->
-          <g font-family="Open Sans, sans-serif">
-            <g transform="translate(62, 225)">
-              <circle r="23" fill="url(#sInk)" stroke="#2970e3" stroke-width="1.6"/>
-              <circle r="7.5" fill="#2970e3"/>
-              <text y="3.5" text-anchor="middle" font-size="9" font-weight="800" fill="#ffffff">F</text>
-              <text y="40" text-anchor="middle" font-size="7.5" letter-spacing="1.1" font-weight="800" fill="rgba(12,14,26,0.65)" text-transform="uppercase">FRANK</text>
-            </g>
-            <g transform="translate(131, 225)">
-              <circle r="23" fill="url(#sInk)" stroke="#e85a95" stroke-width="1.6"/>
-              <circle r="7.5" fill="#e85a95"/>
-              <text y="3.5" text-anchor="middle" font-size="9" font-weight="800" fill="#ffffff">Y</text>
-              <text y="40" text-anchor="middle" font-size="7.5" letter-spacing="1.1" font-weight="800" fill="rgba(12,14,26,0.65)">YUKI</text>
-            </g>
-            <g transform="translate(200, 225)">
-              <circle r="23" fill="url(#sInk)" stroke="#d26831" stroke-width="1.6"/>
-              <circle r="7.5" fill="#d26831"/>
-              <text y="3.5" text-anchor="middle" font-size="9" font-weight="800" fill="#ffffff">L</text>
-              <text y="40" text-anchor="middle" font-size="7.5" letter-spacing="1.1" font-weight="800" fill="rgba(12,14,26,0.65)">LUPE</text>
-            </g>
-            <g transform="translate(269, 225)">
-              <circle r="23" fill="url(#sInk)" stroke="#b8864a" stroke-width="1.6"/>
-              <circle r="7.5" fill="#b8864a"/>
-              <text y="3.5" text-anchor="middle" font-size="8" font-weight="800" fill="#ffffff">M</text>
-              <text y="40" text-anchor="middle" font-size="7.5" letter-spacing="1.1" font-weight="800" fill="rgba(12,14,26,0.65)">MARCUS</text>
-            </g>
-            <g transform="translate(338, 225)">
-              <circle r="23" fill="url(#sInk)" stroke="#ea6438" stroke-width="1.6"/>
-              <circle r="7.5" fill="#ea6438"/>
-              <text y="3.5" text-anchor="middle" font-size="9" font-weight="800" fill="#ffffff">N</text>
-              <text y="40" text-anchor="middle" font-size="7.5" letter-spacing="1.1" font-weight="800" fill="rgba(12,14,26,0.65)">NIAMH</text>
-            </g>
-          </g>
+          <!-- Lupe -->
+          <circle cx="200" cy="225" r="23" fill="url(#sInk)" stroke="#d26831" stroke-width="1.6"/>
+          <circle cx="200" cy="225" r="7.5" fill="#d26831"/>
+          <text x="200" y="228.5" text-anchor="middle" font-family="Open Sans, sans-serif" font-size="9" font-weight="800" fill="#ffffff">L</text>
+          <text x="200" y="265" text-anchor="middle" font-family="Open Sans, sans-serif" font-size="7.5" letter-spacing="1.1" font-weight="800" fill="rgba(12,14,26,0.68)">LUPE</text>
 
-          <!-- ═══ NANO BANANA PRO ═══ -->
-          <g transform="translate(200, 372)">
-            <circle r="46" fill="none" stroke="rgba(239,95,74,0.3)" stroke-width="1.2" stroke-dasharray="3 5"/>
-            <circle r="36" fill="url(#sCoral)" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
-            <g transform="translate(0, -3)">
-              <path d="M-10 0 a10 10 0 1 0 20 0 a10 10 0 1 0 -20 0" fill="none" stroke="#fff3ea" stroke-width="1.5"/>
-              <circle cx="-3.5" cy="-2.5" r="1.5" fill="#fff3ea"/>
-              <circle cx="3.5" cy="-2.5" r="1.5" fill="#fff3ea"/>
-              <path d="M-4 2 Q 0 6 4 2" stroke="#fff3ea" stroke-width="1.3" fill="none" stroke-linecap="round"/>
-            </g>
-            <text y="22" text-anchor="middle" font-family="Open Sans, sans-serif" font-weight="800" font-size="11" fill="#fff3ea">Nano Banana</text>
-            <text y="33" text-anchor="middle" font-family="Open Sans, sans-serif" font-size="6.5" letter-spacing="1.2" font-weight="800" fill="rgba(255,243,234,0.8)">GEMINI 3 PRO</text>
-          </g>
+          <!-- Marcus -->
+          <circle cx="269" cy="225" r="23" fill="url(#sInk)" stroke="#b8864a" stroke-width="1.6"/>
+          <circle cx="269" cy="225" r="7.5" fill="#b8864a"/>
+          <text x="269" y="228.5" text-anchor="middle" font-family="Open Sans, sans-serif" font-size="8" font-weight="800" fill="#ffffff">M</text>
+          <text x="269" y="265" text-anchor="middle" font-family="Open Sans, sans-serif" font-size="7.5" letter-spacing="1.1" font-weight="800" fill="rgba(12,14,26,0.68)">MARCUS</text>
 
-          <!-- ═══ HEYGEN ═══ -->
-          <g transform="translate(200, 505)">
-            <circle r="42" fill="none" stroke="rgba(46,124,244,0.3)" stroke-width="1.2" stroke-dasharray="3 5"/>
-            <circle r="34" fill="url(#sCobalt)" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
-            <g transform="translate(0, -2)">
-              <rect x="-14" y="-9" width="28" height="18" rx="3" fill="none" stroke="#f3ecde" stroke-width="1.4"/>
-              <circle cx="-6" cy="0" r="1.5" fill="#f3ecde"/>
-              <circle cx="6" cy="0" r="1.5" fill="#f3ecde"/>
-              <path d="M-4 4 Q 0 6 4 4" stroke="#f3ecde" stroke-width="1.2" fill="none" stroke-linecap="round"/>
-              <path d="M-11 -2 L -17 -5 M -11 0 L -17 0 M -11 2 L -17 4" stroke="#f3ecde" stroke-width="1.1" stroke-linecap="round"/>
-            </g>
-            <text y="21" text-anchor="middle" font-family="Open Sans, sans-serif" font-weight="800" font-size="11" fill="#f3ecde">HeyGen</text>
-            <text y="32" text-anchor="middle" font-family="Open Sans, sans-serif" font-size="6.5" letter-spacing="1.2" font-weight="800" fill="rgba(243,236,222,0.8)">TALKING HEAD</text>
-          </g>
+          <!-- Niamh -->
+          <circle cx="338" cy="225" r="23" fill="url(#sInk)" stroke="#ea6438" stroke-width="1.6"/>
+          <circle cx="338" cy="225" r="7.5" fill="#ea6438"/>
+          <text x="338" y="228.5" text-anchor="middle" font-family="Open Sans, sans-serif" font-size="9" font-weight="800" fill="#ffffff">N</text>
+          <text x="338" y="265" text-anchor="middle" font-family="Open Sans, sans-serif" font-size="7.5" letter-spacing="1.1" font-weight="800" fill="rgba(12,14,26,0.68)">NIAMH</text>
 
-          <!-- ═══ HIGGSFIELD (right branch) ═══ -->
-          <g transform="translate(310, 628)">
-            <circle r="40" fill="none" stroke="rgba(217,162,28,0.3)" stroke-width="1.2" stroke-dasharray="3 5"/>
-            <circle r="33" fill="url(#sMustard)" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
-            <g transform="translate(0, -3)">
-              <path d="M-10 -4 L 0 -7 L 10 -4 L 10 4 L 0 7 L -10 4 Z" fill="none" stroke="#0c0e1a" stroke-width="1.4" stroke-linejoin="round"/>
-              <path d="M 0 -7 L 0 7" stroke="#0c0e1a" stroke-width="1.1"/>
-            </g>
-            <text y="17" text-anchor="middle" font-family="Open Sans, sans-serif" font-weight="800" font-size="10" fill="#0c0e1a">Higgsfield</text>
-            <text y="28" text-anchor="middle" font-family="Open Sans, sans-serif" font-size="6.5" font-weight="800" letter-spacing="1.2" fill="rgba(12,14,26,0.75)">B-ROLL</text>
-          </g>
+          <!-- ═══ NANO BANANA PRO (center 200, 378) ═══ -->
+          <circle cx="200" cy="378" r="46" fill="none" stroke="rgba(239,95,74,0.3)" stroke-width="1.2" stroke-dasharray="3 5"/>
+          <circle cx="200" cy="378" r="36" fill="url(#sCoral)" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
+          <!-- face icon (absolute around 200, 375) -->
+          <circle cx="200" cy="375" r="10" fill="none" stroke="#fff3ea" stroke-width="1.5"/>
+          <circle cx="196.5" cy="372.5" r="1.5" fill="#fff3ea"/>
+          <circle cx="203.5" cy="372.5" r="1.5" fill="#fff3ea"/>
+          <path d="M196 377 Q 200 381 204 377" stroke="#fff3ea" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+          <text x="200" y="400" text-anchor="middle" font-family="Open Sans, sans-serif" font-weight="800" font-size="11" fill="#fff3ea">Nano Banana</text>
+          <text x="200" y="411" text-anchor="middle" font-family="Open Sans, sans-serif" font-size="6.5" letter-spacing="1.2" font-weight="800" fill="rgba(255,243,234,0.85)">GEMINI 3 PRO</text>
 
-          <!-- ═══ EDITOR ═══ -->
-          <g transform="translate(148, 722)">
-            <rect width="104" height="104" rx="13" fill="url(#sInk)" stroke="rgba(12,14,26,0.3)" stroke-width="1"/>
-            <g transform="translate(52, 40)">
-              <rect x="-30" y="-13" width="60" height="6.5" rx="1.5" fill="#2970e3" opacity="0.85"/>
-              <rect x="-30" y="-3.5" width="60" height="6.5" rx="1.5" fill="#ef5f4a" opacity="0.85"/>
-              <rect x="-30" y="6"    width="60" height="6.5" rx="1.5" fill="#d9a21c" opacity="0.85"/>
-              <rect x="-1" y="-18" width="2" height="36" fill="#6f9360"/>
-              <circle cx="0" cy="-18" r="2.5" fill="#6f9360"/>
-            </g>
-            <text x="52" y="80" text-anchor="middle" font-family="Open Sans, sans-serif" font-weight="800" font-size="12" fill="#f3ecde">Editor</text>
-            <text x="52" y="92" text-anchor="middle" font-family="Open Sans, sans-serif" font-size="6.5" letter-spacing="1.2" font-weight="800" fill="rgba(243,236,222,0.7)">CAPTIONS · SFX</text>
-          </g>
+          <!-- ═══ HEYGEN (center 200, 505) ═══ -->
+          <circle cx="200" cy="505" r="42" fill="none" stroke="rgba(46,124,244,0.3)" stroke-width="1.2" stroke-dasharray="3 5"/>
+          <circle cx="200" cy="505" r="34" fill="url(#sCobalt)" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
+          <!-- screen icon (absolute around 200, 503) -->
+          <rect x="186" y="494" width="28" height="18" rx="3" fill="none" stroke="#f3ecde" stroke-width="1.4"/>
+          <circle cx="194" cy="503" r="1.5" fill="#f3ecde"/>
+          <circle cx="206" cy="503" r="1.5" fill="#f3ecde"/>
+          <path d="M196 507 Q 200 509 204 507" stroke="#f3ecde" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+          <path d="M189 501 L 183 498 M 189 503 L 183 503 M 189 505 L 183 507" stroke="#f3ecde" stroke-width="1.1" stroke-linecap="round"/>
+          <text x="200" y="526" text-anchor="middle" font-family="Open Sans, sans-serif" font-weight="800" font-size="11" fill="#f3ecde">HeyGen</text>
+          <text x="200" y="537" text-anchor="middle" font-family="Open Sans, sans-serif" font-size="6.5" letter-spacing="1.2" font-weight="800" fill="rgba(243,236,222,0.85)">TALKING HEAD</text>
 
-          <!-- ═══ OUTPUT .mp4 ═══ -->
-          <g transform="translate(157, 898)">
-            <rect width="86" height="56" rx="12" fill="url(#sSage)" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
-            <g transform="translate(22, 28)">
-              <path d="M -7 -9 L 9 0 L -7 9 Z" fill="#0c0e1a"/>
-            </g>
-            <text x="55" y="24" text-anchor="middle" font-family="Open Sans, sans-serif" font-weight="800" font-size="14" fill="#0c0e1a">.mp4</text>
-            <text x="55" y="37" text-anchor="middle" font-family="Open Sans, sans-serif" font-weight="800" font-size="6" letter-spacing="1.1" fill="rgba(12,14,26,0.72)">PUBLISH</text>
-            <text x="55" y="49" text-anchor="middle" font-family="Open Sans, sans-serif" font-weight="700" font-size="5.5" letter-spacing="0.9" fill="rgba(12,14,26,0.52)">TT · REELS · YT</text>
-          </g>
+          <!-- ═══ HIGGSFIELD (center 310, 628) ═══ -->
+          <circle cx="310" cy="628" r="40" fill="none" stroke="rgba(217,162,28,0.3)" stroke-width="1.2" stroke-dasharray="3 5"/>
+          <circle cx="310" cy="628" r="33" fill="url(#sMustard)" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
+          <!-- film icon at 310, 625 -->
+          <path d="M300 621 L 310 618 L 320 621 L 320 629 L 310 632 L 300 629 Z" fill="none" stroke="#0c0e1a" stroke-width="1.4" stroke-linejoin="round"/>
+          <path d="M310 618 L 310 632" stroke="#0c0e1a" stroke-width="1.1"/>
+          <text x="310" y="645" text-anchor="middle" font-family="Open Sans, sans-serif" font-weight="800" font-size="10" fill="#0c0e1a">Higgsfield</text>
+          <text x="310" y="656" text-anchor="middle" font-family="Open Sans, sans-serif" font-size="6.5" font-weight="800" letter-spacing="1.2" fill="rgba(12,14,26,0.8)">B-ROLL</text>
+
+          <!-- ═══ EDITOR (absolute rect 148,722 size 104x104) ═══ -->
+          <rect x="148" y="722" width="104" height="104" rx="13" fill="url(#sInk)" stroke="rgba(12,14,26,0.3)" stroke-width="1"/>
+          <!-- timeline bars at 148+22=170 to 148+82=230, y around 722+48=770 -->
+          <rect x="170" y="749" width="60" height="6.5" rx="1.5" fill="#2970e3" opacity="0.85"/>
+          <rect x="170" y="759" width="60" height="6.5" rx="1.5" fill="#ef5f4a" opacity="0.85"/>
+          <rect x="170" y="769" width="60" height="6.5" rx="1.5" fill="#d9a21c" opacity="0.85"/>
+          <rect x="199" y="744" width="2" height="36" fill="#6f9360"/>
+          <circle cx="200" cy="744" r="2.5" fill="#6f9360"/>
+          <text x="200" y="802" text-anchor="middle" font-family="Open Sans, sans-serif" font-weight="800" font-size="12" fill="#f3ecde">Editor</text>
+          <text x="200" y="814" text-anchor="middle" font-family="Open Sans, sans-serif" font-size="6.5" letter-spacing="1.2" font-weight="800" fill="rgba(243,236,222,0.78)">CAPTIONS · SFX</text>
+
+          <!-- ═══ OUTPUT .mp4 (rect 157,898 size 86x56) ═══ -->
+          <rect x="157" y="898" width="86" height="56" rx="12" fill="url(#sSage)" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
+          <path d="M172 917 L 188 926 L 172 935 Z" fill="#0c0e1a"/>
+          <text x="212" y="922" text-anchor="middle" font-family="Open Sans, sans-serif" font-weight="800" font-size="14" fill="#0c0e1a">.mp4</text>
+          <text x="212" y="935" text-anchor="middle" font-family="Open Sans, sans-serif" font-weight="800" font-size="6" letter-spacing="1.1" fill="rgba(12,14,26,0.78)">PUBLISH</text>
+          <text x="212" y="947" text-anchor="middle" font-family="Open Sans, sans-serif" font-weight="700" font-size="5.5" letter-spacing="0.9" fill="rgba(12,14,26,0.55)">TT · REELS · YT</text>
         </svg>
       </div>
 
