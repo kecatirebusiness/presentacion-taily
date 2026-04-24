@@ -1537,8 +1537,7 @@ body.pointer-on, body.pointer-on *{ cursor: none !important; }
   color: var(--cream);
   box-shadow: 0 28px 56px -28px var(--cobalt-glow);
   position: relative;
-  overflow: hidden;
-}
+  }
 .invoice-total::before{
   content: "";
   position: absolute;
@@ -1568,26 +1567,33 @@ body.pointer-on, body.pointer-on *{ cursor: none !important; }
 .invoice-total .t-amount{
   font-family: var(--ff-display);
   font-weight: 800;
-  font-size: clamp(72px, 9vw, 128px);
+  font-size: clamp(88px, 11vw, 156px);
   line-height: 0.9;
-  letter-spacing: -0.05em;
+  letter-spacing: -0.055em;
   color: var(--cream);
-  display: flex;
-  align-items: baseline;
-  flex-wrap: nowrap;
-  gap: 0 10px;
+  margin: 4px 0;
   white-space: nowrap;
+  display: block;
+  max-width: 100%;
+  overflow: visible;
 }
 .invoice-total .t-amount sup{
-  font-size: 0.36em; vertical-align: super; font-weight: 500;
+  font-size: 0.38em;
+  vertical-align: super;
+  font-weight: 500;
   margin-right: 4px;
   color: rgba(243,236,222,0.72);
 }
 .invoice-total .t-amount .per{
+  display: inline-block;
   font-family: var(--ff-mono);
-  font-size: 12px; font-weight: 600;
-  letter-spacing: 0.22em; text-transform: uppercase;
-  color: rgba(243,236,222,0.75);
+  font-size: clamp(11px, 1.1vw, 14px);
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(243,236,222,0.78);
+  margin-left: 12px;
+  vertical-align: baseline;
   white-space: nowrap;
 }
 .invoice-total .breakdown{
@@ -1888,7 +1894,13 @@ body.pointer-on, body.pointer-on *{ cursor: none !important; }
   .invoice-total{ grid-template-columns: 1fr; gap: 18px; padding: 22px 22px; }
   .invoice-total::before{ width: 160px; height: 160px; right: -50px; top: -50px; }
   .invoice-total::after{ width: 120px; height: 120px; left: -30px; bottom: -40px; }
-  .invoice-total .t-amount{ font-size: clamp(56px, 16vw, 88px); }
+  .invoice-total .t-amount{
+    font-size: clamp(64px, 18vw, 104px);
+    white-space: normal;
+    word-break: keep-all;
+  }
+  .invoice-total .t-amount sup{ font-size: 0.38em; }
+  .invoice-total .t-amount .per{ display: block; margin-left: 0; margin-top: 4px; font-size: 10px; letter-spacing: 0.18em; }
   .invoice-total .t-amount .per{ font-size: 11px; letter-spacing: 0.18em; }
   .invoice-total .chip{ font-size: 9.5px; padding: 5px 9px; }
   .invoice-total .chip strong{ font-size: 11px; }
