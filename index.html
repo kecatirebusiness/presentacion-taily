@@ -1232,13 +1232,101 @@ body.pointer-on, body.pointer-on *{ cursor: none !important; }
 @keyframes enterL { from{ opacity:0; transform: translateX( 5vw) scale(0.98); filter: blur(6px); } }
 @keyframes enterR { from{ opacity:0; transform: translateX(-5vw) scale(0.98); filter: blur(6px); } }
 
-/* responsive */
+/* ═════════ MEDIUM-DESKTOP (821-1440px) — compact everything to fit ═════════ */
+@media (min-width: 821px) and (max-width: 1440px){
+  .slide{ padding: 44px 56px 68px; }
+  .cover h1{ font-size: clamp(62px, 8.2vw, 120px); }
+  .cover .tagline{ font-size: 18px; margin-top: 18px; }
+
+  /* all section headings */
+  .two-col h2, .gap-wrap h2, .status-head h2, .pipe-head h2, .next h2{
+    font-size: clamp(50px, 6.2vw, 96px);
+    margin: 14px 0 18px;
+  }
+  .lede{ font-size: 17.5px; }
+
+  /* slide 2: facts + product card */
+  .two-col{ gap: 40px; }
+  .fact-list{ margin-top: 18px; padding-top: 16px; }
+  .fact-list .fact{ padding: 13px 0; grid-template-columns: 130px 1fr; gap: 20px; }
+  .fact .v{ font-size: 19px; }
+  .product-card{ height: 90%; padding: 30px; }
+  .product-card h3{ font-size: 40px; }
+  .product-card .price{ font-size: 62px; }
+  .product-card .bottle-viz{ width: 118px; height: 176px; right: 18px; bottom: 22px; }
+
+  /* slide 3: gap */
+  .gap-card{ min-height: 260px; padding: 24px; }
+  .gap-card .num-mega{ font-size: clamp(90px, 11vw, 170px); }
+  .gap-card .caption{ font-size: 19px; }
+
+  /* slide 4: thesis */
+  .thesis{ gap: 40px; }
+  .thesis .quote{ font-size: clamp(44px, 5vw, 80px); }
+  .support .card{ padding: 18px 22px; gap: 18px; grid-template-columns: 52px 1fr; }
+  .support .card .n{ font-size: 38px; }
+  .support .card .t{ font-size: 17.5px; }
+
+  /* slides 5-9: characters */
+  .character{ gap: 40px; grid-template-columns: 0.9fr 1.1fr; }
+  .character .info{ padding-left: 32px; padding-right: 12px; gap: 16px; }
+  .character .info::before{ height: 66px; }
+  .character h2{ font-size: clamp(48px, 6vw, 96px); }
+  .character .alias{ font-size: 22px; }
+  .character .handle{ font-size: 14px; }
+  .speak{ padding: 18px 18px 18px 36px; }
+  .speak::before{ font-size: 58px; top: -4px; }
+  .speak p{ font-size: 16.5px; line-height: 1.4; }
+  .spec-box{ padding: 13px 15px; }
+  .spec-box .v{ font-size: 15.5px; }
+  .viral-hooks .hook{ font-size: 10.5px; padding: 7px 11px; }
+  .portrait-box .stamp-tl,
+  .portrait-box .stamp-tr{ font-size: 10px; padding: 6px 10px; }
+
+  /* slide 10: pipeline head */
+  .pipe-head{ gap: 28px; margin-bottom: 12px; }
+  .pipe-head p{ font-size: 18px; }
+  .pipe-legend{ margin-top: 14px; font-size: 10.5px; }
+
+  /* slide 11: status */
+  .status-head{ gap: 28px; margin-bottom: 20px; }
+  .st-card{ min-height: 196px; padding: 22px; gap: 12px; }
+  .st-card .num{ font-size: 64px; }
+  .st-card h4{ font-size: 23px; }
+  .st-card .descr{ font-size: 13.5px; }
+
+  /* slide 12: next */
+  .next{ gap: 40px; }
+  .step-list li{ padding: 14px 20px; gap: 18px; grid-template-columns: 48px 1fr auto; }
+  .step-list .num-step{ font-size: 34px; }
+  .step-list .t{ font-size: 18px; }
+  .kpi{ padding: 18px; }
+  .kpi .n{ font-size: 46px; }
+
+  /* close */
+  .close .mega{ font-size: clamp(82px, 11.5vw, 192px); }
+
+  /* side numeral */
+  .side-num{ font-size: clamp(180px, 18vw, 280px); }
+}
+
+/* Safety: allow internal scroll on very short desktop viewports */
+@media (min-width: 821px) and (max-height: 780px){
+  .slide{ overflow-y: auto; overflow-x: hidden; scrollbar-width: none; padding-bottom: 88px; }
+  .slide::-webkit-scrollbar{ display: none; }
+}
+
 @media (max-width: 1280px){
   .slide{ padding: 40px 48px 60px; }
 }
 
-/* ═════════ MOBILE PIPELINE (vertical timeline) ═══════════════════════════ */
-.pipe-mobile{ display: none; }
+/* ═════════ MOBILE PIPELINE (vertical SVG diagram) ════════════════════════ */
+.pipe-mobile{ display: none; width: 100%; max-width: 420px; margin: 0 auto; }
+.pipe-mobile .diagram-m{
+  width: 100%; height: auto;
+  aspect-ratio: 360 / 1180;
+  display: block;
+}
 .pipe-timeline{
   list-style: none; padding: 0; margin: 0;
   display: flex; flex-direction: column;
@@ -1388,12 +1476,38 @@ body.pointer-on, body.pointer-on *{ cursor: none !important; }
   .side-num{ font-size: 42vw; right: -4vw; bottom: -4vw; opacity: 0.05; }
 
   /* cover */
-  .cover{ grid-template-columns: 1fr; gap: 16px; height: auto; }
-  .cover-left{ padding: 0 0 12px; }
+  .cover{ grid-template-columns: 1fr; gap: 20px; height: auto; }
+  .cover-left{ padding: 0 0 8px; }
   .cover h1{ font-size: clamp(46px, 13vw, 78px); }
   .cover .tagline{ font-size: 15.5px; margin-top: 14px; }
   .cover-tags{ margin-top: 14px; }
-  .collage{ height: 280px; margin-top: 6px; }
+
+  /* MOBILE COLLAGE — proper 2x2 grid, all faces visible */
+  .collage{
+    height: auto; min-height: 320px; margin-top: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: 1fr;
+    gap: 14px;
+    padding: 6px 0 10px;
+  }
+  .collage .p-slot{
+    position: relative !important;
+    width: 100% !important;
+    aspect-ratio: 4/5;
+    top: auto !important; right: auto !important; bottom: auto !important; left: auto !important;
+    animation: coverTilt 6s ease-in-out infinite alternate;
+  }
+  .collage .p-slot:nth-child(1){ --r: -3deg; animation-delay: 0s; transform: rotate(var(--r)); }
+  .collage .p-slot:nth-child(2){ --r: 2.5deg; animation-delay: 0.5s; margin-top: 16px; transform: rotate(var(--r)); }
+  .collage .p-slot:nth-child(3){ --r: 3deg; animation-delay: 1s; margin-top: -16px; transform: rotate(var(--r)); }
+  .collage .p-slot:nth-child(4){ --r: -2.5deg; animation-delay: 1.5s; transform: rotate(var(--r)); }
+  @keyframes coverTilt{
+    from{ transform: rotate(var(--r, 0deg)) translateY(0); }
+    to  { transform: rotate(calc(var(--r, 0deg) + 0.8deg)) translateY(-4px); }
+  }
+  .collage .p-slot img{ object-position: center 20%; }
+  .collage .p-slot .slot-label{ font-size: 9px; letter-spacing: 0.18em; }
   .cover-meta{ display: none; }
   .cover-ticker{ padding: 10px 0; }
   .cover-ticker .track{ gap: 32px; }
@@ -2290,71 +2404,226 @@ body.pointer-on, body.pointer-on *{ cursor: none !important; }
         </svg>
       </div>
 
-      <!-- MOBILE vertical pipeline -->
+      <!-- MOBILE pipeline — vertical SVG diagram with same tech aesthetic -->
       <div class="pipe-mobile anim d4">
-        <ol class="pipe-timeline">
-          <li class="mstage s1">
-            <div class="mstage-gutter">
-              <div class="mstage-dot">01</div>
-              <div class="mstage-line" style="--flow-d: 0s;"></div>
-            </div>
-            <div class="mstage-card">
-              <div class="mstage-tool">.md · input</div>
-              <h3>Guion + 5 agentes</h3>
-              <p>El guion viral entra como markdown. Cinco agentes IA lo adaptan al tono y ángulo de cada personaje.</p>
-              <div class="agents-mini">
-                <span class="c1">Frank</span>
-                <span class="c2">Yuki</span>
-                <span class="c3">Lupe</span>
-                <span class="c4">Marcus</span>
-                <span class="c5">Niamh</span>
-              </div>
-            </div>
-          </li>
-          <li class="mstage s2">
-            <div class="mstage-gutter">
-              <div class="mstage-dot">02</div>
-              <div class="mstage-line" style="--flow-d: 0.6s;"></div>
-            </div>
-            <div class="mstage-card">
-              <div class="mstage-tool">Nano Banana Pro · imagen</div>
-              <h3>Avatar fotográfico</h3>
-              <p>Gemini 3 Pro Image genera la cara del personaje. Consistencia entre escenas usando imagen de referencia.</p>
-            </div>
-          </li>
-          <li class="mstage s3">
-            <div class="mstage-gutter">
-              <div class="mstage-dot">03</div>
-              <div class="mstage-line" style="--flow-d: 1.2s;"></div>
-            </div>
-            <div class="mstage-card">
-              <div class="mstage-tool">HeyGen API · talking head</div>
-              <h3>Cabeza hablante</h3>
-              <p>Avatar + voz española + guion → video vertical 720×1280 con labios sincronizados.</p>
-            </div>
-          </li>
-          <li class="mstage s4">
-            <div class="mstage-gutter">
-              <div class="mstage-dot">04</div>
-              <div class="mstage-line" style="--flow-d: 1.8s;"></div>
-            </div>
-            <div class="mstage-card">
-              <div class="mstage-tool">Seedance 2.0 · b-roll</div>
-              <h3>Cortes cinematográficos</h3>
-              <p>Perros corriendo, primer plano del pelaje, botella en cámara. Se intercalan con la cabeza hablante.</p>
-            </div>
-          </li>
-          <li class="mstage s5">
-            <div class="mstage-gutter">
-              <div class="mstage-dot">05</div>
-            </div>
-            <div class="mstage-card">
-              <div class="mstage-tool">.mp4 · output</div>
-              <h3>Video final publicado</h3>
-              <p>Ensamblado en editor + captions + SFX. Listo para TikTok, Reels y Shorts.</p>
-            </div>
-          </li>
-        </ol>
+        <svg class="diagram-m" viewBox="0 0 360 1180" preserveAspectRatio="xMidYMid meet">
+          <defs>
+            <filter id="mGlow" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+            <filter id="mGlowBig" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="7" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+            <radialGradient id="mBase" cx="50%" cy="35%" r="80%">
+              <stop offset="0%" stop-color="#2a3170"/><stop offset="100%" stop-color="#0a0d1f"/>
+            </radialGradient>
+            <radialGradient id="mCobalt" cx="50%" cy="35%" r="80%">
+              <stop offset="0%" stop-color="#3a86f8"/><stop offset="100%" stop-color="#0c3fa0"/>
+            </radialGradient>
+            <radialGradient id="mCoral" cx="50%" cy="35%" r="80%">
+              <stop offset="0%" stop-color="#ff8666"/><stop offset="100%" stop-color="#c8422a"/>
+            </radialGradient>
+            <radialGradient id="mMustard" cx="50%" cy="35%" r="80%">
+              <stop offset="0%" stop-color="#f7c95c"/><stop offset="100%" stop-color="#a77c12"/>
+            </radialGradient>
+            <radialGradient id="mSage" cx="50%" cy="35%" r="80%">
+              <stop offset="0%" stop-color="#9ac185"/><stop offset="100%" stop-color="#4d6b3c"/>
+            </radialGradient>
+            <linearGradient id="mLine" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#2e7cf4"/><stop offset="100%" stop-color="#ff6a4d"/>
+            </linearGradient>
+            <symbol id="mPulse" viewBox="-6 -6 12 12">
+              <circle r="3.5" fill="#ffffff" filter="url(#mGlow)"/>
+              <circle r="2" fill="#f3ecde"/>
+            </symbol>
+          </defs>
+
+          <!-- section labels left margin -->
+          <g font-family="Geist Mono, monospace" font-size="8.5" letter-spacing="2.2" fill="rgba(243,236,222,0.35)" font-weight="600" text-anchor="end">
+            <text x="50" y="70">01 · INPUT</text>
+            <text x="50" y="240">02 · AGENTS</text>
+            <text x="50" y="430">03 · IMAGE</text>
+            <text x="50" y="620">04 · SPEAK</text>
+            <text x="50" y="800">05 · B-ROLL</text>
+            <text x="50" y="960">06 · ASSEMBLY</text>
+            <text x="50" y="1130">07 · OUTPUT</text>
+          </g>
+
+          <!-- ═══ CONNECTING PATHS ═══ -->
+          <g fill="none" stroke-width="2" stroke-linecap="round" filter="url(#mGlow)">
+            <!-- .md → 5 agents (fan out) -->
+            <path id="m_a1" d="M200 95 C 200 140, 110 190, 110 230" stroke="#2e7cf4" opacity="0.65"/>
+            <path id="m_a2" d="M200 95 C 200 140, 155 190, 155 230" stroke="#2e7cf4" opacity="0.75"/>
+            <path id="m_a3" d="M200 95 L 200 230" stroke="#2e7cf4" opacity="0.9"/>
+            <path id="m_a4" d="M200 95 C 200 140, 245 190, 245 230" stroke="#2e7cf4" opacity="0.75"/>
+            <path id="m_a5" d="M200 95 C 200 140, 290 190, 290 230" stroke="#2e7cf4" opacity="0.65"/>
+
+            <!-- 5 agents → Nano Banana (converge) -->
+            <path id="m_b1" d="M110 290 C 110 340, 200 360, 200 400" stroke="#ff6a4d" opacity="0.65"/>
+            <path id="m_b2" d="M155 290 C 155 340, 200 360, 200 400" stroke="#ff6a4d" opacity="0.8"/>
+            <path id="m_b3" d="M200 290 L 200 400" stroke="#ff6a4d" opacity="0.95"/>
+            <path id="m_b4" d="M245 290 C 245 340, 200 360, 200 400" stroke="#ff6a4d" opacity="0.8"/>
+            <path id="m_b5" d="M290 290 C 290 340, 200 360, 200 400" stroke="#ff6a4d" opacity="0.65"/>
+
+            <!-- 5 agents → Seedance (script feeds also b-roll later) — shorter dashed indication -->
+            <path id="m_b6" d="M155 290 C 200 330, 260 580, 260 760" stroke="#2e7cf4" opacity="0.4" stroke-dasharray="3 6"/>
+
+            <!-- Nano Banana → HeyGen -->
+            <path id="m_c" d="M200 490 L 200 580" stroke="url(#mLine)" opacity="0.95" stroke-width="2.4"/>
+
+            <!-- HeyGen → Editor -->
+            <path id="m_d" d="M200 680 C 200 720, 180 880, 180 920" stroke="url(#mLine)" opacity="0.95" stroke-width="2.4"/>
+
+            <!-- Seedance → Editor -->
+            <path id="m_e" d="M260 830 C 260 870, 230 900, 220 920" stroke="#f0b52d" opacity="0.9" stroke-width="2.4"/>
+
+            <!-- Editor → Output -->
+            <path id="m_f" d="M200 1010 L 200 1080" stroke="#83a472" opacity="0.95" stroke-width="2.6"/>
+          </g>
+
+          <!-- ═══ PULSES (animated dots) ═══ -->
+          <g>
+            <use href="#mPulse"><animateMotion dur="2.8s" repeatCount="indefinite"><mpath href="#m_a1"/></animateMotion></use>
+            <use href="#mPulse"><animateMotion dur="2.8s" begin="0.35s" repeatCount="indefinite"><mpath href="#m_a2"/></animateMotion></use>
+            <use href="#mPulse"><animateMotion dur="2.8s" begin="0.7s" repeatCount="indefinite"><mpath href="#m_a3"/></animateMotion></use>
+            <use href="#mPulse"><animateMotion dur="2.8s" begin="1.05s" repeatCount="indefinite"><mpath href="#m_a4"/></animateMotion></use>
+            <use href="#mPulse"><animateMotion dur="2.8s" begin="1.4s" repeatCount="indefinite"><mpath href="#m_a5"/></animateMotion></use>
+
+            <use href="#mPulse"><animateMotion dur="2.4s" begin="0.2s" repeatCount="indefinite"><mpath href="#m_b1"/></animateMotion></use>
+            <use href="#mPulse"><animateMotion dur="2.4s" begin="0.6s" repeatCount="indefinite"><mpath href="#m_b2"/></animateMotion></use>
+            <use href="#mPulse"><animateMotion dur="2.4s" begin="1s" repeatCount="indefinite"><mpath href="#m_b3"/></animateMotion></use>
+            <use href="#mPulse"><animateMotion dur="2.4s" begin="1.4s" repeatCount="indefinite"><mpath href="#m_b4"/></animateMotion></use>
+            <use href="#mPulse"><animateMotion dur="2.4s" begin="1.8s" repeatCount="indefinite"><mpath href="#m_b5"/></animateMotion></use>
+
+            <use href="#mPulse" opacity="0.55"><animateMotion dur="4s" begin="1s" repeatCount="indefinite"><mpath href="#m_b6"/></animateMotion></use>
+
+            <use href="#mPulse" transform="scale(1.1)"><animateMotion dur="1.6s" repeatCount="indefinite"><mpath href="#m_c"/></animateMotion></use>
+            <use href="#mPulse" transform="scale(1.1)"><animateMotion dur="2s" begin="0.4s" repeatCount="indefinite"><mpath href="#m_d"/></animateMotion></use>
+            <use href="#mPulse" transform="scale(1.1)"><animateMotion dur="1.8s" begin="0.2s" repeatCount="indefinite"><mpath href="#m_e"/></animateMotion></use>
+            <g>
+              <circle r="6" fill="#83a472" filter="url(#mGlowBig)"><animateMotion dur="1.6s" repeatCount="indefinite"><mpath href="#m_f"/></animateMotion></circle>
+              <circle r="2.5" fill="#f3ecde"><animateMotion dur="1.6s" repeatCount="indefinite"><mpath href="#m_f"/></animateMotion></circle>
+            </g>
+          </g>
+
+          <!-- ═══ NODES ═══ -->
+
+          <!-- .md document -->
+          <g transform="translate(140, 30)">
+            <rect width="120" height="65" rx="10" fill="url(#mBase)" stroke="rgba(255,255,255,0.18)" stroke-width="1" filter="url(#mGlow)"/>
+            <rect x="10" y="10" width="46" height="7" rx="1.5" fill="rgba(243,236,222,0.5)"/>
+            <rect x="10" y="22" width="100" height="3.5" rx="1" fill="rgba(243,236,222,0.22)"/>
+            <rect x="10" y="30" width="82" height="3.5" rx="1" fill="rgba(243,236,222,0.22)"/>
+            <rect x="10" y="38" width="94" height="3.5" rx="1" fill="rgba(243,236,222,0.22)"/>
+            <text x="60" y="58" text-anchor="middle" font-family="Fraunces, serif" font-weight="500" font-size="14" fill="#f3ecde">guión.md</text>
+          </g>
+
+          <!-- 5 AGENT CIRCLES -->
+          <g font-family="Fraunces, serif" fill="#f3ecde">
+            <g transform="translate(110, 260)">
+              <circle r="28" fill="url(#mBase)" stroke="#4d86ff" stroke-width="1.2" filter="url(#mGlow)"/>
+              <circle r="9" fill="#4d86ff" filter="url(#mGlow)"><animate attributeName="r" values="8;11;8" dur="2.4s" repeatCount="indefinite"/></circle>
+              <text y="4" text-anchor="middle" font-size="9" font-weight="600" fill="#fff" letter-spacing="0.5">F</text>
+              <text y="44" text-anchor="middle" font-family="Geist Mono, monospace" font-size="7.5" letter-spacing="1" fill="rgba(243,236,222,0.65)">FRANK</text>
+            </g>
+            <g transform="translate(155, 260)">
+              <circle r="28" fill="url(#mBase)" stroke="#ff7ab3" stroke-width="1.2" filter="url(#mGlow)"/>
+              <circle r="9" fill="#ff7ab3" filter="url(#mGlow)"><animate attributeName="r" values="8;11;8" dur="2.6s" begin="0.3s" repeatCount="indefinite"/></circle>
+              <text y="4" text-anchor="middle" font-size="9" font-weight="600" fill="#fff">Y</text>
+              <text y="44" text-anchor="middle" font-family="Geist Mono, monospace" font-size="7.5" letter-spacing="1" fill="rgba(243,236,222,0.65)">YUKI</text>
+            </g>
+            <g transform="translate(200, 260)">
+              <circle r="28" fill="url(#mBase)" stroke="#e07841" stroke-width="1.2" filter="url(#mGlow)"/>
+              <circle r="9" fill="#e07841" filter="url(#mGlow)"><animate attributeName="r" values="8;11;8" dur="2.8s" begin="0.6s" repeatCount="indefinite"/></circle>
+              <text y="4" text-anchor="middle" font-size="9" font-weight="600" fill="#fff">L</text>
+              <text y="44" text-anchor="middle" font-family="Geist Mono, monospace" font-size="7.5" letter-spacing="1" fill="rgba(243,236,222,0.65)">LUPE</text>
+            </g>
+            <g transform="translate(245, 260)">
+              <circle r="28" fill="url(#mBase)" stroke="#d4a563" stroke-width="1.2" filter="url(#mGlow)"/>
+              <circle r="9" fill="#d4a563" filter="url(#mGlow)"><animate attributeName="r" values="8;11;8" dur="2.5s" begin="0.9s" repeatCount="indefinite"/></circle>
+              <text y="4" text-anchor="middle" font-size="8" font-weight="600" fill="#fff">M</text>
+              <text y="44" text-anchor="middle" font-family="Geist Mono, monospace" font-size="7.5" letter-spacing="1" fill="rgba(243,236,222,0.65)">MARCUS</text>
+            </g>
+            <g transform="translate(290, 260)">
+              <circle r="28" fill="url(#mBase)" stroke="#ff8050" stroke-width="1.2" filter="url(#mGlow)"/>
+              <circle r="9" fill="#ff8050" filter="url(#mGlow)"><animate attributeName="r" values="8;11;8" dur="2.7s" begin="1.2s" repeatCount="indefinite"/></circle>
+              <text y="4" text-anchor="middle" font-size="9" font-weight="600" fill="#fff">N</text>
+              <text y="44" text-anchor="middle" font-family="Geist Mono, monospace" font-size="7.5" letter-spacing="1" fill="rgba(243,236,222,0.65)">NIAMH</text>
+            </g>
+          </g>
+
+          <!-- NANO BANANA PRO -->
+          <g transform="translate(200, 445)">
+            <circle r="48" fill="url(#mCoral)" filter="url(#mGlowBig)" stroke="rgba(255,255,255,0.22)" stroke-width="1"/>
+            <circle r="56" fill="none" stroke="rgba(255,134,102,0.4)" stroke-width="1.2" stroke-dasharray="3 5">
+              <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="22s" repeatCount="indefinite"/>
+            </circle>
+            <g transform="translate(0, -4)" filter="url(#mGlow)">
+              <path d="M-13 0 a13 13 0 1 0 26 0 a13 13 0 1 0 -26 0" fill="none" stroke="#fff3ea" stroke-width="1.6"/>
+              <circle cx="-4" cy="-3" r="1.8" fill="#fff3ea"/>
+              <circle cx="4"  cy="-3" r="1.8" fill="#fff3ea"/>
+              <path d="M-5 2 Q 0 7 5 2" stroke="#fff3ea" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+            </g>
+            <text y="26" text-anchor="middle" font-family="Fraunces, serif" font-weight="600" font-size="11" fill="#fff3ea">Nano Banana</text>
+            <text y="40" text-anchor="middle" font-family="Geist Mono, monospace" font-size="7" letter-spacing="1.4" fill="rgba(255,243,234,0.7)">GEMINI 3 PRO</text>
+          </g>
+
+          <!-- HEYGEN -->
+          <g transform="translate(200, 630)">
+            <circle r="44" fill="url(#mCobalt)" filter="url(#mGlowBig)" stroke="rgba(255,255,255,0.22)" stroke-width="1"/>
+            <circle r="52" fill="none" stroke="rgba(58,134,248,0.35)" stroke-width="1.2" stroke-dasharray="3 5">
+              <animateTransform attributeName="transform" type="rotate" from="360" to="0" dur="24s" repeatCount="indefinite"/>
+            </circle>
+            <g transform="translate(0, -2)" filter="url(#mGlow)">
+              <rect x="-17" y="-11" width="34" height="22" rx="3" fill="none" stroke="#f3ecde" stroke-width="1.5"/>
+              <circle cx="-8" cy="0" r="1.7" fill="#f3ecde"/>
+              <circle cx="8"  cy="0" r="1.7" fill="#f3ecde"/>
+              <path d="M-6 5 Q 0 8 6 5" stroke="#f3ecde" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+              <path d="M-14 -2 L -20 -5 M -14 0 L -20 0 M -14 2 L -20 4" stroke="#f3ecde" stroke-width="1.2" stroke-linecap="round"/>
+            </g>
+            <text y="22" text-anchor="middle" font-family="Fraunces, serif" font-weight="600" font-size="11" fill="#f3ecde">HeyGen</text>
+            <text y="36" text-anchor="middle" font-family="Geist Mono, monospace" font-size="7" letter-spacing="1.4" fill="rgba(243,236,222,0.7)">TALKING HEAD</text>
+          </g>
+
+          <!-- SEEDANCE 2.0 -->
+          <g transform="translate(260, 790)">
+            <circle r="42" fill="url(#mMustard)" filter="url(#mGlow)" stroke="rgba(255,255,255,0.22)" stroke-width="1"/>
+            <circle r="50" fill="none" stroke="rgba(247,201,92,0.4)" stroke-width="1.2" stroke-dasharray="3 5">
+              <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="20s" repeatCount="indefinite"/>
+            </circle>
+            <g transform="translate(0, -4)" filter="url(#mGlow)">
+              <path d="M-12 -5 L 0 -8 L 12 -5 L 12 5 L 0 8 L -12 5 Z" fill="none" stroke="#0a0d1f" stroke-width="1.5" stroke-linejoin="round"/>
+              <path d="M 0 -8 L 0 8" stroke="#0a0d1f" stroke-width="1.2"/>
+            </g>
+            <text y="20" text-anchor="middle" font-family="Fraunces, serif" font-weight="600" font-size="10" fill="#0a0d1f">Seedance 2.0</text>
+            <text y="33" text-anchor="middle" font-family="Geist Mono, monospace" font-size="7" font-weight="600" letter-spacing="1.4" fill="rgba(10,13,31,0.75)">B-ROLL</text>
+          </g>
+
+          <!-- EDITOR -->
+          <g transform="translate(200, 965)">
+            <rect x="-55" y="-42" width="110" height="84" rx="14" fill="url(#mBase)" filter="url(#mGlow)" stroke="rgba(255,255,255,0.22)" stroke-width="1"/>
+            <g transform="translate(0, -6)">
+              <rect x="-30" y="-11" width="60" height="6" rx="1.5" fill="#2e7cf4" opacity="0.85"/>
+              <rect x="-30" y="-3"  width="60" height="6" rx="1.5" fill="#ff6a4d" opacity="0.85"/>
+              <rect x="-30" y="5"   width="60" height="6" rx="1.5" fill="#f0b52d" opacity="0.85"/>
+              <rect x="-1" y="-16" width="2" height="34" fill="#83a472"/>
+              <circle cx="0" cy="-16" r="2.6" fill="#83a472" filter="url(#mGlow)"/>
+            </g>
+            <text y="24" text-anchor="middle" font-family="Fraunces, serif" font-weight="600" font-size="12" fill="#f3ecde">Editor</text>
+            <text y="36" text-anchor="middle" font-family="Geist Mono, monospace" font-size="7" letter-spacing="1.4" fill="rgba(243,236,222,0.55)">CAPTIONS · SFX</text>
+          </g>
+
+          <!-- OUTPUT .mp4 -->
+          <g transform="translate(200, 1110)">
+            <rect x="-45" y="-28" width="90" height="56" rx="12" fill="url(#mSage)" filter="url(#mGlowBig)" stroke="rgba(255,255,255,0.22)" stroke-width="1"/>
+            <g transform="translate(-18, -2)" filter="url(#mGlow)">
+              <path d="M -8 -10 L 10 0 L -8 10 Z" fill="#0a0d1f"/>
+            </g>
+            <text x="12" y="-4" text-anchor="middle" font-family="Fraunces, serif" font-weight="700" font-size="13" fill="#0a0d1f">.mp4</text>
+            <text x="12" y="8" text-anchor="middle" font-family="Geist Mono, monospace" font-weight="600" font-size="6.5" letter-spacing="1.2" fill="rgba(10,13,31,0.75)">PUBLISH</text>
+            <text x="12" y="22" text-anchor="middle" font-family="Geist Mono, monospace" font-weight="500" font-size="5.5" letter-spacing="1" fill="rgba(10,13,31,0.55)">TT · REELS · YT</text>
+          </g>
+        </svg>
       </div>
 
       <div class="pipe-legend anim d7">
