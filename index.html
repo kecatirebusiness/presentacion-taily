@@ -50,10 +50,12 @@
 *,*::before,*::after{ box-sizing:border-box; }
 html,body{
   margin:0; height:100%; background:var(--night); color:var(--cream); overflow:hidden;
-  overscroll-behavior-x: contain;
+  overscroll-behavior: none;
   touch-action: pan-y;
   -webkit-tap-highlight-color: transparent;
+  width: 100%;
 }
+body{ position: fixed; inset: 0; }
 body{
   font-family: var(--ff-body);
   font-size: 16px;
@@ -1482,32 +1484,39 @@ body.pointer-on, body.pointer-on *{ cursor: none !important; }
   .cover .tagline{ font-size: 15.5px; margin-top: 14px; }
   .cover-tags{ margin-top: 14px; }
 
-  /* MOBILE COLLAGE — proper 2x2 grid, all faces visible */
+  /* MOBILE COLLAGE — 4 en una sola fila, chiquitos con tilt sutil */
   .collage{
-    height: auto; min-height: 320px; margin-top: 10px;
+    height: auto; min-height: 0;
+    margin-top: 14px;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(4, 1fr);
     grid-auto-rows: 1fr;
-    gap: 14px;
-    padding: 6px 0 10px;
+    gap: 7px;
+    padding: 6px 0 8px;
   }
   .collage .p-slot{
     position: relative !important;
     width: 100% !important;
-    aspect-ratio: 4/5;
+    aspect-ratio: 3/4;
     top: auto !important; right: auto !important; bottom: auto !important; left: auto !important;
-    animation: coverTilt 6s ease-in-out infinite alternate;
+    border-radius: 8px;
+    animation: none;
+    box-shadow: 0 10px 28px -10px rgba(0,0,0,0.7),
+                0 0 0 1px rgba(255,255,255,0.08) inset;
   }
-  .collage .p-slot:nth-child(1){ --r: -3deg; animation-delay: 0s; transform: rotate(var(--r)); }
-  .collage .p-slot:nth-child(2){ --r: 2.5deg; animation-delay: 0.5s; margin-top: 16px; transform: rotate(var(--r)); }
-  .collage .p-slot:nth-child(3){ --r: 3deg; animation-delay: 1s; margin-top: -16px; transform: rotate(var(--r)); }
-  .collage .p-slot:nth-child(4){ --r: -2.5deg; animation-delay: 1.5s; transform: rotate(var(--r)); }
-  @keyframes coverTilt{
-    from{ transform: rotate(var(--r, 0deg)) translateY(0); }
-    to  { transform: rotate(calc(var(--r, 0deg) + 0.8deg)) translateY(-4px); }
+  .collage .p-slot:nth-child(1){ transform: rotate(-2.5deg); }
+  .collage .p-slot:nth-child(2){ transform: rotate(1.8deg) translateY(5px); }
+  .collage .p-slot:nth-child(3){ transform: rotate(-1.8deg) translateY(-5px); }
+  .collage .p-slot:nth-child(4){ transform: rotate(2.5deg); }
+  .collage .p-slot img{ object-position: center 18%; }
+  .collage .p-slot .slot-label{
+    font-size: 7.5px; font-weight: 700;
+    letter-spacing: 0.12em;
+    left: 5px; bottom: 5px; right: 5px;
+    width: auto;
   }
-  .collage .p-slot img{ object-position: center 20%; }
-  .collage .p-slot .slot-label{ font-size: 9px; letter-spacing: 0.18em; }
+  .collage .p-slot .slot-label > span:first-child{ font-size: 7.5px; }
+  .collage .p-slot .slot-label .tag-dot{ width: 5px; height: 5px; }
   .cover-meta{ display: none; }
   .cover-ticker{ padding: 10px 0; }
   .cover-ticker .track{ gap: 32px; }
@@ -1613,11 +1622,22 @@ body.pointer-on, body.pointer-on *{ cursor: none !important; }
   .toast{ bottom: 100px; padding: 10px 16px; font-size: 9.5px; letter-spacing: 0.1em; }
   .key-ghost{ font-size: 110px; }
 
-  /* transitions less aggressive on small screens */
-  @keyframes leaveL { to{ opacity:0; transform: translateX(-10vw); } }
-  @keyframes leaveR { to{ opacity:0; transform: translateX( 10vw); } }
-  @keyframes enterL { from{ opacity:0; transform: translateX( 10vw); } }
-  @keyframes enterR { from{ opacity:0; transform: translateX(-10vw); } }
+  /* Rigid deck-style transitions on mobile — translate only, no blur/scale */
+  .slide.leaving-left  { animation: leaveL 360ms cubic-bezier(0.36, 0, 0.12, 1) both; will-change: transform, opacity; }
+  .slide.leaving-right { animation: leaveR 360ms cubic-bezier(0.36, 0, 0.12, 1) both; will-change: transform, opacity; }
+  .slide.entering-left { animation: enterL 380ms cubic-bezier(0.2, 0.88, 0.2, 1) both; will-change: transform, opacity; }
+  .slide.entering-right{ animation: enterR 380ms cubic-bezier(0.2, 0.88, 0.2, 1) both; will-change: transform, opacity; }
+  @keyframes leaveL { from{ transform: translate3d(0,0,0); opacity: 1; } to{ transform: translate3d(-30%,0,0); opacity: 0; } }
+  @keyframes leaveR { from{ transform: translate3d(0,0,0); opacity: 1; } to{ transform: translate3d( 30%,0,0); opacity: 0; } }
+  @keyframes enterL { from{ transform: translate3d( 100%,0,0); opacity: 0.4; } to{ transform: translate3d(0,0,0); opacity: 1; } }
+  @keyframes enterR { from{ transform: translate3d(-100%,0,0); opacity: 0.4; } to{ transform: translate3d(0,0,0); opacity: 1; } }
+
+  /* Prevent iOS from making elements feel "liquid" during touch */
+  .slide{ overscroll-behavior: contain; backface-visibility: hidden; }
+  .slide *{ -webkit-transform: translateZ(0); }
+  /* Disable heavy backdrop filters on mobile (they jitter during scroll) */
+  .glass, .pill, .support .card, .st-card, .step-list li, .kpi, .speak, .spec-box,
+  .status-card, .st-card, .cover-ticker{ backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
 }
 
 @media (max-width: 380px){
@@ -2919,42 +2939,53 @@ document.addEventListener('wheel', (e) => {
   setTimeout(() => wheelLock = false, 600);
 }, { passive: true });
 
-/* Touch swipe (mobile) */
-let tStartX = 0, tStartY = 0, tStartT = 0, touching = false, tLocked = false;
-const SWIPE_MIN = 50;       // minimum horizontal pixels
-const SWIPE_MAX_OFFAXIS = 0.8; // dx must dominate dy (dy / dx < this)
-const SWIPE_MAX_TIME = 700; // ms — longer = treat as drag, not swipe
+/* Touch swipe (mobile) — direction-locked for rigid feel
+   Once the gesture commits to horizontal, vertical scroll is blocked and vice versa. */
+let tStartX = 0, tStartY = 0, tStartT = 0, touching = false;
+let gestureDir = null; // 'h' | 'v' | null
+const LOCK_THRESHOLD = 10;  // px to commit to a direction
+const SWIPE_MIN = 55;
+const SWIPE_MAX_TIME = 800;
 
 document.addEventListener('touchstart', (e) => {
   if (e.touches.length !== 1) return;
-  touching = true; tLocked = false;
+  touching = true;
+  gestureDir = null;
   tStartX = e.touches[0].clientX;
   tStartY = e.touches[0].clientY;
   tStartT = performance.now();
 }, { passive: true });
 
+document.addEventListener('touchmove', (e) => {
+  if (!touching) return;
+  const t = e.touches[0];
+  const dx = t.clientX - tStartX;
+  const dy = t.clientY - tStartY;
+  const adx = Math.abs(dx), ady = Math.abs(dy);
+
+  // Commit to a direction once user has moved past threshold
+  if (!gestureDir && (adx > LOCK_THRESHOLD || ady > LOCK_THRESHOLD)){
+    gestureDir = adx > ady ? 'h' : 'v';
+  }
+  // Horizontal gesture → block page/slide scroll so nothing feels "liquid"
+  if (gestureDir === 'h' && e.cancelable){
+    e.preventDefault();
+  }
+}, { passive: false });
+
 document.addEventListener('touchend', (e) => {
   if (!touching) return;
   touching = false;
-  if (tLocked) return;
+  if (gestureDir !== 'h') return;
   const t = e.changedTouches[0];
   const dx = t.clientX - tStartX;
-  const dy = t.clientY - tStartY;
   const dt = performance.now() - tStartT;
   if (dt > SWIPE_MAX_TIME) return;
   if (Math.abs(dx) < SWIPE_MIN) return;
-  if (Math.abs(dy) / Math.abs(dx) > SWIPE_MAX_OFFAXIS) return; // mostly vertical → scroll, not swipe
   if (dx < 0) next(); else prev();
 }, { passive: true });
 
-// cancel swipe if user starts scrolling vertically significantly
-document.addEventListener('touchmove', (e) => {
-  if (!touching || tLocked) return;
-  const t = e.touches[0];
-  const dy = Math.abs(t.clientY - tStartY);
-  const dx = Math.abs(t.clientX - tStartX);
-  if (dy > 30 && dy > dx) tLocked = true;
-}, { passive: true });
+document.addEventListener('touchcancel', () => { touching = false; gestureDir = null; }, { passive: true });
 </script>
 
 </body>
