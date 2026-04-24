@@ -1877,6 +1877,38 @@ body.pointer-on, body.pointer-on *{ cursor: none !important; }
   .toast{ bottom: 100px; padding: 10px 16px; font-size: 9.5px; letter-spacing: 0.1em; }
   .key-ghost{ font-size: 110px; }
 
+  /* invoice — mobile stack */
+  .invoice-head{ grid-template-columns: 1fr; gap: 10px; padding-bottom: 6px; }
+  .invoice-head h2{ font-size: clamp(40px, 11vw, 66px); }
+  .invoice-head .meta{ text-align: left; font-size: 10px; letter-spacing: 0.18em; line-height: 1.6; }
+  .invoice-lede{ font-size: 15.5px; }
+  .invoice-lede code{ font-size: 12px; padding: 1px 5px; }
+  .invoice-rows{ margin-top: 0; }
+  .inv-row{
+    grid-template-columns: 30px 1fr auto;
+    grid-template-areas: "num detail price" "space what what" "space tag tag";
+    gap: 6px 12px;
+    padding: 16px 4px;
+  }
+  .inv-row:hover{ padding-left: 4px; background: transparent; }
+  .inv-row .num{ grid-area: num; font-size: 10px; align-self: start; padding-top: 4px; }
+  .inv-row .detail{ grid-area: detail; gap: 2px; }
+  .inv-row .detail > .svc{ font-size: 17px; }
+  .inv-row .svc .plan{ display: block; margin-left: 0; margin-top: 2px; font-size: 13.5px; }
+  .inv-row .what{ grid-area: what; font-size: 12.5px; line-height: 1.4; margin-top: 6px; max-width: none; }
+  .inv-row .what code{ font-size: 11px; }
+  .inv-row .price{ grid-area: price; font-size: 24px; align-self: start; }
+  .inv-row .price sup{ font-size: 12px; }
+  .inv-row .price .unit{ font-size: 9px; letter-spacing: 0.12em; margin-top: 2px; }
+  .inv-row .tag{ grid-area: tag; justify-self: start; font-size: 9px; padding: 3px 8px; margin-top: 4px; }
+  .invoice-total{ grid-template-columns: 1fr; gap: 14px; padding: 22px; }
+  .invoice-total::before{ width: 140px; height: 140px; right: -40px; top: -40px; }
+  .invoice-total .t-amount{ font-size: 58px; }
+  .invoice-total .t-amount sup{ font-size: 20px; }
+  .invoice-total .t-amount .per{ font-size: 11px; letter-spacing: 0.16em; margin-left: 8px; }
+  .invoice-total .breakdown{ font-size: 9.5px; letter-spacing: 0.12em; }
+  .invoice-total .cta-ask{ font-size: 16px; max-width: none; text-align: left; }
+
   /* Rigid deck-style transitions on mobile — translate only, no blur/scale */
   .slide.leaving-left  { animation: leaveL 360ms cubic-bezier(0.36, 0, 0.12, 1) both; will-change: transform, opacity; }
   .slide.leaving-right { animation: leaveR 360ms cubic-bezier(0.36, 0, 0.12, 1) both; will-change: transform, opacity; }
