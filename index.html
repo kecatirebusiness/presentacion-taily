@@ -2485,203 +2485,206 @@ body.pointer-on, body.pointer-on *{ cursor: none !important; }
         </svg>
       </div>
 
-      <!-- MOBILE pipeline — compact vertical SVG diagram -->
+      <!-- MOBILE pipeline — vertical diagram (simplified for reliability) -->
       <div class="pipe-mobile anim d4">
-        <svg class="diagram-m" viewBox="0 0 400 1020" preserveAspectRatio="xMidYMid meet">
+        <svg xmlns="http://www.w3.org/2000/svg" class="diagram-m"
+             width="400" height="980"
+             viewBox="0 0 400 980"
+             preserveAspectRatio="xMidYMid meet">
+
+          <!-- ═══ Gradients (simple, no filters) ═══ -->
           <defs>
-            <filter id="mG" x="-50%" y="-50%" width="200%" height="200%">
-              <feGaussianBlur stdDeviation="2.5" result="b"/>
-              <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-            </filter>
-            <filter id="mGB" x="-50%" y="-50%" width="200%" height="200%">
-              <feGaussianBlur stdDeviation="5" result="b"/>
-              <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-            </filter>
-            <radialGradient id="mnCobalt" cx="50%" cy="30%" r="80%"><stop offset="0%" stop-color="#3a86f8"/><stop offset="100%" stop-color="#0c3fa0"/></radialGradient>
-            <radialGradient id="mnCoral" cx="50%" cy="30%" r="80%"><stop offset="0%" stop-color="#ff8466"/><stop offset="100%" stop-color="#c8422a"/></radialGradient>
-            <radialGradient id="mnMustard" cx="50%" cy="30%" r="80%"><stop offset="0%" stop-color="#f2c155"/><stop offset="100%" stop-color="#a77c12"/></radialGradient>
-            <radialGradient id="mnSage" cx="50%" cy="30%" r="80%"><stop offset="0%" stop-color="#9ac185"/><stop offset="100%" stop-color="#4d6b3c"/></radialGradient>
-            <radialGradient id="mnInk" cx="50%" cy="30%" r="80%"><stop offset="0%" stop-color="#2a2e48"/><stop offset="100%" stop-color="#0c0e1a"/></radialGradient>
-            <linearGradient id="mLnMix" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#155DD7"/><stop offset="100%" stop-color="#ef5f4a"/></linearGradient>
-            <symbol id="mPls" viewBox="-5 -5 10 10">
-              <circle r="3.5" fill="#ffffff" filter="url(#mG)"/>
-              <circle r="2" fill="#f9f4e8"/>
-            </symbol>
+            <radialGradient id="gInk" cx="50%" cy="28%" r="80%">
+              <stop offset="0%" stop-color="#2a2e48"/>
+              <stop offset="100%" stop-color="#0c0e1a"/>
+            </radialGradient>
+            <radialGradient id="gCoral" cx="50%" cy="28%" r="80%">
+              <stop offset="0%" stop-color="#ff8466"/>
+              <stop offset="100%" stop-color="#c8422a"/>
+            </radialGradient>
+            <radialGradient id="gCobalt" cx="50%" cy="28%" r="80%">
+              <stop offset="0%" stop-color="#3a86f8"/>
+              <stop offset="100%" stop-color="#0c3fa0"/>
+            </radialGradient>
+            <radialGradient id="gMustard" cx="50%" cy="28%" r="80%">
+              <stop offset="0%" stop-color="#f2c155"/>
+              <stop offset="100%" stop-color="#a77c12"/>
+            </radialGradient>
+            <radialGradient id="gSage" cx="50%" cy="28%" r="80%">
+              <stop offset="0%" stop-color="#9ac185"/>
+              <stop offset="100%" stop-color="#4d6b3c"/>
+            </radialGradient>
           </defs>
 
-          <!-- ─── CONNECTING PATHS (drawn behind nodes) ─── -->
-          <g fill="none" stroke-width="2" stroke-linecap="round">
-            <!-- guion → 5 agents (fan out) -->
-            <path id="pa1" d="M200 78 C 200 120, 62 150, 62 188" stroke="#155DD7" opacity="0.55"/>
-            <path id="pa2" d="M200 78 C 200 120, 131 150, 131 188" stroke="#155DD7" opacity="0.7"/>
-            <path id="pa3" d="M200 78 L 200 188" stroke="#155DD7" opacity="0.9"/>
-            <path id="pa4" d="M200 78 C 200 120, 269 150, 269 188" stroke="#155DD7" opacity="0.7"/>
-            <path id="pa5" d="M200 78 C 200 120, 338 150, 338 188" stroke="#155DD7" opacity="0.55"/>
+          <!-- ═══ Paths (drawn first, behind nodes) ═══ -->
+          <!-- guion → 5 agents (fan out, blue) -->
+          <path id="fa1" d="M200 85 C 200 135, 62 165, 62 202" stroke="#155DD7" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0.55"/>
+          <path id="fa2" d="M200 85 C 200 135, 131 165, 131 202" stroke="#155DD7" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0.72"/>
+          <path id="fa3" d="M200 85 L 200 202" stroke="#155DD7" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.9"/>
+          <path id="fa4" d="M200 85 C 200 135, 269 165, 269 202" stroke="#155DD7" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0.72"/>
+          <path id="fa5" d="M200 85 C 200 135, 338 165, 338 202" stroke="#155DD7" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0.55"/>
 
-            <!-- 5 agents → Nano Banana (converge) -->
-            <path id="pb1" d="M62 236 C 62 290, 200 300, 200 330" stroke="#ef5f4a" opacity="0.55"/>
-            <path id="pb2" d="M131 236 C 131 290, 200 300, 200 330" stroke="#ef5f4a" opacity="0.7"/>
-            <path id="pb3" d="M200 236 L 200 330" stroke="#ef5f4a" opacity="0.9"/>
-            <path id="pb4" d="M269 236 C 269 290, 200 300, 200 330" stroke="#ef5f4a" opacity="0.7"/>
-            <path id="pb5" d="M338 236 C 338 290, 200 300, 200 330" stroke="#ef5f4a" opacity="0.55"/>
+          <!-- 5 agents → Nano Banana (converge, coral) -->
+          <path id="cb1" d="M62 248 C 62 300, 200 310, 200 340" stroke="#ef5f4a" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0.55"/>
+          <path id="cb2" d="M131 248 C 131 300, 200 310, 200 340" stroke="#ef5f4a" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0.72"/>
+          <path id="cb3" d="M200 248 L 200 340" stroke="#ef5f4a" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.9"/>
+          <path id="cb4" d="M269 248 C 269 300, 200 310, 200 340" stroke="#ef5f4a" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0.72"/>
+          <path id="cb5" d="M338 248 C 338 300, 200 310, 200 340" stroke="#ef5f4a" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0.55"/>
 
-            <!-- central agent → Seedance (scripts also feed b-roll, dashed) -->
-            <path id="pScr" d="M200 236 C 270 280, 310 480, 310 600" stroke="#155DD7" opacity="0.35" stroke-dasharray="3 6" stroke-width="1.4"/>
+          <!-- agents → Seedance (scripts feed b-roll, dashed, blue faded) -->
+          <path id="scr" d="M200 248 C 270 300, 310 490, 310 596" stroke="#155DD7" stroke-width="1.4" fill="none" stroke-linecap="round" opacity="0.32" stroke-dasharray="3 6"/>
 
-            <!-- Nano Banana → HeyGen -->
-            <path id="pNH" d="M200 400 L 200 466" stroke="url(#mLnMix)" opacity="0.95" stroke-width="2.4"/>
+          <!-- Nano Banana → HeyGen -->
+          <path id="nh" d="M200 405 L 200 470" stroke="#2970e3" stroke-width="2.4" fill="none" stroke-linecap="round" opacity="0.9"/>
 
-            <!-- HeyGen → Editor -->
-            <path id="pHE" d="M200 534 C 200 580, 185 700, 175 740" stroke="url(#mLnMix)" opacity="0.95" stroke-width="2.4"/>
+          <!-- HeyGen → Editor (merge) -->
+          <path id="he" d="M200 540 C 200 600, 180 680, 175 720" stroke="#2970e3" stroke-width="2.4" fill="none" stroke-linecap="round" opacity="0.9"/>
 
-            <!-- Seedance → Editor -->
-            <path id="pSE" d="M310 660 C 310 700, 245 720, 225 740" stroke="#d9a21c" opacity="0.9" stroke-width="2.4"/>
+          <!-- Seedance → Editor (merge) -->
+          <path id="se" d="M310 650 C 310 690, 240 710, 225 720" stroke="#d9a21c" stroke-width="2.4" fill="none" stroke-linecap="round" opacity="0.9"/>
 
-            <!-- Editor → .mp4 -->
-            <path id="pOut" d="M200 840 L 200 916" stroke="#6f9360" opacity="0.95" stroke-width="2.6"/>
-          </g>
+          <!-- Editor → .mp4 -->
+          <path id="out" d="M200 828 L 200 894" stroke="#6f9360" stroke-width="2.6" fill="none" stroke-linecap="round" opacity="0.95"/>
 
-          <!-- ─── PULSES ─── -->
+          <!-- ═══ Pulses (inline circles with animateMotion) ═══ -->
           <g>
-            <use href="#mPls"><animateMotion dur="3s" repeatCount="indefinite"><mpath href="#pa1"/></animateMotion></use>
-            <use href="#mPls"><animateMotion dur="3s" begin="0.4s" repeatCount="indefinite"><mpath href="#pa2"/></animateMotion></use>
-            <use href="#mPls"><animateMotion dur="3s" begin="0.8s" repeatCount="indefinite"><mpath href="#pa3"/></animateMotion></use>
-            <use href="#mPls"><animateMotion dur="3s" begin="1.2s" repeatCount="indefinite"><mpath href="#pa4"/></animateMotion></use>
-            <use href="#mPls"><animateMotion dur="3s" begin="1.6s" repeatCount="indefinite"><mpath href="#pa5"/></animateMotion></use>
+            <circle r="4" fill="#ffffff"><animateMotion dur="2.8s" repeatCount="indefinite"><mpath href="#fa1"/></animateMotion></circle>
+            <circle r="4" fill="#ffffff"><animateMotion dur="2.8s" begin="0.4s" repeatCount="indefinite"><mpath href="#fa2"/></animateMotion></circle>
+            <circle r="4" fill="#ffffff"><animateMotion dur="2.8s" begin="0.8s" repeatCount="indefinite"><mpath href="#fa3"/></animateMotion></circle>
+            <circle r="4" fill="#ffffff"><animateMotion dur="2.8s" begin="1.2s" repeatCount="indefinite"><mpath href="#fa4"/></animateMotion></circle>
+            <circle r="4" fill="#ffffff"><animateMotion dur="2.8s" begin="1.6s" repeatCount="indefinite"><mpath href="#fa5"/></animateMotion></circle>
 
-            <use href="#mPls"><animateMotion dur="2.6s" begin="0.2s" repeatCount="indefinite"><mpath href="#pb1"/></animateMotion></use>
-            <use href="#mPls"><animateMotion dur="2.6s" begin="0.6s" repeatCount="indefinite"><mpath href="#pb2"/></animateMotion></use>
-            <use href="#mPls"><animateMotion dur="2.6s" begin="1.0s" repeatCount="indefinite"><mpath href="#pb3"/></animateMotion></use>
-            <use href="#mPls"><animateMotion dur="2.6s" begin="1.4s" repeatCount="indefinite"><mpath href="#pb4"/></animateMotion></use>
-            <use href="#mPls"><animateMotion dur="2.6s" begin="1.8s" repeatCount="indefinite"><mpath href="#pb5"/></animateMotion></use>
+            <circle r="4" fill="#ffffff"><animateMotion dur="2.6s" begin="0.2s" repeatCount="indefinite"><mpath href="#cb1"/></animateMotion></circle>
+            <circle r="4" fill="#ffffff"><animateMotion dur="2.6s" begin="0.6s" repeatCount="indefinite"><mpath href="#cb2"/></animateMotion></circle>
+            <circle r="4" fill="#ffffff"><animateMotion dur="2.6s" begin="1.0s" repeatCount="indefinite"><mpath href="#cb3"/></animateMotion></circle>
+            <circle r="4" fill="#ffffff"><animateMotion dur="2.6s" begin="1.4s" repeatCount="indefinite"><mpath href="#cb4"/></animateMotion></circle>
+            <circle r="4" fill="#ffffff"><animateMotion dur="2.6s" begin="1.8s" repeatCount="indefinite"><mpath href="#cb5"/></animateMotion></circle>
 
-            <use href="#mPls" opacity="0.55"><animateMotion dur="4s" begin="0.8s" repeatCount="indefinite"><mpath href="#pScr"/></animateMotion></use>
-            <use href="#mPls" transform="scale(1.15)"><animateMotion dur="1.7s" repeatCount="indefinite"><mpath href="#pNH"/></animateMotion></use>
-            <use href="#mPls" transform="scale(1.15)"><animateMotion dur="2.2s" begin="0.3s" repeatCount="indefinite"><mpath href="#pHE"/></animateMotion></use>
-            <use href="#mPls" transform="scale(1.15)"><animateMotion dur="2s" begin="0.6s" repeatCount="indefinite"><mpath href="#pSE"/></animateMotion></use>
-            <g>
-              <circle r="6.5" fill="#6f9360" filter="url(#mGB)"><animateMotion dur="1.7s" repeatCount="indefinite"><mpath href="#pOut"/></animateMotion></circle>
-              <circle r="2.8" fill="#f3ecde"><animateMotion dur="1.7s" repeatCount="indefinite"><mpath href="#pOut"/></animateMotion></circle>
-            </g>
+            <circle r="3.5" fill="#2970e3" opacity="0.6"><animateMotion dur="4s" begin="0.8s" repeatCount="indefinite"><mpath href="#scr"/></animateMotion></circle>
+
+            <circle r="5" fill="#ffffff"><animateMotion dur="1.7s" repeatCount="indefinite"><mpath href="#nh"/></animateMotion></circle>
+            <circle r="5" fill="#ffffff"><animateMotion dur="2.2s" begin="0.3s" repeatCount="indefinite"><mpath href="#he"/></animateMotion></circle>
+            <circle r="5" fill="#ffffff"><animateMotion dur="2s" begin="0.6s" repeatCount="indefinite"><mpath href="#se"/></animateMotion></circle>
+            <circle r="6" fill="#6f9360"><animateMotion dur="1.7s" repeatCount="indefinite"><mpath href="#out"/></animateMotion></circle>
+            <circle r="2.5" fill="#ffffff"><animateMotion dur="1.7s" repeatCount="indefinite"><mpath href="#out"/></animateMotion></circle>
           </g>
 
-          <!-- ─── NODES ─── -->
-
-          <!-- guion.md document -->
-          <g transform="translate(142, 18)">
-            <rect width="116" height="60" rx="10" fill="url(#mnInk)" stroke="rgba(12,14,26,0.35)" stroke-width="1" filter="url(#mG)"/>
-            <rect x="10" y="9" width="46" height="6" rx="1.5" fill="rgba(255,255,255,0.6)"/>
-            <rect x="10" y="20" width="96" height="3.2" rx="1" fill="rgba(255,255,255,0.28)"/>
-            <rect x="10" y="27" width="80" height="3.2" rx="1" fill="rgba(255,255,255,0.28)"/>
-            <rect x="10" y="34" width="90" height="3.2" rx="1" fill="rgba(255,255,255,0.28)"/>
-            <text x="58" y="53" text-anchor="middle" font-family="Fraunces, serif" font-weight="500" font-size="13" fill="#f3ecde">guión.md</text>
+          <!-- ═══ NODE 1: guion.md ═══ -->
+          <g transform="translate(140, 22)">
+            <rect x="0" y="0" width="120" height="62" rx="10" fill="url(#gInk)" stroke="rgba(12,14,26,0.35)" stroke-width="1"/>
+            <rect x="10" y="10" width="46" height="6" rx="1.5" fill="rgba(255,255,255,0.6)"/>
+            <rect x="10" y="22" width="100" height="3" rx="1" fill="rgba(255,255,255,0.28)"/>
+            <rect x="10" y="29" width="82" height="3" rx="1" fill="rgba(255,255,255,0.28)"/>
+            <rect x="10" y="36" width="92" height="3" rx="1" fill="rgba(255,255,255,0.28)"/>
+            <text x="60" y="55" text-anchor="middle" font-family="Fraunces, serif" font-weight="500" font-size="13" fill="#f3ecde">guión.md</text>
           </g>
 
-          <!-- 5 AGENTS -->
+          <!-- ═══ NODE 2: 5 Agents (circles + initial + name) ═══ -->
           <g font-family="Fraunces, serif">
-            <g transform="translate(62, 210)">
-              <circle r="22" fill="url(#mnInk)" stroke="#2970e3" stroke-width="1.5" filter="url(#mG)"/>
-              <circle r="7.5" fill="#2970e3" filter="url(#mG)"><animate attributeName="r" values="6;9;6" dur="2.4s" repeatCount="indefinite"/></circle>
-              <text y="3.5" text-anchor="middle" font-size="9" font-weight="700" fill="#fff">F</text>
-              <text y="40" text-anchor="middle" font-family="Geist Mono, monospace" font-size="7.5" letter-spacing="1.1" font-weight="700" fill="rgba(12,14,26,0.62)">FRANK</text>
+            <g transform="translate(62, 225)">
+              <circle r="23" fill="url(#gInk)" stroke="#2970e3" stroke-width="1.6"/>
+              <circle r="7.5" fill="#2970e3"><animate attributeName="r" values="6;9.5;6" dur="2.4s" repeatCount="indefinite"/></circle>
+              <text y="3.5" text-anchor="middle" font-size="9" font-weight="700" fill="#ffffff">F</text>
+              <text y="40" text-anchor="middle" font-family="Geist Mono, monospace" font-size="7.5" letter-spacing="1.1" font-weight="700" fill="rgba(12,14,26,0.65)">FRANK</text>
             </g>
-            <g transform="translate(131, 210)">
-              <circle r="22" fill="url(#mnInk)" stroke="#e85a95" stroke-width="1.5" filter="url(#mG)"/>
-              <circle r="7.5" fill="#e85a95" filter="url(#mG)"><animate attributeName="r" values="6;9;6" dur="2.6s" begin="0.3s" repeatCount="indefinite"/></circle>
-              <text y="3.5" text-anchor="middle" font-size="9" font-weight="700" fill="#fff">Y</text>
-              <text y="40" text-anchor="middle" font-family="Geist Mono, monospace" font-size="7.5" letter-spacing="1.1" font-weight="700" fill="rgba(12,14,26,0.62)">YUKI</text>
+            <g transform="translate(131, 225)">
+              <circle r="23" fill="url(#gInk)" stroke="#e85a95" stroke-width="1.6"/>
+              <circle r="7.5" fill="#e85a95"><animate attributeName="r" values="6;9.5;6" dur="2.6s" begin="0.3s" repeatCount="indefinite"/></circle>
+              <text y="3.5" text-anchor="middle" font-size="9" font-weight="700" fill="#ffffff">Y</text>
+              <text y="40" text-anchor="middle" font-family="Geist Mono, monospace" font-size="7.5" letter-spacing="1.1" font-weight="700" fill="rgba(12,14,26,0.65)">YUKI</text>
             </g>
-            <g transform="translate(200, 210)">
-              <circle r="22" fill="url(#mnInk)" stroke="#d26831" stroke-width="1.5" filter="url(#mG)"/>
-              <circle r="7.5" fill="#d26831" filter="url(#mG)"><animate attributeName="r" values="6;9;6" dur="2.8s" begin="0.6s" repeatCount="indefinite"/></circle>
-              <text y="3.5" text-anchor="middle" font-size="9" font-weight="700" fill="#fff">L</text>
-              <text y="40" text-anchor="middle" font-family="Geist Mono, monospace" font-size="7.5" letter-spacing="1.1" font-weight="700" fill="rgba(12,14,26,0.62)">LUPE</text>
+            <g transform="translate(200, 225)">
+              <circle r="23" fill="url(#gInk)" stroke="#d26831" stroke-width="1.6"/>
+              <circle r="7.5" fill="#d26831"><animate attributeName="r" values="6;9.5;6" dur="2.8s" begin="0.6s" repeatCount="indefinite"/></circle>
+              <text y="3.5" text-anchor="middle" font-size="9" font-weight="700" fill="#ffffff">L</text>
+              <text y="40" text-anchor="middle" font-family="Geist Mono, monospace" font-size="7.5" letter-spacing="1.1" font-weight="700" fill="rgba(12,14,26,0.65)">LUPE</text>
             </g>
-            <g transform="translate(269, 210)">
-              <circle r="22" fill="url(#mnInk)" stroke="#b8864a" stroke-width="1.5" filter="url(#mG)"/>
-              <circle r="7.5" fill="#b8864a" filter="url(#mG)"><animate attributeName="r" values="6;9;6" dur="2.5s" begin="0.9s" repeatCount="indefinite"/></circle>
-              <text y="3.5" text-anchor="middle" font-size="8" font-weight="700" fill="#fff">M</text>
-              <text y="40" text-anchor="middle" font-family="Geist Mono, monospace" font-size="7.5" letter-spacing="1.1" font-weight="700" fill="rgba(12,14,26,0.62)">MARCUS</text>
+            <g transform="translate(269, 225)">
+              <circle r="23" fill="url(#gInk)" stroke="#b8864a" stroke-width="1.6"/>
+              <circle r="7.5" fill="#b8864a"><animate attributeName="r" values="6;9.5;6" dur="2.5s" begin="0.9s" repeatCount="indefinite"/></circle>
+              <text y="3.5" text-anchor="middle" font-size="8" font-weight="700" fill="#ffffff">M</text>
+              <text y="40" text-anchor="middle" font-family="Geist Mono, monospace" font-size="7.5" letter-spacing="1.1" font-weight="700" fill="rgba(12,14,26,0.65)">MARCUS</text>
             </g>
-            <g transform="translate(338, 210)">
-              <circle r="22" fill="url(#mnInk)" stroke="#ea6438" stroke-width="1.5" filter="url(#mG)"/>
-              <circle r="7.5" fill="#ea6438" filter="url(#mG)"><animate attributeName="r" values="6;9;6" dur="2.7s" begin="1.2s" repeatCount="indefinite"/></circle>
-              <text y="3.5" text-anchor="middle" font-size="9" font-weight="700" fill="#fff">N</text>
-              <text y="40" text-anchor="middle" font-family="Geist Mono, monospace" font-size="7.5" letter-spacing="1.1" font-weight="700" fill="rgba(12,14,26,0.62)">NIAMH</text>
+            <g transform="translate(338, 225)">
+              <circle r="23" fill="url(#gInk)" stroke="#ea6438" stroke-width="1.6"/>
+              <circle r="7.5" fill="#ea6438"><animate attributeName="r" values="6;9.5;6" dur="2.7s" begin="1.2s" repeatCount="indefinite"/></circle>
+              <text y="3.5" text-anchor="middle" font-size="9" font-weight="700" fill="#ffffff">N</text>
+              <text y="40" text-anchor="middle" font-family="Geist Mono, monospace" font-size="7.5" letter-spacing="1.1" font-weight="700" fill="rgba(12,14,26,0.65)">NIAMH</text>
             </g>
           </g>
 
-          <!-- NANO BANANA PRO -->
-          <g transform="translate(200, 365)">
-            <circle r="46" fill="none" stroke="rgba(239,95,74,0.3)" stroke-width="1.2" stroke-dasharray="3 5">
-              <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="22s" repeatCount="indefinite"/>
+          <!-- ═══ NODE 3: Nano Banana Pro ═══ -->
+          <g transform="translate(200, 372)">
+            <circle r="46" fill="none" stroke="rgba(239,95,74,0.35)" stroke-width="1.2" stroke-dasharray="3 5">
+              <animateTransform attributeName="transform" type="rotate" from="0 0 0" to="360 0 0" dur="22s" repeatCount="indefinite"/>
             </circle>
-            <circle r="35" fill="url(#mnCoral)" filter="url(#mGB)" stroke="rgba(255,255,255,0.35)" stroke-width="1"/>
-            <g transform="translate(0, -3)" filter="url(#mG)">
+            <circle r="36" fill="url(#gCoral)" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
+            <g transform="translate(0, -3)">
               <path d="M-10 0 a10 10 0 1 0 20 0 a10 10 0 1 0 -20 0" fill="none" stroke="#fff3ea" stroke-width="1.5"/>
               <circle cx="-3.5" cy="-2.5" r="1.5" fill="#fff3ea"/>
               <circle cx="3.5" cy="-2.5" r="1.5" fill="#fff3ea"/>
               <path d="M-4 2 Q 0 6 4 2" stroke="#fff3ea" stroke-width="1.3" fill="none" stroke-linecap="round"/>
             </g>
             <text y="22" text-anchor="middle" font-family="Fraunces, serif" font-weight="600" font-size="11" fill="#fff3ea">Nano Banana</text>
-            <text y="33" text-anchor="middle" font-family="Geist Mono, monospace" font-size="6.5" letter-spacing="1.2" font-weight="700" fill="rgba(255,243,234,0.78)">GEMINI 3 PRO</text>
+            <text y="33" text-anchor="middle" font-family="Geist Mono, monospace" font-size="6.5" letter-spacing="1.2" font-weight="700" fill="rgba(255,243,234,0.8)">GEMINI 3 PRO</text>
           </g>
 
-          <!-- HEYGEN -->
-          <g transform="translate(200, 500)">
-            <circle r="42" fill="none" stroke="rgba(46,124,244,0.3)" stroke-width="1.2" stroke-dasharray="3 5">
-              <animateTransform attributeName="transform" type="rotate" from="360" to="0" dur="24s" repeatCount="indefinite"/>
+          <!-- ═══ NODE 4: HeyGen ═══ -->
+          <g transform="translate(200, 505)">
+            <circle r="42" fill="none" stroke="rgba(46,124,244,0.35)" stroke-width="1.2" stroke-dasharray="3 5">
+              <animateTransform attributeName="transform" type="rotate" from="360 0 0" to="0 0 0" dur="24s" repeatCount="indefinite"/>
             </circle>
-            <circle r="33" fill="url(#mnCobalt)" filter="url(#mGB)" stroke="rgba(255,255,255,0.35)" stroke-width="1"/>
-            <g transform="translate(0, -2)" filter="url(#mG)">
+            <circle r="34" fill="url(#gCobalt)" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
+            <g transform="translate(0, -2)">
               <rect x="-14" y="-9" width="28" height="18" rx="3" fill="none" stroke="#f3ecde" stroke-width="1.4"/>
               <circle cx="-6" cy="0" r="1.5" fill="#f3ecde"/>
               <circle cx="6" cy="0" r="1.5" fill="#f3ecde"/>
               <path d="M-4 4 Q 0 6 4 4" stroke="#f3ecde" stroke-width="1.2" fill="none" stroke-linecap="round"/>
               <path d="M-11 -2 L -17 -5 M -11 0 L -17 0 M -11 2 L -17 4" stroke="#f3ecde" stroke-width="1.1" stroke-linecap="round"/>
             </g>
-            <text y="20" text-anchor="middle" font-family="Fraunces, serif" font-weight="600" font-size="11" fill="#f3ecde">HeyGen</text>
-            <text y="31" text-anchor="middle" font-family="Geist Mono, monospace" font-size="6.5" letter-spacing="1.2" font-weight="700" fill="rgba(243,236,222,0.78)">TALKING HEAD</text>
+            <text y="21" text-anchor="middle" font-family="Fraunces, serif" font-weight="600" font-size="11" fill="#f3ecde">HeyGen</text>
+            <text y="32" text-anchor="middle" font-family="Geist Mono, monospace" font-size="6.5" letter-spacing="1.2" font-weight="700" fill="rgba(243,236,222,0.8)">TALKING HEAD</text>
           </g>
 
-          <!-- SEEDANCE 2.0 (right branch) -->
-          <g transform="translate(310, 630)">
-            <circle r="40" fill="none" stroke="rgba(217,162,28,0.3)" stroke-width="1.2" stroke-dasharray="3 5">
-              <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="20s" repeatCount="indefinite"/>
+          <!-- ═══ NODE 5: Seedance 2.0 ═══ -->
+          <g transform="translate(310, 628)">
+            <circle r="40" fill="none" stroke="rgba(217,162,28,0.35)" stroke-width="1.2" stroke-dasharray="3 5">
+              <animateTransform attributeName="transform" type="rotate" from="0 0 0" to="360 0 0" dur="20s" repeatCount="indefinite"/>
             </circle>
-            <circle r="32" fill="url(#mnMustard)" filter="url(#mG)" stroke="rgba(255,255,255,0.35)" stroke-width="1"/>
-            <g transform="translate(0, -3)" filter="url(#mG)">
+            <circle r="33" fill="url(#gMustard)" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
+            <g transform="translate(0, -3)">
               <path d="M-10 -4 L 0 -7 L 10 -4 L 10 4 L 0 7 L -10 4 Z" fill="none" stroke="#0c0e1a" stroke-width="1.4" stroke-linejoin="round"/>
               <path d="M 0 -7 L 0 7" stroke="#0c0e1a" stroke-width="1.1"/>
             </g>
-            <text y="16" text-anchor="middle" font-family="Fraunces, serif" font-weight="600" font-size="10" fill="#0c0e1a">Seedance</text>
-            <text y="27" text-anchor="middle" font-family="Geist Mono, monospace" font-size="6.5" font-weight="700" letter-spacing="1.2" fill="rgba(12,14,26,0.72)">B-ROLL 2.0</text>
+            <text y="17" text-anchor="middle" font-family="Fraunces, serif" font-weight="600" font-size="10" fill="#0c0e1a">Seedance</text>
+            <text y="28" text-anchor="middle" font-family="Geist Mono, monospace" font-size="6.5" font-weight="700" letter-spacing="1.2" fill="rgba(12,14,26,0.75)">B-ROLL 2.0</text>
           </g>
 
-          <!-- EDITOR -->
-          <g transform="translate(148, 740)">
-            <rect width="104" height="100" rx="13" fill="url(#mnInk)" filter="url(#mG)" stroke="rgba(12,14,26,0.3)" stroke-width="1"/>
-            <g transform="translate(52, 38)">
+          <!-- ═══ NODE 6: Editor ═══ -->
+          <g transform="translate(148, 722)">
+            <rect width="104" height="104" rx="13" fill="url(#gInk)" stroke="rgba(12,14,26,0.3)" stroke-width="1"/>
+            <g transform="translate(52, 40)">
               <rect x="-30" y="-13" width="60" height="6.5" rx="1.5" fill="#2970e3" opacity="0.85"/>
               <rect x="-30" y="-3.5" width="60" height="6.5" rx="1.5" fill="#ef5f4a" opacity="0.85"/>
               <rect x="-30" y="6"    width="60" height="6.5" rx="1.5" fill="#d9a21c" opacity="0.85"/>
               <rect x="-1" y="-18" width="2" height="36" fill="#6f9360"/>
-              <circle cx="0" cy="-18" r="2.5" fill="#6f9360" filter="url(#mG)"/>
+              <circle cx="0" cy="-18" r="2.5" fill="#6f9360"/>
             </g>
-            <text x="52" y="76" text-anchor="middle" font-family="Fraunces, serif" font-weight="600" font-size="12" fill="#f3ecde">Editor</text>
-            <text x="52" y="88" text-anchor="middle" font-family="Geist Mono, monospace" font-size="6.5" letter-spacing="1.2" font-weight="700" fill="rgba(243,236,222,0.65)">CAPTIONS · SFX</text>
+            <text x="52" y="80" text-anchor="middle" font-family="Fraunces, serif" font-weight="600" font-size="12" fill="#f3ecde">Editor</text>
+            <text x="52" y="92" text-anchor="middle" font-family="Geist Mono, monospace" font-size="6.5" letter-spacing="1.2" font-weight="700" fill="rgba(243,236,222,0.7)">CAPTIONS · SFX</text>
           </g>
 
-          <!-- OUTPUT .mp4 -->
-          <g transform="translate(157, 920)">
-            <rect width="86" height="56" rx="12" fill="url(#mnSage)" filter="url(#mGB)" stroke="rgba(255,255,255,0.35)" stroke-width="1"/>
-            <g transform="translate(22, 28)" filter="url(#mG)">
+          <!-- ═══ NODE 7: .mp4 output ═══ -->
+          <g transform="translate(157, 898)">
+            <rect width="86" height="56" rx="12" fill="url(#gSage)" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
+            <g transform="translate(22, 28)">
               <path d="M -7 -9 L 9 0 L -7 9 Z" fill="#0c0e1a"/>
             </g>
             <text x="55" y="24" text-anchor="middle" font-family="Fraunces, serif" font-weight="700" font-size="14" fill="#0c0e1a">.mp4</text>
-            <text x="55" y="36" text-anchor="middle" font-family="Geist Mono, monospace" font-weight="700" font-size="6" letter-spacing="1.1" fill="rgba(12,14,26,0.7)">PUBLISH</text>
-            <text x="55" y="48" text-anchor="middle" font-family="Geist Mono, monospace" font-weight="600" font-size="5.5" letter-spacing="0.9" fill="rgba(12,14,26,0.5)">TT · REELS · YT</text>
+            <text x="55" y="37" text-anchor="middle" font-family="Geist Mono, monospace" font-weight="700" font-size="6" letter-spacing="1.1" fill="rgba(12,14,26,0.72)">PUBLISH</text>
+            <text x="55" y="49" text-anchor="middle" font-family="Geist Mono, monospace" font-weight="600" font-size="5.5" letter-spacing="0.9" fill="rgba(12,14,26,0.52)">TT · REELS · YT</text>
           </g>
+
         </svg>
       </div>
 
