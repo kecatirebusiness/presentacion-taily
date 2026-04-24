@@ -1,0 +1,2276 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Taily · AI Influencer System · Daily Brief</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..900,0..100;1,9..144,300..900,0..100&family=Geist:wght@300..800&family=Geist+Mono:wght@300..700&display=swap" rel="stylesheet" />
+<style>
+/* ═══════════════════════════════════════════════════════════════════════════
+   TAILY — DAILY PITCH DECK · v2 "MIDNIGHT LAB"
+   Dark cinematic · cobalt glow · flowing pipeline · animated diagrams
+═══════════════════════════════════════════════════════════════════════════ */
+
+:root{
+  /* core palette */
+  --night:        #07091A;
+  --night-2:      #0b0f25;
+  --night-3:      #131838;
+  --ink:          #0a0b16;
+  --cream:        #f3ecde;
+  --cream-soft:   #e9e1d0;
+  --paper:        #faf6ed;
+
+  /* brand */
+  --cobalt:       #155DD7;
+  --cobalt-bright:#2e7cf4;
+  --cobalt-deep:  #0b3d9c;
+  --cobalt-glow:  rgba(46,124,244,0.55);
+  --coral:        #ff6a4d;
+  --coral-glow:   rgba(255,106,77,0.5);
+  --mustard:      #f0b52d;
+  --sage:         #83a472;
+  --lilac:        #b3a6ff;
+
+  /* character accents (one per influencer) */
+  --c-frank:   #4d86ff;     /* cobalt-leaning */
+  --c-yuki:    #ff7ab3;     /* hot pink */
+  --c-lupe:    #e07841;     /* burnt orange */
+  --c-marcus:  #d4a563;     /* earth warm */
+  --c-niamh:   #ff8050;     /* coral-orange */
+
+  /* typography */
+  --ff-display: "Fraunces", "Times New Roman", serif;
+  --ff-body:    "Geist", system-ui, sans-serif;
+  --ff-mono:    "Geist Mono", ui-monospace, monospace;
+}
+
+*,*::before,*::after{ box-sizing:border-box; }
+html,body{ margin:0; height:100%; background:var(--night); color:var(--cream); overflow:hidden; }
+body{
+  font-family: var(--ff-body);
+  font-size: 16px;
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  cursor: default;
+}
+::selection{ background: var(--cobalt); color: var(--cream); }
+img{ display:block; }
+
+/* ═════════ ATMOSPHERE LAYERS (global) ═════════════════════════════════════ */
+.atmosphere{
+  position: fixed; inset: 0; z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.mesh{
+  position: absolute; inset: -20%;
+  background:
+    radial-gradient(55% 60% at 18% 22%, rgba(21,93,215,0.35), transparent 60%),
+    radial-gradient(45% 50% at 82% 78%, rgba(255,106,77,0.22), transparent 65%),
+    radial-gradient(38% 45% at 75% 15%, rgba(179,166,255,0.15), transparent 70%);
+  filter: blur(40px);
+  animation: meshDrift 28s ease-in-out infinite alternate;
+}
+@keyframes meshDrift{
+  from{ transform: translate(-3%, -2%) scale(1); }
+  to  { transform: translate(3%, 2%)   scale(1.08); }
+}
+
+.grid-overlay{
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(to right, rgba(255,255,255,0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,0.035) 1px, transparent 1px);
+  background-size: 80px 80px;
+  mask-image: radial-gradient(ellipse at center, black 40%, transparent 85%);
+}
+
+.grain{
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='2' seed='11'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.8'/></svg>");
+  opacity: 0.09;
+  mix-blend-mode: overlay;
+}
+
+.particles{ position: absolute; inset: 0; }
+.particle{
+  position: absolute;
+  width: 3px; height: 3px;
+  border-radius: 50%;
+  background: var(--cobalt-bright);
+  box-shadow: 0 0 10px 2px var(--cobalt-glow);
+  opacity: 0;
+  animation: particleFloat var(--dur, 14s) linear infinite;
+  animation-delay: var(--delay, 0s);
+}
+@keyframes particleFloat{
+  0%  { transform: translate(var(--x, 0), 110vh) scale(0.6); opacity: 0; }
+  10% { opacity: var(--op, 0.8); }
+  90% { opacity: var(--op, 0.8); }
+  100%{ transform: translate(calc(var(--x, 0) + var(--drift, 40px)), -10vh) scale(1.2); opacity: 0; }
+}
+
+/* ═════════ DECK & SLIDES ══════════════════════════════════════════════════ */
+.deck{
+  position: fixed; inset: 0; z-index: 1;
+}
+.slide{
+  position: absolute; inset: 0;
+  padding: 60px 80px 80px;
+  opacity: 0;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+}
+.slide.active{
+  opacity: 1;
+  pointer-events: auto;
+  animation: slideIn 560ms cubic-bezier(.2,.8,.2,1) both;
+}
+@keyframes slideIn{
+  from{ opacity: 0; transform: scale(0.99) translateY(12px); }
+  to  { opacity: 1; transform: scale(1)     translateY(0); }
+}
+
+/* stagger utilities */
+.anim{ opacity: 0; }
+.slide.active .anim{ animation: rise 780ms cubic-bezier(.18,.8,.2,1) both; }
+.slide.active .d1 { animation-delay: 120ms; }
+.slide.active .d2 { animation-delay: 220ms; }
+.slide.active .d3 { animation-delay: 320ms; }
+.slide.active .d4 { animation-delay: 420ms; }
+.slide.active .d5 { animation-delay: 520ms; }
+.slide.active .d6 { animation-delay: 620ms; }
+.slide.active .d7 { animation-delay: 720ms; }
+.slide.active .d8 { animation-delay: 820ms; }
+.slide.active .d9 { animation-delay: 920ms; }
+
+@keyframes rise{
+  from{ opacity: 0; transform: translateY(26px); filter: blur(6px); }
+  to  { opacity: 1; transform: translateY(0);    filter: blur(0); }
+}
+@keyframes fadeOnly{
+  from{ opacity: 0; }
+  to  { opacity: 1; }
+}
+@keyframes glowPulse{
+  0%,100%{ filter: drop-shadow(0 0 10px var(--cobalt-glow)); }
+  50%    { filter: drop-shadow(0 0 22px var(--cobalt-glow)); }
+}
+@keyframes spinSlow{
+  to{ transform: rotate(360deg); }
+}
+@keyframes marquee{
+  to{ transform: translateX(-50%); }
+}
+@keyframes breathe{
+  0%,100%{ transform: scale(1); opacity: 0.9; }
+  50%    { transform: scale(1.04); opacity: 1; }
+}
+
+/* ═════════ TYPOGRAPHY ═════════════════════════════════════════════════════ */
+.display{
+  font-family: var(--ff-display);
+  font-weight: 400;
+  font-variation-settings: "opsz" 144, "SOFT" 90;
+  letter-spacing: -0.035em;
+  line-height: 0.9;
+  color: var(--cream);
+}
+.display em{
+  font-style: italic;
+  font-variation-settings: "opsz" 144, "SOFT" 100;
+  color: var(--cobalt-bright);
+  text-shadow: 0 0 40px var(--cobalt-glow);
+}
+.display em.coral{ color: var(--coral); text-shadow: 0 0 40px var(--coral-glow); }
+
+.eyebrow{
+  font-family: var(--ff-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(243,236,222,0.55);
+  display: inline-flex; align-items:center; gap: 10px;
+}
+.eyebrow::before{
+  content: "";
+  width: 22px; height: 1.5px;
+  background: currentColor;
+  display: inline-block;
+}
+
+.lede{
+  font-family: var(--ff-display);
+  font-style: italic;
+  font-weight: 320;
+  font-variation-settings: "opsz" 48, "SOFT" 100;
+  line-height: 1.18;
+  color: rgba(243,236,222,0.78);
+  letter-spacing: -0.01em;
+}
+
+.mono{ font-family: var(--ff-mono); }
+
+.pill{
+  display:inline-flex; align-items:center; gap: 8px;
+  padding: 7px 14px;
+  border: 1px solid rgba(243,236,222,0.28);
+  border-radius: 999px;
+  font-family: var(--ff-mono);
+  font-size: 10.5px; font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  background: rgba(243,236,222,0.04);
+  color: var(--cream);
+  backdrop-filter: blur(8px);
+}
+.pill .dot{
+  width: 6px; height:6px; border-radius:50%;
+  background: currentColor;
+  box-shadow: 0 0 10px currentColor;
+  animation: breathe 2.4s ease-in-out infinite;
+}
+.pill.cobalt{ color: var(--cream); background: linear-gradient(180deg, #2e7cf4, #0c3fa0); border-color: rgba(255,255,255,0.25); box-shadow: 0 8px 24px -8px var(--cobalt-glow); }
+.pill.coral { color: var(--paper); background: linear-gradient(180deg, #ff8566, var(--coral)); border-color: rgba(255,255,255,0.25); box-shadow: 0 8px 24px -8px var(--coral-glow); }
+.pill.cream { color: var(--ink); background: var(--cream); border-color: var(--cream); }
+.pill.ghost { color: rgba(243,236,222,0.72); }
+
+/* ═════════ HUD ════════════════════════════════════════════════════════════ */
+.hud{ position: fixed; inset: 0; z-index: 40; pointer-events: none; }
+.hud-top, .hud-bottom{
+  position: absolute; left: 28px; right: 28px;
+  display: flex; justify-content: space-between; align-items: center;
+  font-family: var(--ff-mono); font-size: 10.5px; font-weight: 500;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: rgba(243,236,222,0.55);
+}
+.hud-top   { top: 22px; }
+.hud-bottom{ bottom: 22px; align-items:flex-end; }
+
+.brand-lock{ display:flex; align-items:center; gap: 12px; }
+.brand-lock .logo-mini{
+  width: 22px; height: 22px;
+  background: linear-gradient(135deg, var(--cobalt-bright), var(--cobalt-deep));
+  border-radius: 7px;
+  display: grid; place-items:center;
+  box-shadow: 0 0 16px var(--cobalt-glow);
+  animation: breathe 3.6s ease-in-out infinite;
+}
+.brand-lock .logo-mini svg{ width:13px; height:13px; }
+.brand-lock .wordmark{
+  font-family: var(--ff-display);
+  font-weight: 700;
+  font-variation-settings: "opsz" 72, "SOFT" 100;
+  font-size: 20px;
+  letter-spacing: -0.04em;
+  color: var(--cream);
+  text-transform: none;
+}
+.brand-lock .wordmark sup{ font-family: var(--ff-mono); font-size: 9px; opacity: 0.7; margin-left: 4px; }
+.brand-lock .sep{ color: rgba(243,236,222,0.25); margin: 0 4px; }
+
+.progress{
+  display:flex; gap: 5px; align-items:center;
+}
+.progress .tick{
+  width: 24px; height: 3px; border-radius: 2px;
+  background: rgba(243,236,222,0.15);
+  transition: background 300ms, width 360ms cubic-bezier(.3,.8,.3,1);
+}
+.progress .tick.active{
+  background: var(--cobalt-bright);
+  width: 48px;
+  box-shadow: 0 0 10px var(--cobalt-glow);
+}
+.progress .tick.done{ background: rgba(243,236,222,0.45); }
+
+.slide-title-hud{
+  color: rgba(243,236,222,0.62);
+  display:flex; align-items:center; gap: 16px;
+}
+.slide-title-hud .num-hud{
+  font-family: var(--ff-display);
+  font-variation-settings: "opsz" 48, "SOFT" 0;
+  font-weight: 400; font-size: 18px;
+  color: var(--cobalt-bright);
+  letter-spacing: -0.02em;
+  text-transform: none;
+}
+
+.keyhints{
+  display: flex; gap: 18px; align-items:center;
+}
+.keyhints .kh{ display:flex; align-items:center; gap: 7px; }
+.keycap{
+  display: inline-grid; place-items:center;
+  min-width: 22px; height: 22px; padding: 0 7px;
+  background: rgba(243,236,222,0.08);
+  border: 1px solid rgba(243,236,222,0.25);
+  border-bottom-width: 2.2px;
+  border-radius: 6px;
+  font-family: var(--ff-mono);
+  font-size: 11px; font-weight: 700;
+  color: var(--cream);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
+}
+
+/* Big side numeral */
+.side-num{
+  position: absolute; right: 34px; bottom: 44px;
+  font-family: var(--ff-display);
+  font-weight: 300;
+  font-variation-settings: "opsz" 144, "SOFT" 0;
+  font-size: clamp(200px, 22vw, 340px);
+  line-height: 0.78;
+  color: transparent;
+  background: linear-gradient(180deg, rgba(255,255,255,0.07), transparent 70%);
+  -webkit-background-clip: text;
+          background-clip: text;
+  pointer-events: none;
+  user-select: none;
+  letter-spacing: -0.05em;
+}
+
+/* Glass panels reused */
+.glass{
+  background: linear-gradient(160deg, rgba(255,255,255,0.055), rgba(255,255,255,0.02));
+  backdrop-filter: blur(14px) saturate(130%);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.06) inset,
+    0 24px 60px -30px rgba(0,0,0,0.8);
+}
+
+/* ═════════ SLIDE 01 · COVER ═══════════════════════════════════════════════ */
+.cover{
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 60px;
+  height: 100%;
+  align-items: stretch;
+}
+.cover-left{ display:flex; flex-direction:column; justify-content:space-between; padding: 20px 0 40px; }
+.cover h1{
+  margin: 0;
+  font-size: clamp(80px, 10vw, 164px);
+  font-variation-settings: "opsz" 144, "SOFT" 100;
+  font-weight: 400;
+}
+.cover h1 .line1{ display:block; }
+.cover h1 .line2{ display:block; font-style: italic; }
+.cover h1 .line3{ display:block; }
+.cover h1 .ampersand{
+  display: inline-block;
+  font-style: italic;
+  color: var(--coral);
+  text-shadow: 0 0 40px var(--coral-glow);
+  transform: translateY(10px);
+}
+.cover .tagline{
+  max-width: 520px;
+  margin-top: 22px;
+  font-size: 20px;
+}
+.cover-tags{ display:flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+.cover-meta{
+  font-family: var(--ff-mono); font-size: 10.5px;
+  color: rgba(243,236,222,0.45);
+  letter-spacing: 0.22em; text-transform: uppercase;
+}
+
+/* Portrait collage on the right */
+.collage{
+  position: relative;
+  height: 100%;
+}
+.collage .p-slot{
+  position: absolute;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 30px 90px -20px rgba(0,0,0,0.8),
+              0 0 0 1px rgba(255,255,255,0.08) inset;
+  animation: floatSlot var(--d, 10s) ease-in-out infinite alternate;
+  transform-origin: center;
+}
+.collage .p-slot::after{
+  content: ""; position:absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.55));
+  pointer-events: none;
+}
+.collage .p-slot img{
+  width: 100%; height: 100%; object-fit: cover; object-position: top center;
+}
+.collage .p-slot .slot-label{
+  position:absolute; left: 12px; bottom: 12px;
+  font-family: var(--ff-mono);
+  font-size: 10px; font-weight: 600;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--cream);
+  display:flex; justify-content:space-between; align-items:center;
+  width: calc(100% - 24px);
+}
+.collage .p-slot .slot-label .tag-dot{
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--cobalt-bright);
+  box-shadow: 0 0 8px var(--cobalt-glow);
+  animation: breathe 1.8s ease-in-out infinite;
+}
+@keyframes floatSlot{
+  from{ transform: translate(0,0) rotate(var(--r, 0deg)); }
+  to  { transform: translate(var(--dx, 6px), var(--dy, -8px)) rotate(calc(var(--r, 0deg) + 0.8deg)); }
+}
+
+/* Cover ticker */
+.cover-ticker{
+  position: absolute; left: 0; right: 0; bottom: -8px;
+  overflow: hidden;
+  border-top: 1px solid rgba(243,236,222,0.08);
+  border-bottom: 1px solid rgba(243,236,222,0.08);
+  padding: 12px 0;
+  background: rgba(0,0,0,0.25);
+  backdrop-filter: blur(8px);
+}
+.cover-ticker .track{
+  display: flex; gap: 44px; align-items: center;
+  width: max-content;
+  animation: marquee 44s linear infinite;
+  white-space: nowrap;
+}
+.cover-ticker .track span{
+  font-family: var(--ff-mono); font-size: 11px; font-weight: 500;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: rgba(243,236,222,0.7);
+}
+.cover-ticker .track .sep{
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--cobalt-bright);
+  box-shadow: 0 0 8px var(--cobalt-glow);
+}
+
+/* ═════════ SLIDE 02 · WHAT IS TAILY ═══════════════════════════════════════ */
+.two-col{
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 56px;
+  height: 100%;
+  align-items: center;
+}
+.two-col h2{
+  font-size: clamp(60px, 7.4vw, 120px);
+  margin: 18px 0 24px;
+  font-variation-settings: "opsz" 144, "SOFT" 100;
+}
+
+.fact-list{
+  display: flex; flex-direction: column; gap: 2px;
+  margin-top: 28px;
+  border-top: 1px solid rgba(243,236,222,0.14);
+}
+.fact-list .fact{
+  display: grid; grid-template-columns: 150px 1fr;
+  gap: 28px; padding: 18px 0;
+  border-bottom: 1px solid rgba(243,236,222,0.1);
+  align-items: baseline;
+}
+.fact .k{
+  font-family: var(--ff-mono); font-size: 10.5px; font-weight: 500;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: rgba(243,236,222,0.5);
+}
+.fact .v{
+  font-family: var(--ff-display);
+  font-variation-settings: "opsz" 48, "SOFT" 100;
+  font-weight: 400;
+  font-size: 22px; line-height: 1.2;
+  color: var(--cream);
+}
+.fact .v strong{ color: var(--cobalt-bright); font-weight: 600; }
+.fact .v em{ font-style: italic; color: var(--coral); }
+
+/* Product card */
+.product-card{
+  position: relative;
+  height: 78%;
+  border-radius: 18px;
+  padding: 40px;
+  overflow: hidden;
+  color: var(--cream);
+  background:
+    radial-gradient(130% 110% at 0% 0%, rgba(255,255,255,0.28) 0%, transparent 45%),
+    linear-gradient(155deg, #184d9a 0%, #0c3fa0 40%, #081f55 100%);
+  box-shadow:
+    0 40px 90px -30px rgba(11,63,156,0.7),
+    0 0 0 1px rgba(255,255,255,0.1) inset;
+  display: flex; flex-direction: column; justify-content: space-between;
+}
+.product-card .shine{
+  position: absolute; inset: -40%;
+  background: conic-gradient(from 0deg, transparent 0deg, rgba(255,255,255,0.12) 60deg, transparent 120deg);
+  animation: spinSlow 14s linear infinite;
+  pointer-events: none;
+  opacity: 0.6;
+}
+.product-card .head .eyebrow{ color: rgba(243,236,222,0.7); }
+.product-card h3{
+  font-family: var(--ff-display); font-weight: 500;
+  font-variation-settings: "opsz" 144, "SOFT" 90;
+  font-size: 48px; line-height: 1; letter-spacing: -0.035em;
+  margin: 12px 0 6px;
+}
+.product-card .sku{
+  font-family: var(--ff-mono); font-size: 11px; letter-spacing: 0.2em;
+  text-transform: uppercase; color: rgba(243,236,222,0.7);
+}
+.product-card .price{
+  font-family: var(--ff-display);
+  font-weight: 500; font-size: 78px; line-height: 0.95;
+  letter-spacing: -0.05em;
+  text-shadow: 0 2px 30px rgba(0,0,0,0.35);
+}
+.product-card .price sup{ font-size: 24px; font-weight: 400; vertical-align: super; margin-right: 6px; }
+.product-card ul{
+  list-style: none; margin: 0; padding: 0;
+  display: flex; flex-direction: column; gap: 9px;
+  font-family: var(--ff-mono); font-size: 12px;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  color: rgba(243,236,222,0.9);
+}
+.product-card ul li::before{ content: "✦"; color: var(--coral); margin-right: 12px; }
+
+.product-card .bottle-viz{
+  position: absolute;
+  right: 28px; bottom: 30px;
+  width: 140px; height: 210px;
+  transform: rotate(-6deg);
+}
+.product-card .bottle-viz svg{ width: 100%; height: 100%; filter: drop-shadow(0 20px 30px rgba(0,0,0,0.45)); }
+
+/* ═════════ SLIDE 03 · THE GAP ═════════════════════════════════════════════ */
+.gap-wrap{ display:flex; flex-direction:column; height: 100%; }
+.gap-wrap .heading{
+  display:grid; grid-template-columns: 1fr auto; gap: 40px; align-items:end;
+  margin-bottom: 36px;
+}
+.gap-wrap h2{
+  font-size: clamp(70px, 9vw, 148px);
+  margin: 14px 0 0;
+}
+.gap-wrap .heading p{
+  max-width: 460px;
+  font-size: 18px;
+  color: rgba(243,236,222,0.75);
+}
+.gap-grid{
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 26px; flex: 1;
+}
+.gap-card{
+  position: relative;
+  padding: 30px;
+  border-radius: 16px;
+  display: flex; flex-direction: column; justify-content: space-between;
+  overflow: hidden;
+  min-height: 320px;
+}
+.gap-card .head-row{ display:flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+.gap-card .num-mega{
+  font-family: var(--ff-display);
+  font-variation-settings: "opsz" 144, "SOFT" 0;
+  font-weight: 300;
+  font-size: clamp(110px, 13vw, 210px);
+  line-height: 0.78;
+  letter-spacing: -0.06em;
+  color: var(--cream);
+}
+.gap-card .caption{
+  font-family: var(--ff-display);
+  font-weight: 380;
+  font-variation-settings: "opsz" 48, "SOFT" 100;
+  font-style: italic;
+  font-size: 22px; line-height: 1.22;
+  margin-top: 12px;
+  color: rgba(243,236,222,0.88);
+}
+.gap-card.muted{
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.gap-card.dark{
+  background:
+    radial-gradient(140% 120% at 100% 100%, rgba(240,181,45,0.25) 0%, transparent 50%),
+    linear-gradient(160deg, #1a1d2e 0%, #0a0d1f 100%);
+  border: 1px solid rgba(240,181,45,0.2);
+}
+.gap-card.dark .num-mega{ color: var(--mustard); }
+.gap-card.cobalt{
+  background:
+    radial-gradient(130% 110% at 0% 0%, rgba(255,255,255,0.3) 0%, transparent 45%),
+    linear-gradient(155deg, #1e5ecc 0%, #0c3fa0 60%, #072565 100%);
+  color: var(--cream);
+  box-shadow: 0 30px 90px -20px rgba(21,93,215,0.5);
+}
+.gap-card.cobalt .num-mega{ color: var(--cream); }
+
+.scribble{ position: absolute; pointer-events: none; }
+.scribble path{
+  fill: none; stroke: var(--coral); stroke-width: 3;
+  stroke-linecap: round; stroke-linejoin: round;
+  stroke-dasharray: 900; stroke-dashoffset: 900;
+}
+.slide.active .scribble path{
+  animation: scribbleDraw 1.4s 0.7s cubic-bezier(.4,.9,.3,1) forwards;
+}
+@keyframes scribbleDraw{ to{ stroke-dashoffset: 0; } }
+
+/* ═════════ SLIDE 04 · THESIS ══════════════════════════════════════════════ */
+.thesis{
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 56px;
+  height: 100%;
+  align-items: center;
+}
+.thesis .quote{
+  font-family: var(--ff-display);
+  font-variation-settings: "opsz" 144, "SOFT" 90;
+  font-weight: 400;
+  font-size: clamp(50px, 5.8vw, 96px);
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+}
+.thesis .quote em{
+  font-style: italic;
+  color: var(--cobalt-bright);
+  text-shadow: 0 0 40px var(--cobalt-glow);
+}
+.thesis .quote .underline{
+  position: relative; display: inline-block;
+}
+.thesis .quote .underline svg{
+  position: absolute; left: -4px; bottom: -16px; width: calc(100% + 10px);
+}
+.thesis .quote .underline svg path{
+  fill: none; stroke: var(--coral); stroke-width: 5;
+  stroke-linecap: round;
+  stroke-dasharray: 500; stroke-dashoffset: 500;
+}
+.slide.active .thesis .quote .underline svg path{
+  animation: scribbleDraw 1.2s 0.6s cubic-bezier(.5,.9,.3,1) forwards;
+}
+.support{ display:flex; flex-direction: column; gap: 16px; }
+.support .card{
+  display: grid; grid-template-columns: 58px 1fr; gap: 22px; align-items: center;
+  padding: 22px 26px;
+  border-radius: 14px;
+  background: linear-gradient(160deg, rgba(255,255,255,0.055), rgba(255,255,255,0.02));
+  border: 1px solid rgba(255,255,255,0.08);
+  backdrop-filter: blur(10px);
+}
+.support .card .n{
+  font-family: var(--ff-display); font-weight: 500;
+  font-variation-settings: "opsz" 96, "SOFT" 40;
+  font-size: 44px; line-height: 1;
+  color: var(--cobalt-bright);
+  letter-spacing: -0.04em;
+  text-shadow: 0 0 24px var(--cobalt-glow);
+}
+.support .card .t{
+  font-family: var(--ff-display);
+  font-variation-settings: "opsz" 36, "SOFT" 60;
+  font-size: 19px; line-height: 1.22;
+  color: var(--cream);
+}
+.support .card .t small{
+  display: block; margin-top: 5px;
+  font-family: var(--ff-mono); font-size: 10.5px;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(243,236,222,0.5);
+}
+
+/* ═════════ CHARACTER SLIDES (5x) ══════════════════════════════════════════ */
+.character{
+  display: grid;
+  grid-template-columns: 0.95fr 1.15fr;
+  gap: 56px;
+  height: 100%;
+  align-items: stretch;
+}
+.portrait-box{
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+  height: 100%;
+  background: #111;
+  box-shadow: 0 40px 100px -30px rgba(0,0,0,0.8);
+}
+.portrait-box img{
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  transform: scale(1.04);
+  animation: portraitDrift 22s ease-in-out infinite alternate;
+}
+@keyframes portraitDrift{
+  from{ transform: scale(1.04) translate(0,0); }
+  to  { transform: scale(1.07) translate(-6px,-4px); }
+}
+.portrait-box::after{
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(0deg, rgba(7,9,26,0.75) 0%, transparent 45%),
+              linear-gradient(90deg, rgba(7,9,26,0.18) 0%, transparent 30%);
+  pointer-events: none;
+}
+.portrait-box .stamp-tl{
+  position:absolute; top:18px; left:18px;
+  font-family: var(--ff-mono); font-size: 10.5px; font-weight: 600;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  background: rgba(10,11,22,0.7);
+  backdrop-filter: blur(6px);
+  color: var(--cream);
+  padding: 7px 12px; border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.12);
+}
+.portrait-box .stamp-tr{
+  position:absolute; top:18px; right:18px;
+  font-family: var(--ff-mono); font-size: 10px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  background: var(--c-accent);
+  color: #07091A;
+  padding: 7px 12px; border-radius: 6px;
+  box-shadow: 0 6px 20px -6px var(--c-accent);
+}
+.portrait-box .stamp-bl{
+  position: absolute; left: 18px; bottom: 18px;
+  display: flex; gap: 10px; align-items:center;
+  font-family: var(--ff-mono); font-size: 10.5px; font-weight: 500;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: rgba(243,236,222,0.9);
+}
+.portrait-box .stamp-bl .rec-dot{
+  width: 9px; height: 9px; border-radius: 50%;
+  background: var(--coral);
+  box-shadow: 0 0 12px var(--coral);
+  animation: breathe 1.2s ease-in-out infinite;
+}
+
+/* accent bar on left of info */
+.character .info{
+  display: flex; flex-direction: column;
+  justify-content: center;
+  gap: 22px;
+  padding-right: 40px;
+  border-left: 1px solid rgba(255,255,255,0.08);
+  padding-left: 40px;
+  position: relative;
+}
+.character .info::before{
+  content: ""; position: absolute; left: -1.5px; top: 50%; transform: translateY(-50%);
+  width: 3px; height: 80px;
+  background: var(--c-accent);
+  box-shadow: 0 0 20px var(--c-accent);
+}
+.character .cast-line{
+  font-family: var(--ff-mono); font-size: 11px; letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(243,236,222,0.5);
+  display:flex; align-items:center; gap: 16px;
+}
+.character .cast-line .dash{
+  flex: 1; height: 1px; background: rgba(255,255,255,0.1);
+}
+.character h2{
+  font-family: var(--ff-display);
+  font-variation-settings: "opsz" 144, "SOFT" 90;
+  font-weight: 440;
+  font-size: clamp(54px, 7vw, 108px);
+  line-height: 0.92;
+  letter-spacing: -0.04em;
+  margin: 0;
+  color: var(--cream);
+}
+.character h2 em{
+  font-style: italic;
+  color: var(--c-accent);
+  text-shadow: 0 0 40px color-mix(in srgb, var(--c-accent) 60%, transparent);
+}
+.character .alias{
+  font-family: var(--ff-display); font-style: italic;
+  font-variation-settings: "opsz" 48, "SOFT" 100;
+  font-size: 26px; color: var(--c-accent);
+  margin-top: 4px; line-height: 1;
+}
+.character .handle{
+  display: inline-flex; align-items:center; gap: 10px;
+  font-family: var(--ff-mono); font-size: 15px; font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--c-accent);
+}
+.character .handle::before{ content: "@"; opacity: 0.6; font-weight: 300; }
+.character .handle::before{ content: ""; } /* negated below; we add @ in text */
+
+/* "Speaker script" block — what the presenter reads */
+.speak{
+  position: relative;
+  padding: 22px 22px 22px 42px;
+  background: linear-gradient(160deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+  border: 1px solid rgba(255,255,255,0.08);
+  border-left: 3px solid var(--c-accent);
+  border-radius: 12px;
+  box-shadow: 0 16px 40px -16px rgba(0,0,0,0.6);
+}
+.speak::before{
+  content: "“";
+  position: absolute; left: 10px; top: -6px;
+  font-family: var(--ff-display);
+  font-weight: 700; font-size: 70px;
+  color: var(--c-accent);
+  line-height: 1;
+  opacity: 0.85;
+}
+.speak p{
+  margin: 0;
+  font-family: var(--ff-display);
+  font-variation-settings: "opsz" 48, "SOFT" 100;
+  font-weight: 380;
+  font-size: 19px;
+  line-height: 1.45;
+  color: rgba(243,236,222,0.92);
+}
+.speak p + p{ margin-top: 10px; }
+.speak p strong{
+  color: var(--c-accent);
+  font-weight: 500;
+}
+
+.spec-row{
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.spec-box{
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.03);
+  border-radius: 10px;
+  padding: 14px 16px;
+}
+.spec-box .k{
+  font-family: var(--ff-mono); font-size: 10px; font-weight: 500;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: rgba(243,236,222,0.5);
+}
+.spec-box .v{
+  margin-top: 6px;
+  font-family: var(--ff-display);
+  font-variation-settings: "opsz" 36, "SOFT" 80;
+  font-size: 16.5px; font-weight: 400;
+  line-height: 1.25;
+  color: var(--cream);
+}
+.spec-box .v strong{ color: var(--c-accent); }
+
+.viral-hooks{
+  display: flex; gap: 10px; flex-wrap: wrap;
+}
+.viral-hooks .hook{
+  font-family: var(--ff-mono); font-size: 11px; font-weight: 500;
+  letter-spacing: 0.04em;
+  padding: 8px 12px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-left: 2px solid var(--c-accent);
+  border-radius: 6px;
+  color: rgba(243,236,222,0.82);
+}
+
+/* ═════════ PIPELINE DIAGRAM SLIDE ═════════════════════════════════════════ */
+.pipe-wrap{
+  display: flex; flex-direction: column;
+  height: 100%;
+}
+.pipe-head{
+  display: grid; grid-template-columns: 1fr auto; gap: 40px;
+  align-items: end;
+  margin-bottom: 20px;
+}
+.pipe-head h2{
+  margin: 8px 0 0;
+  font-size: clamp(58px, 7.2vw, 116px);
+  font-variation-settings: "opsz" 144, "SOFT" 100;
+}
+.pipe-head p{
+  max-width: 440px;
+  font-family: var(--ff-display);
+  font-style: italic;
+  font-variation-settings: "opsz" 48, "SOFT" 100;
+  font-size: 20px;
+  color: rgba(243,236,222,0.75);
+  line-height: 1.22;
+}
+
+.pipe-canvas{
+  flex: 1;
+  position: relative;
+  margin-top: 10px;
+}
+.pipe-canvas svg.diagram{
+  width: 100%; height: 100%;
+  position: absolute; inset: 0;
+}
+
+.pipe-legend{
+  display: flex; gap: 18px; align-items:center; flex-wrap: wrap;
+  margin-top: 18px;
+  font-family: var(--ff-mono); font-size: 11px;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: rgba(243,236,222,0.55);
+}
+.pipe-legend .dot-legend{
+  display:inline-flex; align-items:center; gap: 8px;
+}
+.pipe-legend .dot-legend .d{
+  width: 9px; height: 9px; border-radius: 50%;
+  box-shadow: 0 0 10px currentColor;
+  animation: breathe 1.8s ease-in-out infinite;
+}
+
+/* ═════════ STATUS SLIDE ═══════════════════════════════════════════════════ */
+.status-head{
+  display:grid; grid-template-columns: 1fr auto; gap: 40px; align-items: end;
+  margin-bottom: 24px;
+}
+.status-head h2{
+  font-size: clamp(60px, 7vw, 118px);
+  margin: 10px 0 0;
+}
+.status-head p{
+  max-width: 480px;
+  color: rgba(243,236,222,0.75);
+  font-size: 18px;
+}
+.status-grid{
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.st-card{
+  position: relative;
+  padding: 26px;
+  border-radius: 14px;
+  min-height: 220px;
+  display: flex; flex-direction: column; gap: 14px;
+  overflow: hidden;
+  background: linear-gradient(160deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+  border: 1px solid rgba(255,255,255,0.08);
+  backdrop-filter: blur(8px);
+}
+.st-card.done{
+  background:
+    radial-gradient(120% 110% at 100% 0%, rgba(131,164,114,0.25), transparent 55%),
+    linear-gradient(160deg, rgba(131,164,114,0.14), rgba(255,255,255,0.02));
+  border-color: rgba(131,164,114,0.4);
+}
+.st-card.gate{
+  background:
+    radial-gradient(120% 110% at 100% 0%, rgba(255,106,77,0.28), transparent 55%),
+    linear-gradient(160deg, rgba(255,106,77,0.12), rgba(255,255,255,0.02));
+  border-color: rgba(255,106,77,0.4);
+}
+.st-card .top{
+  display:flex; justify-content:space-between; align-items: flex-start;
+}
+.st-card .num{
+  font-family: var(--ff-display);
+  font-variation-settings: "opsz" 144, "SOFT" 40;
+  font-weight: 400; font-size: 78px; line-height: 0.9;
+  letter-spacing: -0.04em;
+  color: var(--cobalt-bright);
+  text-shadow: 0 0 30px var(--cobalt-glow);
+}
+.st-card.done .num{ color: var(--sage); text-shadow: 0 0 30px rgba(131,164,114,0.5); }
+.st-card.gate .num{ color: var(--coral); text-shadow: 0 0 30px var(--coral-glow); }
+.st-card h4{
+  font-family: var(--ff-display);
+  font-variation-settings: "opsz" 96, "SOFT" 80;
+  font-weight: 500; font-size: 26px; line-height: 1.05;
+  margin: 0; letter-spacing: -0.025em;
+}
+.st-card .descr{
+  font-size: 14px; line-height: 1.45;
+  color: rgba(243,236,222,0.8);
+}
+
+/* ═════════ NEXT STEPS SLIDE ═══════════════════════════════════════════════ */
+.next{
+  display: grid; grid-template-columns: 1.1fr 1fr;
+  gap: 56px; height: 100%; align-items: center;
+}
+.next h2{
+  font-size: clamp(56px, 7vw, 108px);
+  margin: 10px 0 24px;
+}
+.step-list{ list-style:none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 14px; }
+.step-list li{
+  display: grid; grid-template-columns: 56px 1fr auto; gap: 20px; align-items:center;
+  padding: 18px 22px;
+  border-radius: 12px;
+  background: linear-gradient(160deg, rgba(255,255,255,0.055), rgba(255,255,255,0.02));
+  border: 1px solid rgba(255,255,255,0.08);
+  transition: transform .4s, border-color .4s;
+}
+.step-list li:hover{
+  transform: translateX(6px);
+  border-color: var(--cobalt-bright);
+}
+.step-list .num-step{
+  font-family: var(--ff-display);
+  font-variation-settings: "opsz" 96, "SOFT" 40;
+  font-weight: 500; font-size: 42px;
+  line-height: 1;
+  color: var(--cobalt-bright);
+  letter-spacing: -0.04em;
+  text-shadow: 0 0 16px var(--cobalt-glow);
+}
+.step-list .t{
+  font-family: var(--ff-display);
+  font-variation-settings: "opsz" 48, "SOFT" 70;
+  font-size: 20px; line-height: 1.2;
+  color: var(--cream);
+}
+.step-list .t small{
+  display:block; margin-top: 5px;
+  font-family: var(--ff-mono); font-size: 10.5px;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: rgba(243,236,222,0.5);
+}
+
+.kpi-grid{
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+.kpi{
+  position: relative; overflow: hidden;
+  padding: 22px;
+  border-radius: 12px;
+  background: linear-gradient(160deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.kpi.dark{ background: linear-gradient(160deg, #131838, #07091a); border-color: rgba(255,255,255,0.06); }
+.kpi.coral{ background: linear-gradient(160deg, rgba(255,106,77,0.22), rgba(255,106,77,0.06)); border-color: rgba(255,106,77,0.3); }
+.kpi .n{
+  font-family: var(--ff-display);
+  font-variation-settings: "opsz" 144, "SOFT" 40;
+  font-weight: 400; font-size: 56px; line-height: 0.95;
+  color: var(--cobalt-bright); letter-spacing: -0.04em;
+  text-shadow: 0 0 20px var(--cobalt-glow);
+}
+.kpi.dark .n{ color: var(--mustard); text-shadow: 0 0 20px rgba(240,181,45,0.4); }
+.kpi.coral .n{ color: var(--coral); text-shadow: 0 0 20px var(--coral-glow); }
+.kpi .lbl{
+  margin-top: 6px;
+  font-family: var(--ff-mono); font-size: 10.5px; font-weight: 500;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(243,236,222,0.6);
+}
+
+/* ═════════ CLOSE SLIDE ════════════════════════════════════════════════════ */
+.close{
+  display: grid; place-items: center;
+  text-align: center; height: 100%;
+  position: relative;
+}
+.close .mega{
+  font-family: var(--ff-display);
+  font-variation-settings: "opsz" 144, "SOFT" 100;
+  font-weight: 430;
+  font-size: clamp(100px, 14vw, 240px);
+  line-height: 0.86;
+  letter-spacing: -0.05em;
+}
+.close .mega em{
+  font-style: italic;
+  color: var(--cobalt-bright);
+  text-shadow: 0 0 60px var(--cobalt-glow);
+}
+.close .mega em.coral{ color: var(--coral); text-shadow: 0 0 60px var(--coral-glow); }
+.close .sub{
+  margin-top: 26px;
+  font-family: var(--ff-display);
+  font-style: italic;
+  font-variation-settings: "opsz" 48, "SOFT" 100;
+  font-size: 26px; color: rgba(243,236,222,0.7);
+}
+.close .signoff{
+  margin-top: 44px;
+  display: flex; gap: 14px; justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* orbit decoration on close */
+.close .orbit{
+  position: absolute;
+  top: 50%; left: 50%; transform: translate(-50%,-50%);
+  width: 90vmin; height: 90vmin;
+  border-radius: 50%;
+  border: 1px dashed rgba(255,255,255,0.08);
+  animation: spinSlow 80s linear infinite;
+  pointer-events: none;
+}
+.close .orbit::before, .close .orbit::after{
+  content: ""; position: absolute;
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--cobalt-bright);
+  box-shadow: 0 0 14px var(--cobalt-glow);
+}
+.close .orbit::before{ top: -5px; left: 50%; transform: translateX(-50%); }
+.close .orbit::after{ bottom: -5px; left: 20%; background: var(--coral); box-shadow: 0 0 14px var(--coral-glow); }
+
+/* ═════════ POINTER MODE ═══════════════════════════════════════════════════ */
+body.pointer-on, body.pointer-on *{ cursor: none !important; }
+.ptr{
+  position: fixed; z-index: 95; pointer-events: none;
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--coral) 30%, transparent 72%);
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  filter: drop-shadow(0 0 12px var(--coral));
+}
+.ptr.on{ opacity: 1; }
+.ptr::before{
+  content: ""; position: absolute; inset: -20px;
+  border-radius: 50%;
+  border: 1.5px solid var(--coral);
+  animation: ptrPulse 1.5s ease-out infinite;
+}
+.ptr::after{
+  content: ""; position: absolute; inset: -50px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,106,77,0.28);
+  animation: ptrPulse 1.5s 0.4s ease-out infinite;
+}
+@keyframes ptrPulse{
+  0%{ transform: scale(0.6); opacity: 0.9; }
+  100%{ transform: scale(1.4); opacity: 0; }
+}
+.ptr-trail{
+  position: fixed; z-index: 94; pointer-events: none;
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--coral);
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  filter: blur(1px);
+}
+
+/* ═════════ KEY GHOST ═════════════════════════════════════════════════════ */
+.key-ghost{
+  position: fixed; z-index: 110; pointer-events: none;
+  font-family: var(--ff-display); font-weight: 600;
+  font-variation-settings: "opsz" 144, "SOFT" 0;
+  font-size: 180px; line-height: 1;
+  color: var(--cobalt-bright);
+  letter-spacing: -0.06em;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  text-shadow: 0 0 60px var(--cobalt-glow);
+}
+.key-ghost.on{ animation: ghostFlash 620ms cubic-bezier(.2,.8,.2,1) both; }
+@keyframes ghostFlash{
+  0%  { opacity: 0; transform: translate(-50%,-50%) scale(0.4); }
+  30% { opacity: 0.8; transform: translate(-50%,-50%) scale(1); }
+  100%{ opacity: 0; transform: translate(-50%,-50%) scale(1.8); }
+}
+
+/* ═════════ TOAST ══════════════════════════════════════════════════════════ */
+.toast{
+  position: fixed; left: 50%; bottom: 70px;
+  transform: translateX(-50%);
+  background: rgba(7,9,26,0.9);
+  backdrop-filter: blur(14px);
+  color: var(--cream);
+  padding: 14px 22px;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 999px;
+  font-family: var(--ff-mono); font-size: 12px; font-weight: 500;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  display: flex; align-items: center; gap: 14px;
+  z-index: 200;
+  opacity: 0;
+  animation: toastIn 6.5s 0.5s ease-out both;
+  box-shadow: 0 20px 60px -10px rgba(0,0,0,0.8);
+}
+.toast .kk{
+  background: rgba(255,255,255,0.1);
+  color: var(--cream);
+  padding: 3px 7px; border-radius: 5px;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-bottom-width: 2px;
+}
+@keyframes toastIn{
+  0%   { opacity: 0; transform: translate(-50%, 12px); }
+  8%   { opacity: 1; transform: translate(-50%, 0); }
+  88%  { opacity: 1; transform: translate(-50%, 0); }
+  100% { opacity: 0; transform: translate(-50%, -6px); }
+}
+
+/* transition classes */
+.slide.leaving-left  { animation: leaveL 420ms cubic-bezier(.4,.2,.6,1) both; }
+.slide.leaving-right { animation: leaveR 420ms cubic-bezier(.4,.2,.6,1) both; }
+.slide.entering-left { animation: enterL 500ms cubic-bezier(.22,.82,.3,1) both; }
+.slide.entering-right{ animation: enterR 500ms cubic-bezier(.22,.82,.3,1) both; }
+@keyframes leaveL { to{ opacity:0; transform: translateX(-5vw) scale(0.98); filter: blur(6px); } }
+@keyframes leaveR { to{ opacity:0; transform: translateX( 5vw) scale(0.98); filter: blur(6px); } }
+@keyframes enterL { from{ opacity:0; transform: translateX( 5vw) scale(0.98); filter: blur(6px); } }
+@keyframes enterR { from{ opacity:0; transform: translateX(-5vw) scale(0.98); filter: blur(6px); } }
+
+/* responsive */
+@media (max-width: 1280px){
+  .slide{ padding: 40px 48px 60px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ATMOSPHERE -->
+<div class="atmosphere">
+  <div class="mesh"></div>
+  <div class="grid-overlay"></div>
+  <div class="particles" id="particles"></div>
+  <div class="grain"></div>
+</div>
+
+<!-- HUD -->
+<div class="hud">
+  <div class="hud-top">
+    <div class="brand-lock">
+      <span class="logo-mini">
+        <svg viewBox="0 0 14 14" fill="none"><path d="M3 7.5 L6 10 L11 4" stroke="#f3ecde" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+      <span class="wordmark">taily<sup>®</sup></span>
+      <span class="sep">/</span>
+      <span style="letter-spacing: 0.22em;">Daily Brief · 2026.04</span>
+    </div>
+    <div class="progress" id="progress"></div>
+  </div>
+  <div class="hud-bottom">
+    <div class="slide-title-hud">
+      <span class="num-hud" id="num-hud">01</span>
+      <span id="slide-title-lbl">—</span>
+    </div>
+    <div class="keyhints">
+      <div class="kh"><span class="keycap">←</span><span class="keycap">→</span> navegar</div>
+      <div class="kh"><span class="keycap">E</span> fullscreen</div>
+      <div class="kh"><span class="keycap">P</span> puntero</div>
+      <div class="kh" id="slide-count">01 / 13</div>
+    </div>
+  </div>
+</div>
+
+<!-- POINTER + KEY GHOST -->
+<div class="ptr" id="ptr"></div>
+<div class="key-ghost" id="key-ghost"></div>
+
+<!-- TOAST (first time) -->
+<div class="toast">
+  Usa <span class="kk">←</span> <span class="kk">→</span> para navegar · <span class="kk">E</span> fullscreen · <span class="kk">P</span> puntero
+</div>
+
+<!-- DECK -->
+<div class="deck" id="deck">
+
+  <!-- ══ SLIDE 01 — COVER ═══════════════════════════════════════════════ -->
+  <section class="slide active" data-title="Cover">
+    <div class="cover">
+      <div class="cover-left">
+        <div>
+          <div class="anim d1" style="display:flex; gap: 10px; margin-bottom: 28px; flex-wrap:wrap;">
+            <span class="pill cobalt"><span class="dot"></span>Internal · Daily Brief</span>
+            <span class="pill"><span class="dot"></span>v0.1 · abril 2026</span>
+          </div>
+          <h1 class="display anim d2">
+            <span class="line1">How we sell</span>
+            <span class="line2"><em>Taily</em> <span class="ampersand">&</span></span>
+            <span class="line3">never film.</span>
+          </h1>
+          <p class="lede tagline anim d3">
+            Un sistema de 5 influencers generados por IA para convertir a Taily en la marca de referencia en el sector perro — sin cámaras, sin casting, sin días de rodaje.
+          </p>
+          <div class="cover-tags anim d4">
+            <span class="pill"><span class="dot"></span>Kevin R.</span>
+            <span class="pill"><span class="dot" style="color: var(--cobalt-bright);"></span>Para Daily</span>
+            <span class="pill"><span class="dot" style="color: var(--coral);"></span>13 slides · 8 min</span>
+          </div>
+        </div>
+        <div class="cover-meta anim d5">↳ Taily AI-Influencer System · Briefing 001</div>
+      </div>
+
+      <div class="collage">
+        <div class="p-slot anim d3" style="width: 48%; aspect-ratio: 4/5; top: 4%; right: 36%; --r: -6deg; --d: 14s; --dx: 6px; --dy: -8px;">
+          <img src="presentacion_assets/frank_headshot.jpg" alt="Frank">
+          <div class="slot-label"><span>#01 · Frank</span><span class="tag-dot"></span></div>
+        </div>
+        <div class="p-slot anim d4" style="width: 44%; aspect-ratio: 3/4; top: 18%; right: 2%; --r: 5deg; --d: 11s; --dx: -8px; --dy: 6px;">
+          <img src="presentacion_assets/yuki.jpg" alt="Yuki">
+          <div class="slot-label"><span>#02 · Yuki</span><span class="tag-dot" style="background: var(--c-yuki); box-shadow: 0 0 8px var(--c-yuki);"></span></div>
+        </div>
+        <div class="p-slot anim d5" style="width: 40%; aspect-ratio: 3/4; bottom: 14%; left: 2%; --r: -3deg; --d: 16s; --dx: 4px; --dy: -10px;">
+          <img src="presentacion_assets/marcus.jpg" alt="Marcus">
+          <div class="slot-label"><span>#04 · Marcus</span><span class="tag-dot" style="background: var(--c-marcus); box-shadow: 0 0 8px var(--c-marcus);"></span></div>
+        </div>
+        <div class="p-slot anim d6" style="width: 36%; aspect-ratio: 3/4; bottom: 4%; right: 22%; --r: 4deg; --d: 13s; --dx: -6px; --dy: 6px;">
+          <img src="presentacion_assets/niamh.jpg" alt="Niamh">
+          <div class="slot-label"><span>#05 · Niamh</span><span class="tag-dot" style="background: var(--c-niamh); box-shadow: 0 0 8px var(--c-niamh);"></span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cover-ticker">
+      <div class="track">
+        <span>✦ Taily® Collagen</span><span class="sep"></span>
+        <span>Hydrolyzed Grass-Fed Beef</span><span class="sep"></span>
+        <span>Bacon Flavor</span><span class="sep"></span>
+        <span>Vet Formulated</span><span class="sep"></span>
+        <span>Made in USA</span><span class="sep"></span>
+        <span>Results in 30 Days</span><span class="sep"></span>
+        <span>Happy Tails On A Daily</span><span class="sep"></span>
+        <span>✦ Taily® Collagen</span><span class="sep"></span>
+        <span>Hydrolyzed Grass-Fed Beef</span><span class="sep"></span>
+        <span>Bacon Flavor</span><span class="sep"></span>
+        <span>Vet Formulated</span><span class="sep"></span>
+        <span>Made in USA</span><span class="sep"></span>
+        <span>Results in 30 Days</span><span class="sep"></span>
+        <span>Happy Tails On A Daily</span><span class="sep"></span>
+      </div>
+    </div>
+
+    <div class="side-num">01</div>
+  </section>
+
+  <!-- ══ SLIDE 02 — WHAT IS TAILY ═══════════════════════════════════════ -->
+  <section class="slide" data-title="¿Qué es Taily?">
+    <div class="two-col">
+      <div>
+        <div class="eyebrow anim d1">01 · Contexto de marca</div>
+        <h2 class="display anim d2">
+          Suplementos<br>
+          <em>líquidos</em> para perros<br>
+          que no saben a medicina.
+        </h2>
+        <p class="lede anim d3" style="max-width: 560px;">
+          Marca D2C fundada en 2023 como rebrand de Aminopets. Vet-formulados, sabor bacon, hechos en USA. El perro los pide.
+        </p>
+        <div class="fact-list anim d4">
+          <div class="fact"><div class="k">Fundada</div><div class="v">2023 · Miami, FL</div></div>
+          <div class="fact"><div class="k">Equipo</div><div class="v">5 personas · <strong>30+ años</strong> en suplementos OTC</div></div>
+          <div class="fact"><div class="k">Modelo</div><div class="v">D2C · subscribe-and-save <strong>20% off</strong></div></div>
+          <div class="fact"><div class="k">Promesa</div><div class="v">Resultados visibles en <strong>30 días</strong></div></div>
+          <div class="fact"><div class="k">Tagline</div><div class="v"><em>Happy Tails On A Daily</em></div></div>
+        </div>
+      </div>
+
+      <div class="product-card anim d3">
+        <div class="shine"></div>
+        <div class="head">
+          <div class="eyebrow">Producto ganador</div>
+          <h3>Taily<br>Collagen.</h3>
+          <div class="sku">4 oz · dropper · bacon flavor</div>
+        </div>
+        <div>
+          <div class="price"><sup>$</sup>39<sup style="font-size:26px;">.99</sup></div>
+          <ul style="margin-top: 18px;">
+            <li>Hydrolyzed grass-fed beef</li>
+            <li>Biotin + Hyaluronic acid</li>
+            <li>Vitamin C</li>
+            <li>Human-grade · no fillers</li>
+          </ul>
+        </div>
+        <div class="bottle-viz">
+          <svg viewBox="0 0 100 160" fill="none">
+            <defs>
+              <linearGradient id="bg1" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#d8a85a"/>
+                <stop offset="100%" stop-color="#5a3515"/>
+              </linearGradient>
+              <linearGradient id="lbl" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#f3ecde"/>
+                <stop offset="100%" stop-color="#e1d5b9"/>
+              </linearGradient>
+            </defs>
+            <rect x="32" y="4" width="36" height="18" rx="3" fill="#4a3422"/>
+            <rect x="28" y="20" width="44" height="8" rx="2" fill="#3a2a1c"/>
+            <rect x="18" y="30" width="64" height="126" rx="10" fill="url(#bg1)"/>
+            <rect x="26" y="60" width="48" height="68" rx="4" fill="url(#lbl)" stroke="#0c3fa0" stroke-width="1.2"/>
+            <text x="50" y="88" text-anchor="middle" font-family="Fraunces, serif" font-weight="700" font-size="15" fill="#0c3fa0">taily</text>
+            <text x="50" y="106" text-anchor="middle" font-family="Geist Mono, monospace" font-weight="600" font-size="6" fill="#0c3fa0" letter-spacing="1">COLLAGEN</text>
+            <text x="50" y="116" text-anchor="middle" font-family="Geist Mono, monospace" font-weight="500" font-size="4.2" fill="#0c3fa0">BACON FLAVOR</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div class="side-num">02</div>
+  </section>
+
+  <!-- ══ SLIDE 03 — THE GAP ═════════════════════════════════════════════ -->
+  <section class="slide" data-title="El hueco a llenar">
+    <div class="gap-wrap">
+      <div class="heading">
+        <div>
+          <div class="eyebrow anim d1">02 · La oportunidad</div>
+          <h2 class="display anim d2">
+            Marca sólida.<br>
+            <em class="coral">Cero UGC.</em>
+          </h2>
+        </div>
+        <p class="anim d3">
+          El producto funciona, la ficha es impecable, la marca cumple.<br>Lo que falta es <strong style="color: var(--cobalt-bright); font-weight: 500;">caras que hablen de él</strong>.
+        </p>
+      </div>
+      <div class="gap-grid">
+        <div class="gap-card muted anim d4">
+          <div class="head-row">
+            <span class="pill ghost">Hero product</span>
+          </div>
+          <div>
+            <div class="num-mega">7</div>
+            <div class="caption">reviews totales del Collagen a abril 2026 — el producto tiene evidencia, no tiene voz.</div>
+          </div>
+        </div>
+
+        <div class="gap-card dark anim d5">
+          <div class="head-row">
+            <span class="pill" style="color: var(--mustard); border-color: rgba(240,181,45,0.4);">El hueco</span>
+          </div>
+          <div>
+            <div class="num-mega">0</div>
+            <div class="caption">influencers de marca activos. Cero UGC orgánico empujando conversión.</div>
+          </div>
+        </div>
+
+        <div class="gap-card cobalt anim d6">
+          <div class="head-row">
+            <span class="pill" style="background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.3);">Nuestro tiro</span>
+          </div>
+          <div>
+            <div class="num-mega">5</div>
+            <div class="caption">personajes IA publicando 3×/semana. Cada uno con autoridad propia.</div>
+          </div>
+          <svg class="scribble" style="right: -10px; bottom: -10px; width: 150px; height: 85px;" viewBox="0 0 150 85">
+            <path d="M6 60 C 34 28, 62 80, 90 42 S 140 55, 144 20"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div class="side-num">03</div>
+  </section>
+
+  <!-- ══ SLIDE 04 — THESIS ══════════════════════════════════════════════ -->
+  <section class="slide" data-title="La tesis">
+    <div class="thesis">
+      <div>
+        <div class="eyebrow anim d1" style="margin-bottom: 24px;">03 · La jugada</div>
+        <div class="quote anim d2">
+          Un solo <em>vet</em> no vende.<br>
+          <span class="underline">Cinco voces<svg viewBox="0 0 420 22" preserveAspectRatio="none"><path d="M4 14 C 80 2, 150 22, 220 10 S 380 20, 416 8"/></svg></span><br>
+          con <em>autoridades distintas,</em><br>
+          sí.
+        </div>
+      </div>
+      <div class="support">
+        <div class="card anim d3">
+          <div class="n">01</div>
+          <div class="t">Cada personaje recomienda desde su nicho. <small>Autoridad real = conversión real.</small></div>
+        </div>
+        <div class="card anim d4">
+          <div class="n">02</div>
+          <div class="t">Caras memorables que paran el scroll. <small>No gym-person promedio.</small></div>
+        </div>
+        <div class="card anim d5">
+          <div class="n">03</div>
+          <div class="t">Producto integrado como consejo, no como ad. <small>Cierre cálido, CTA suave.</small></div>
+        </div>
+        <div class="card anim d6">
+          <div class="n">04</div>
+          <div class="t">Volumen constante sin filmación. <small>3-5 videos/semana por personaje.</small></div>
+        </div>
+      </div>
+    </div>
+    <div class="side-num">04</div>
+  </section>
+
+  <!-- ══ SLIDE 05 — FRANK ═══════════════════════════════════════════════ -->
+  <section class="slide" data-title="Frank · Veterinario" style="--c-accent: var(--c-frank);">
+    <div class="character">
+      <div class="portrait-box anim d1">
+        <img src="presentacion_assets/frank.jpg" alt="Frank Holloway">
+        <div class="stamp-tl">#01 · cast · 01/05</div>
+        <div class="stamp-tr">Veterinario</div>
+        <div class="stamp-bl"><span class="rec-dot"></span> REC · 85mm editorial</div>
+      </div>
+      <div class="info">
+        <div class="cast-line anim d2">04 · el casting <span class="dash"></span> 01 / 05</div>
+        <div class="anim d3">
+          <h2 class="display">Frank <em>Holloway</em></h2>
+          <div class="alias">"el abuelo punk"</div>
+        </div>
+        <div class="handle anim d4">pawsandvinyl</div>
+
+        <div class="speak anim d5">
+          <p>Te presento a <strong>Frank</strong>. Tiene 68 años, es veterinario desde hace 40, y es <strong>calvo con coleta blanca, tatuado, y lleva camiseta de banda bajo la bata</strong>. Parece que te va a recomendar un disco, pero te va a salvar al perro.</p>
+          <p>Su papel en el squad es <strong>autoridad médica</strong>. Él habla de síntomas, mitos, señales de alarma — y cuando recomienda Taily Collagen, suena como consejo, no como ad.</p>
+        </div>
+
+        <div class="spec-row anim d6">
+          <div class="spec-box">
+            <div class="k">Su ángulo</div>
+            <div class="v">"Llevo 40 años viendo perros..."</div>
+          </div>
+          <div class="spec-box">
+            <div class="k">Producto</div>
+            <div class="v"><strong>Collagen</strong> · Superdaily · Iron</div>
+          </div>
+        </div>
+        <div class="viral-hooks anim d7">
+          <span class="hook">5 cosas que NUNCA haría</span>
+          <span class="hook">3 mitos que tu vet no dice</span>
+          <span class="hook">Si tu perro se rasca…</span>
+        </div>
+      </div>
+    </div>
+    <div class="side-num">05</div>
+  </section>
+
+  <!-- ══ SLIDE 06 — YUKI ════════════════════════════════════════════════ -->
+  <section class="slide" data-title="Yuki · Groomer" style="--c-accent: var(--c-yuki);">
+    <div class="character">
+      <div class="portrait-box anim d1">
+        <img src="presentacion_assets/yuki.jpg" alt="Yuki Tanaka">
+        <div class="stamp-tl">#02 · cast · 02/05</div>
+        <div class="stamp-tr">Groomer</div>
+        <div class="stamp-bl"><span class="rec-dot"></span> REC · beauty-dish</div>
+      </div>
+      <div class="info">
+        <div class="cast-line anim d2">04 · el casting <span class="dash"></span> 02 / 05</div>
+        <div class="anim d3">
+          <h2 class="display">Yuki <em>Tanaka</em></h2>
+          <div class="alias">"la maximalista"</div>
+        </div>
+        <div class="handle anim d4">fluffatelier</div>
+
+        <div class="speak anim d5">
+          <p>Esta es <strong>Yuki</strong>. 32 años, groomer, <strong>pelo mitad rosa mitad menta, piercings, uñas stiletto con huesitos</strong>, y un delantal rosa cubierto de pelos de perro de colores. Harajuku meets peluquería canina.</p>
+          <p>Ella se encarga de la <strong>parte visual del cuidado</strong>: baños, pelaje, razas difíciles. Transforma un golden opaco en un espejo en 30 días — y ahí mismo recomienda Collagen.</p>
+        </div>
+
+        <div class="spec-row anim d6">
+          <div class="spec-box">
+            <div class="k">Su ángulo</div>
+            <div class="v">Antes/después + ASMR grooming</div>
+          </div>
+          <div class="spec-box">
+            <div class="k">Producto</div>
+            <div class="v"><strong>Collagen</strong> (brillo) · Paw Balm</div>
+          </div>
+        </div>
+        <div class="viral-hooks anim d7">
+          <span class="hook">Pelaje opaco a espejo en 30 días</span>
+          <span class="hook">ASMR: husky en plena muda</span>
+          <span class="hook">Por qué tu doodle se enreda</span>
+        </div>
+      </div>
+    </div>
+    <div class="side-num">06</div>
+  </section>
+
+  <!-- ══ SLIDE 07 — LUPE ════════════════════════════════════════════════ -->
+  <section class="slide" data-title="Lupe · Entrenadora" style="--c-accent: var(--c-lupe);">
+    <div class="character">
+      <div class="portrait-box anim d1">
+        <img src="presentacion_assets/lupe.jpg" alt="Guadalupe Ramírez">
+        <div class="stamp-tl">#03 · cast · 03/05</div>
+        <div class="stamp-tr">Entrenadora</div>
+        <div class="stamp-bl"><span class="rec-dot"></span> REC · hard light</div>
+      </div>
+      <div class="info">
+        <div class="cast-line anim d2">04 · el casting <span class="dash"></span> 03 / 05</div>
+        <div class="anim d3">
+          <h2 class="display">Guadalupe<br><em>Ramírez</em></h2>
+          <div class="alias">"la sargento abuela"</div>
+        </div>
+        <div class="handle anim d4">sitstayrepeat</div>
+
+        <div class="speak anim d5">
+          <p>Ella es <strong>Lupe</strong>. 58 años, latina, musculosa, <strong>buzzcut gris, cicatriz en la ceja, brazos cubiertos de tatuajes de perros y mandalas</strong>. Te mira y el perro ya se sentó.</p>
+          <p>Su terreno es <strong>conducta, obediencia y disciplina</strong>. Habla de reactividad, tirones de correa, cachorros que muerden. Perfecta para vender Superdaily e Iron: "un perro con energía entrena mejor".</p>
+        </div>
+
+        <div class="spec-row anim d6">
+          <div class="spec-box">
+            <div class="k">Su ángulo</div>
+            <div class="v">"Tu perro no es malo. Le sobra combustible."</div>
+          </div>
+          <div class="spec-box">
+            <div class="k">Producto</div>
+            <div class="v">Superdaily · <strong>Iron</strong> · Paw Balm</div>
+          </div>
+        </div>
+        <div class="viral-hooks anim d7">
+          <span class="hook">Por qué tira de la correa</span>
+          <span class="hook">Recall en 30s con un Malinois</span>
+          <span class="hook">No es agresivo, pide espacio</span>
+        </div>
+      </div>
+    </div>
+    <div class="side-num">07</div>
+  </section>
+
+  <!-- ══ SLIDE 08 — MARCUS ══════════════════════════════════════════════ -->
+  <section class="slide" data-title="Marcus · Rescatista" style="--c-accent: var(--c-marcus);">
+    <div class="character">
+      <div class="portrait-box anim d1">
+        <img src="presentacion_assets/marcus.jpg" alt="Marcus Bailey">
+        <div class="stamp-tl">#04 · cast · 04/05</div>
+        <div class="stamp-tr">Rescatista</div>
+        <div class="stamp-bl"><span class="rec-dot"></span> REC · golden hour</div>
+      </div>
+      <div class="info">
+        <div class="cast-line anim d2">04 · el casting <span class="dash"></span> 04 / 05</div>
+        <div class="anim d3">
+          <h2 class="display">Marcus <em>Bailey</em></h2>
+          <div class="alias">"el hippie roto"</div>
+        </div>
+        <div class="handle anim d4">secondchancepaws</div>
+
+        <div class="speak anim d5">
+          <p>Este es <strong>Marcus</strong>. 42 años, afro-caribeño, <strong>rastas con cuentas, cicatrices de mordidas en las manos, camiseta tie-dye descolorida</strong>, collares con placas de perros rescatados. Aspecto del que ha vivido mil historias.</p>
+          <p>Marcus es la <strong>voz emocional del squad</strong>. Transformaciones de 30/60/90 días, rescates, adopciones. El perfil ideal para mostrar cómo Collagen e Iron le devuelven el pelo y la fuerza a un perro destrozado.</p>
+        </div>
+
+        <div class="spec-row anim d6">
+          <div class="spec-box">
+            <div class="k">Su ángulo</div>
+            <div class="v">Transformación · "esto duele bonito"</div>
+          </div>
+          <div class="spec-box">
+            <div class="k">Producto</div>
+            <div class="v"><strong>Collagen</strong> · Iron (recuperación)</div>
+          </div>
+        </div>
+        <div class="viral-hooks anim d7">
+          <span class="hook">El pelaje de Bruno en 90 días</span>
+          <span class="hook">La primera comida de Luna</span>
+          <span class="hook">Lo saqué de la lista de eutanasia</span>
+        </div>
+      </div>
+    </div>
+    <div class="side-num">08</div>
+  </section>
+
+  <!-- ══ SLIDE 09 — NIAMH ═══════════════════════════════════════════════ -->
+  <section class="slide" data-title="Niamh · Nutricionista" style="--c-accent: var(--c-niamh);">
+    <div class="character">
+      <div class="portrait-box anim d1">
+        <img src="presentacion_assets/niamh.jpg" alt="Niamh O'Brien">
+        <div class="stamp-tl">#05 · cast · 05/05</div>
+        <div class="stamp-tr">Nutricionista</div>
+        <div class="stamp-bl"><span class="rec-dot"></span> REC · north daylight</div>
+      </div>
+      <div class="info">
+        <div class="cast-line anim d2">04 · el casting <span class="dash"></span> 05 / 05</div>
+        <div class="anim d3">
+          <h2 class="display">Niamh <em>O'Brien</em></h2>
+          <div class="alias">"la científica rara" · <span style="font-family: var(--ff-mono); font-size: 14px; font-style: normal; color: rgba(243,236,222,0.55);">/niv/</span></div>
+        </div>
+        <div class="handle anim d4">thekibblelab</div>
+
+        <div class="speak anim d5">
+          <p>Conoce a <strong>Niamh</strong>. 31 años, irlandesa, <strong>pelirroja con pecas densas, moño desordenado sujeto con un lápiz amarillo, gafas enormes de pasta años 70</strong>, bata de laboratorio sobre overol vintage.</p>
+          <p>Niamh es la <strong>voz científica</strong>. Ella explica por qué el colágeno hidrolizado se absorbe mejor que las pastillas, por qué los 9 aminoácidos esenciales importan, y traduce la etiqueta nutricional en algo que el dueño entienda.</p>
+        </div>
+
+        <div class="spec-row anim d6">
+          <div class="spec-box">
+            <div class="k">Su ángulo</div>
+            <div class="v">"La diferencia es matemática."</div>
+          </div>
+          <div class="spec-box">
+            <div class="k">Producto</div>
+            <div class="v"><strong>Superdaily</strong> · Collagen</div>
+          </div>
+        </div>
+        <div class="viral-hooks anim d7">
+          <span class="hook">Lee la etiqueta de tu kibble</span>
+          <span class="hook">Pastillas de colágeno NO sirven</span>
+          <span class="hook">Líquido vs pastilla: matemática</span>
+        </div>
+      </div>
+    </div>
+    <div class="side-num">09</div>
+  </section>
+
+  <!-- ══ SLIDE 10 — PIPELINE DIAGRAM ════════════════════════════════════ -->
+  <section class="slide" data-title="Pipeline · del .md al .mp4">
+    <div class="pipe-wrap">
+      <div class="pipe-head">
+        <div>
+          <div class="eyebrow anim d1">09 · Cómo se arma un video</div>
+          <h2 class="display anim d2">
+            Del <em>.md</em> al <em class="coral">.mp4</em>.<br>Sin tocar una cámara.
+          </h2>
+        </div>
+        <p class="anim d3">
+          Cuatro modelos IA conectados vía API. Un comando en Claude Code dispara el flujo completo.
+        </p>
+      </div>
+
+      <div class="pipe-canvas anim d4 fade-in" id="pipe-canvas">
+        <svg class="diagram" viewBox="0 0 1600 640" preserveAspectRatio="xMidYMid meet">
+          <defs>
+            <!-- Glow filters -->
+            <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="4" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+            <filter id="glowStrong" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="9" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+
+            <!-- Line gradient -->
+            <linearGradient id="lineGrad" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%"  stop-color="#2e7cf4"/>
+              <stop offset="100%" stop-color="#ff6a4d"/>
+            </linearGradient>
+
+            <!-- Node radial gradients -->
+            <radialGradient id="nodeGrad" cx="50%" cy="35%" r="80%">
+              <stop offset="0%"  stop-color="#2a3170"/>
+              <stop offset="100%" stop-color="#0a0d1f"/>
+            </radialGradient>
+            <radialGradient id="nodeCobalt" cx="50%" cy="35%" r="80%">
+              <stop offset="0%"  stop-color="#3a86f8"/>
+              <stop offset="100%" stop-color="#0c3fa0"/>
+            </radialGradient>
+            <radialGradient id="nodeCoral" cx="50%" cy="35%" r="80%">
+              <stop offset="0%"  stop-color="#ff8666"/>
+              <stop offset="100%" stop-color="#c8422a"/>
+            </radialGradient>
+            <radialGradient id="nodeMustard" cx="50%" cy="35%" r="80%">
+              <stop offset="0%"  stop-color="#f7c95c"/>
+              <stop offset="100%" stop-color="#a77c12"/>
+            </radialGradient>
+            <radialGradient id="nodeSage" cx="50%" cy="35%" r="80%">
+              <stop offset="0%"  stop-color="#9ac185"/>
+              <stop offset="100%" stop-color="#4d6b3c"/>
+            </radialGradient>
+
+            <!-- Pulse symbol -->
+            <symbol id="pulse" viewBox="-8 -8 16 16">
+              <circle r="4" fill="#ffffff" filter="url(#glow)"/>
+              <circle r="2.5" fill="#f3ecde"/>
+            </symbol>
+          </defs>
+
+          <!-- Section labels -->
+          <g font-family="Geist Mono, monospace" font-size="11" letter-spacing="3" fill="rgba(243,236,222,0.35)" font-weight="500">
+            <text x="150"  y="36" text-anchor="middle">01 · INPUT</text>
+            <text x="530"  y="36" text-anchor="middle">02 · GENERATION</text>
+            <text x="1070" y="36" text-anchor="middle">03 · ASSEMBLY</text>
+            <text x="1450" y="36" text-anchor="middle">04 · OUTPUT</text>
+          </g>
+
+          <!-- Dashed column dividers -->
+          <g stroke="rgba(243,236,222,0.08)" stroke-dasharray="3 6" stroke-width="1">
+            <line x1="330"  y1="60" x2="330"  y2="600"/>
+            <line x1="830"  y1="60" x2="830"  y2="600"/>
+            <line x1="1290" y1="60" x2="1290" y2="600"/>
+          </g>
+
+          <!-- ═══ CONNECTING LINES (drawn behind nodes) ═══ -->
+          <g fill="none" stroke-width="2" stroke-linecap="round" filter="url(#glow)">
+            <!-- .md → 5 agents -->
+            <path id="l1" d="M230 320 C 340 320, 360 110, 500 110" stroke="#2e7cf4" opacity="0.7"/>
+            <path id="l2" d="M230 320 C 340 320, 360 210, 500 210" stroke="#2e7cf4" opacity="0.7"/>
+            <path id="l3" d="M230 320 L 500 320" stroke="#2e7cf4" opacity="0.9"/>
+            <path id="l4" d="M230 320 C 340 320, 360 430, 500 430" stroke="#2e7cf4" opacity="0.7"/>
+            <path id="l5" d="M230 320 C 340 320, 360 530, 500 530" stroke="#2e7cf4" opacity="0.7"/>
+
+            <!-- agents → Nano Banana -->
+            <path id="l6"  d="M620 110 C 720 110, 750 270, 900 270" stroke="#ff6a4d" opacity="0.7"/>
+            <path id="l7"  d="M620 210 C 720 210, 770 270, 900 270" stroke="#ff6a4d" opacity="0.8"/>
+            <path id="l8"  d="M620 320 L 900 270" stroke="#ff6a4d" opacity="0.9"/>
+            <path id="l9"  d="M620 430 C 720 430, 770 270, 900 270" stroke="#ff6a4d" opacity="0.8"/>
+            <path id="l10" d="M620 530 C 720 530, 750 270, 900 270" stroke="#ff6a4d" opacity="0.7"/>
+
+            <!-- agents → HeyGen (script text also goes to HeyGen) -->
+            <path id="l11" d="M620 320 C 800 320, 820 400, 900 400" stroke="#2e7cf4" opacity="0.55" stroke-dasharray="4 6"/>
+
+            <!-- Nano Banana → HeyGen -->
+            <path id="l12" d="M1020 270 C 1060 270, 1060 400, 1020 400" stroke="url(#lineGrad)" opacity="0.95"/>
+
+            <!-- Seedance 2.0 generating b-roll independently, joins editor -->
+            <path id="l13" d="M1140 530 C 1200 530, 1230 470, 1290 470" stroke="#f0b52d" opacity="0.85"/>
+
+            <!-- HeyGen → Editor -->
+            <path id="l14" d="M1140 400 L 1290 400" stroke="url(#lineGrad)" opacity="0.95"/>
+
+            <!-- Editor → Output -->
+            <path id="l15" d="M1400 400 L 1500 400" stroke="#83a472" opacity="0.95" stroke-width="2.4"/>
+          </g>
+
+          <!-- ═══ PULSES (animated traveling dots) ═══ -->
+          <g>
+            <!-- pulses on .md → agents -->
+            <use href="#pulse" transform="scale(0.95)"><animateMotion dur="3s" repeatCount="indefinite" rotate="auto"><mpath href="#l1"/></animateMotion></use>
+            <use href="#pulse" transform="scale(0.95)"><animateMotion dur="3s" begin="0.4s" repeatCount="indefinite"><mpath href="#l2"/></animateMotion></use>
+            <use href="#pulse" transform="scale(0.95)"><animateMotion dur="3s" begin="0.8s" repeatCount="indefinite"><mpath href="#l3"/></animateMotion></use>
+            <use href="#pulse" transform="scale(0.95)"><animateMotion dur="3s" begin="1.2s" repeatCount="indefinite"><mpath href="#l4"/></animateMotion></use>
+            <use href="#pulse" transform="scale(0.95)"><animateMotion dur="3s" begin="1.6s" repeatCount="indefinite"><mpath href="#l5"/></animateMotion></use>
+
+            <!-- pulses agents → nano banana (coral) -->
+            <use href="#pulse" transform="scale(0.9)" opacity="0.9"><animateMotion dur="2.6s" begin="0.2s" repeatCount="indefinite"><mpath href="#l6"/></animateMotion></use>
+            <use href="#pulse" transform="scale(0.9)" opacity="0.9"><animateMotion dur="2.6s" begin="0.7s" repeatCount="indefinite"><mpath href="#l7"/></animateMotion></use>
+            <use href="#pulse" transform="scale(0.9)" opacity="0.9"><animateMotion dur="2.6s" begin="1.2s" repeatCount="indefinite"><mpath href="#l8"/></animateMotion></use>
+            <use href="#pulse" transform="scale(0.9)" opacity="0.9"><animateMotion dur="2.6s" begin="1.7s" repeatCount="indefinite"><mpath href="#l9"/></animateMotion></use>
+            <use href="#pulse" transform="scale(0.9)" opacity="0.9"><animateMotion dur="2.6s" begin="2.2s" repeatCount="indefinite"><mpath href="#l10"/></animateMotion></use>
+
+            <!-- pulse on script to heygen -->
+            <use href="#pulse" transform="scale(0.8)" opacity="0.6"><animateMotion dur="3.2s" begin="1s" repeatCount="indefinite"><mpath href="#l11"/></animateMotion></use>
+
+            <!-- pulse nano banana → heygen -->
+            <use href="#pulse" transform="scale(1.1)"><animateMotion dur="2s" repeatCount="indefinite"><mpath href="#l12"/></animateMotion></use>
+
+            <!-- pulse seedance → editor -->
+            <use href="#pulse" transform="scale(0.95)"><animateMotion dur="2.4s" repeatCount="indefinite"><mpath href="#l13"/></animateMotion></use>
+
+            <!-- pulse heygen → editor -->
+            <use href="#pulse" transform="scale(1.1)"><animateMotion dur="2.2s" begin="0.5s" repeatCount="indefinite"><mpath href="#l14"/></animateMotion></use>
+
+            <!-- pulse editor → output (larger) -->
+            <g>
+              <circle r="7" fill="#83a472" filter="url(#glowStrong)"><animateMotion dur="1.8s" repeatCount="indefinite"><mpath href="#l15"/></animateMotion></circle>
+              <circle r="3" fill="#f3ecde"><animateMotion dur="1.8s" repeatCount="indefinite"><mpath href="#l15"/></animateMotion></circle>
+            </g>
+          </g>
+
+          <!-- ═══ NODES ═══ -->
+
+          <!-- INPUT: Guion .md -->
+          <g transform="translate(80, 260)">
+            <rect width="150" height="120" rx="14" fill="url(#nodeGrad)" stroke="rgba(255,255,255,0.15)" stroke-width="1" filter="url(#glow)"/>
+            <rect x="12" y="14" width="60" height="9" rx="2" fill="rgba(243,236,222,0.5)"/>
+            <rect x="12" y="30" width="126" height="5" rx="2" fill="rgba(243,236,222,0.22)"/>
+            <rect x="12" y="42" width="100" height="5" rx="2" fill="rgba(243,236,222,0.22)"/>
+            <rect x="12" y="54" width="118" height="5" rx="2" fill="rgba(243,236,222,0.22)"/>
+            <rect x="12" y="66" width="90"  height="5" rx="2" fill="rgba(243,236,222,0.22)"/>
+            <text x="75" y="100" text-anchor="middle" font-family="Fraunces, serif" font-weight="500" font-size="18" fill="#f3ecde">guión.md</text>
+          </g>
+
+          <!-- 5 AGENTS -->
+          <g font-family="Fraunces, serif" fill="#f3ecde">
+            <g transform="translate(500, 90)">
+              <rect width="120" height="44" rx="10" fill="url(#nodeGrad)" stroke="#4d86ff" stroke-width="1.2" filter="url(#glow)"/>
+              <circle cx="20" cy="22" r="7" fill="#4d86ff" filter="url(#glow)"><animate attributeName="r" values="6;8;6" dur="2.4s" repeatCount="indefinite"/></circle>
+              <text x="38" y="19" font-size="12" font-weight="500">Frank</text>
+              <text x="38" y="33" font-family="Geist Mono, monospace" font-size="8" letter-spacing="1.5" fill="rgba(243,236,222,0.55)">VET · AGENT 01</text>
+            </g>
+            <g transform="translate(500, 190)">
+              <rect width="120" height="44" rx="10" fill="url(#nodeGrad)" stroke="#ff7ab3" stroke-width="1.2" filter="url(#glow)"/>
+              <circle cx="20" cy="22" r="7" fill="#ff7ab3" filter="url(#glow)"><animate attributeName="r" values="6;8;6" dur="2.6s" begin="0.4s" repeatCount="indefinite"/></circle>
+              <text x="38" y="19" font-size="12" font-weight="500">Yuki</text>
+              <text x="38" y="33" font-family="Geist Mono, monospace" font-size="8" letter-spacing="1.5" fill="rgba(243,236,222,0.55)">GROOMER · AG.02</text>
+            </g>
+            <g transform="translate(500, 300)">
+              <rect width="120" height="44" rx="10" fill="url(#nodeGrad)" stroke="#e07841" stroke-width="1.2" filter="url(#glow)"/>
+              <circle cx="20" cy="22" r="7" fill="#e07841" filter="url(#glow)"><animate attributeName="r" values="6;8;6" dur="2.8s" begin="0.8s" repeatCount="indefinite"/></circle>
+              <text x="38" y="19" font-size="12" font-weight="500">Lupe</text>
+              <text x="38" y="33" font-family="Geist Mono, monospace" font-size="8" letter-spacing="1.5" fill="rgba(243,236,222,0.55)">TRAINER · AG.03</text>
+            </g>
+            <g transform="translate(500, 410)">
+              <rect width="120" height="44" rx="10" fill="url(#nodeGrad)" stroke="#d4a563" stroke-width="1.2" filter="url(#glow)"/>
+              <circle cx="20" cy="22" r="7" fill="#d4a563" filter="url(#glow)"><animate attributeName="r" values="6;8;6" dur="3s" begin="1.2s" repeatCount="indefinite"/></circle>
+              <text x="38" y="19" font-size="12" font-weight="500">Marcus</text>
+              <text x="38" y="33" font-family="Geist Mono, monospace" font-size="8" letter-spacing="1.5" fill="rgba(243,236,222,0.55)">RESCUER · AG.04</text>
+            </g>
+            <g transform="translate(500, 510)">
+              <rect width="120" height="44" rx="10" fill="url(#nodeGrad)" stroke="#ff8050" stroke-width="1.2" filter="url(#glow)"/>
+              <circle cx="20" cy="22" r="7" fill="#ff8050" filter="url(#glow)"><animate attributeName="r" values="6;8;6" dur="2.5s" begin="1.6s" repeatCount="indefinite"/></circle>
+              <text x="38" y="19" font-size="12" font-weight="500">Niamh</text>
+              <text x="38" y="33" font-family="Geist Mono, monospace" font-size="8" letter-spacing="1.5" fill="rgba(243,236,222,0.55)">NUTRI · AG.05</text>
+            </g>
+          </g>
+
+          <!-- NANO BANANA PRO -->
+          <g transform="translate(900, 210)">
+            <rect width="120" height="120" rx="20" fill="url(#nodeCoral)" filter="url(#glowStrong)" stroke="rgba(255,255,255,0.22)" stroke-width="1"/>
+            <g transform="translate(60, 52)" filter="url(#glow)">
+              <path d="M-18 0 a18 18 0 1 0 36 0 a18 18 0 1 0 -36 0" fill="none" stroke="#fff3ea" stroke-width="1.8"/>
+              <circle cx="-6" cy="-4" r="2.5" fill="#fff3ea"/>
+              <circle cx="6"  cy="-4" r="2.5" fill="#fff3ea"/>
+              <path d="M-8 4 Q 0 12 8 4" stroke="#fff3ea" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+            </g>
+            <text x="60" y="96" text-anchor="middle" font-family="Fraunces, serif" font-weight="600" font-size="14" fill="#fff3ea">Nano Banana</text>
+            <text x="60" y="110" text-anchor="middle" font-family="Geist Mono, monospace" font-weight="500" font-size="8" letter-spacing="2" fill="rgba(255,243,234,0.7)">GEMINI 3 PRO IMG</text>
+            <!-- rotating halo -->
+            <circle cx="60" cy="60" r="66" fill="none" stroke="rgba(255,134,102,0.35)" stroke-width="1.2" stroke-dasharray="3 5">
+              <animateTransform attributeName="transform" type="rotate" from="0 60 60" to="360 60 60" dur="22s" repeatCount="indefinite"/>
+            </circle>
+          </g>
+
+          <!-- HEYGEN -->
+          <g transform="translate(900, 340)">
+            <rect width="120" height="120" rx="20" fill="url(#nodeCobalt)" filter="url(#glowStrong)" stroke="rgba(255,255,255,0.22)" stroke-width="1"/>
+            <g transform="translate(60, 50)" filter="url(#glow)">
+              <rect x="-22" y="-14" width="44" height="28" rx="4" fill="none" stroke="#f3ecde" stroke-width="1.8"/>
+              <circle cx="-10" cy="0" r="2.2" fill="#f3ecde"/>
+              <circle cx="10" cy="0" r="2.2" fill="#f3ecde"/>
+              <path d="M-8 6 Q 0 10 8 6" stroke="#f3ecde" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+              <path d="M-18 -2 L -26 -6 M -18 0 L -26 0 M -18 2 L -26 4" stroke="#f3ecde" stroke-width="1.4" stroke-linecap="round"/>
+            </g>
+            <text x="60" y="96" text-anchor="middle" font-family="Fraunces, serif" font-weight="600" font-size="14" fill="#f3ecde">HeyGen</text>
+            <text x="60" y="110" text-anchor="middle" font-family="Geist Mono, monospace" font-weight="500" font-size="8" letter-spacing="2" fill="rgba(243,236,222,0.7)">TALKING HEAD</text>
+            <circle cx="60" cy="60" r="66" fill="none" stroke="rgba(58,134,248,0.3)" stroke-width="1.2" stroke-dasharray="3 5">
+              <animateTransform attributeName="transform" type="rotate" from="360 60 60" to="0 60 60" dur="26s" repeatCount="indefinite"/>
+            </circle>
+          </g>
+
+          <!-- SEEDANCE 2.0 -->
+          <g transform="translate(1020, 490)">
+            <rect width="120" height="80" rx="16" fill="url(#nodeMustard)" filter="url(#glow)" stroke="rgba(255,255,255,0.22)" stroke-width="1"/>
+            <g transform="translate(60, 30)" filter="url(#glow)">
+              <path d="M-16 -6 L 0 -10 L 16 -6 L 16 6 L 0 10 L -16 6 Z" fill="none" stroke="#0a0d1f" stroke-width="1.8" stroke-linejoin="round"/>
+              <path d="M 0 -10 L 0 10" stroke="#0a0d1f" stroke-width="1.4"/>
+            </g>
+            <text x="60" y="60" text-anchor="middle" font-family="Fraunces, serif" font-weight="600" font-size="14" fill="#0a0d1f">Seedance 2.0</text>
+            <text x="60" y="72" text-anchor="middle" font-family="Geist Mono, monospace" font-weight="600" font-size="8" letter-spacing="2" fill="rgba(10,13,31,0.7)">B-ROLL VIDEO</text>
+          </g>
+
+          <!-- EDITOR / ASSEMBLER -->
+          <g transform="translate(1290, 340)">
+            <rect width="110" height="120" rx="16" fill="url(#nodeGrad)" filter="url(#glow)" stroke="rgba(255,255,255,0.22)" stroke-width="1"/>
+            <g transform="translate(55, 50)">
+              <!-- stacked film strips -->
+              <rect x="-30" y="-14" width="60" height="8" rx="1.5" fill="#2e7cf4" opacity="0.8"/>
+              <rect x="-30" y="-4"  width="60" height="8" rx="1.5" fill="#ff6a4d" opacity="0.8"/>
+              <rect x="-30" y="6"   width="60" height="8" rx="1.5" fill="#f0b52d" opacity="0.8"/>
+              <!-- playhead -->
+              <rect x="-1" y="-20" width="2" height="44" fill="#83a472"/>
+              <circle cx="0" cy="-20" r="3" fill="#83a472" filter="url(#glow)"/>
+            </g>
+            <text x="55" y="96" text-anchor="middle" font-family="Fraunces, serif" font-weight="600" font-size="13" fill="#f3ecde">Editor</text>
+            <text x="55" y="108" text-anchor="middle" font-family="Geist Mono, monospace" font-weight="500" font-size="8" letter-spacing="2" fill="rgba(243,236,222,0.55)">CAPTIONS · SFX</text>
+          </g>
+
+          <!-- OUTPUT -->
+          <g transform="translate(1500, 340)">
+            <rect width="90" height="120" rx="14" fill="url(#nodeSage)" filter="url(#glowStrong)" stroke="rgba(255,255,255,0.22)" stroke-width="1"/>
+            <g transform="translate(45, 50)" filter="url(#glow)">
+              <path d="M -14 -16 L 16 0 L -14 16 Z" fill="#0a0d1f"/>
+            </g>
+            <text x="45" y="96" text-anchor="middle" font-family="Fraunces, serif" font-weight="700" font-size="14" fill="#0a0d1f">.mp4</text>
+            <text x="45" y="108" text-anchor="middle" font-family="Geist Mono, monospace" font-weight="600" font-size="7" letter-spacing="1.6" fill="rgba(10,13,31,0.7)">PUBLISH</text>
+          </g>
+
+          <!-- Small destination logos below OUTPUT -->
+          <g font-family="Geist Mono, monospace" font-size="9" letter-spacing="2" fill="rgba(243,236,222,0.6)" font-weight="600">
+            <text x="1545" y="510" text-anchor="middle">TIKTOK</text>
+            <text x="1545" y="528" text-anchor="middle">REELS</text>
+            <text x="1545" y="546" text-anchor="middle">SHORTS</text>
+          </g>
+        </svg>
+      </div>
+
+      <div class="pipe-legend anim d7">
+        <div class="dot-legend"><span class="d" style="background:#2e7cf4; color:#2e7cf4;"></span> Datos / texto</div>
+        <div class="dot-legend"><span class="d" style="background:#ff6a4d; color:#ff6a4d;"></span> Imagen</div>
+        <div class="dot-legend"><span class="d" style="background:#f0b52d; color:#f0b52d;"></span> B-roll video</div>
+        <div class="dot-legend"><span class="d" style="background:#83a472; color:#83a472;"></span> Video final</div>
+        <span style="margin-left: auto; opacity: 0.7;">· Costo estimado <strong style="color: var(--cream);">≈ $0.80 / video final</strong></span>
+      </div>
+    </div>
+    <div class="side-num">10</div>
+  </section>
+
+  <!-- ══ SLIDE 11 — STATUS ══════════════════════════════════════════════ -->
+  <section class="slide" data-title="Status · 24 abril">
+    <div class="status-head">
+      <div>
+        <div class="eyebrow anim d1">10 · Status hoy</div>
+        <h2 class="display anim d2">
+          Ya está <em>cableado.</em><br>
+          Falta apretar <em class="coral">enter.</em>
+        </h2>
+      </div>
+      <p class="anim d3">El sistema está montado end-to-end. Dos gates de pago — menos de $30 en total — bloquean el primer render.</p>
+    </div>
+    <div class="status-grid">
+      <div class="st-card done anim d4">
+        <div class="top">
+          <div class="num">25</div>
+          <span class="pill" style="color: var(--sage); border-color: rgba(131,164,114,0.4);"><span class="dot"></span>DONE</span>
+        </div>
+        <h4>Guiones virales escritos</h4>
+        <div class="descr">5 por personaje, adaptados de formatos virales reales 2025-2026. Listos para grabar.</div>
+      </div>
+      <div class="st-card done anim d5">
+        <div class="top">
+          <div class="num">5</div>
+          <span class="pill" style="color: var(--sage); border-color: rgba(131,164,114,0.4);"><span class="dot"></span>DONE</span>
+        </div>
+        <h4>Character sheets rendidos</h4>
+        <div class="descr">Los 5 personajes ya existen como imágenes editoriales. Biblia visual guardada.</div>
+      </div>
+      <div class="st-card done anim d6">
+        <div class="top">
+          <div class="num">1/5</div>
+          <span class="pill" style="color: var(--sage); border-color: rgba(131,164,114,0.4);"><span class="dot"></span>DONE</span>
+        </div>
+        <h4>Avatar vivo en HeyGen</h4>
+        <div class="descr">Frank subido como talking_photo · voz Jorge (Pro) asignada. Pipeline valida.</div>
+      </div>
+      <div class="st-card gate anim d6">
+        <div class="top">
+          <div class="num">$</div>
+          <span class="pill coral"><span class="dot"></span>GATE 1</span>
+        </div>
+        <h4>Billing Gemini API</h4>
+        <div class="descr">Nano Banana Pro exige facturación. Costo total para todo lo que falta: <strong>&lt; $2</strong>.</div>
+      </div>
+      <div class="st-card gate anim d7">
+        <div class="top">
+          <div class="num">$</div>
+          <span class="pill coral"><span class="dot"></span>GATE 2</span>
+        </div>
+        <h4>Créditos API HeyGen</h4>
+        <div class="descr">Pay-as-you-go ≈ $0.30/min. Plan Creator $24/mes alternativa.</div>
+      </div>
+      <div class="st-card anim d7">
+        <div class="top">
+          <div class="num">∞</div>
+          <span class="pill ghost"><span class="dot"></span>READY</span>
+        </div>
+        <h4>Taily /referencia</h4>
+        <div class="descr">Business, voice, products, audience auditados y listos como fuente de verdad.</div>
+      </div>
+    </div>
+    <div class="side-num">11</div>
+  </section>
+
+  <!-- ══ SLIDE 12 — NEXT STEPS ══════════════════════════════════════════ -->
+  <section class="slide" data-title="Próximos pasos · 7 días">
+    <div class="next">
+      <div>
+        <div class="eyebrow anim d1">11 · Roadmap · 7 días</div>
+        <h2 class="display anim d2">Primer lote<br>en <em>72 horas.</em></h2>
+        <ol class="step-list">
+          <li class="anim d3">
+            <div class="num-step">1</div>
+            <div class="t">Activar billing · Gemini + HeyGen<small>~15 min · coste fijo inicial</small></div>
+            <span class="pill cobalt">día 0</span>
+          </li>
+          <li class="anim d4">
+            <div class="num-step">2</div>
+            <div class="t">Refinar character sheets + subir 5 avatares<small>nano banana pro · heygen</small></div>
+            <span class="pill ghost">día 1</span>
+          </li>
+          <li class="anim d5">
+            <div class="num-step">3</div>
+            <div class="t">Renderizar primer lote · 5 videos (uno por personaje)<small>validar calidad + captions</small></div>
+            <span class="pill ghost">día 2</span>
+          </li>
+          <li class="anim d6">
+            <div class="num-step">4</div>
+            <div class="t">Publicar + medir 7 días<small>tiktok · reels · shorts</small></div>
+            <span class="pill ghost">día 3-10</span>
+          </li>
+          <li class="anim d7">
+            <div class="num-step">5</div>
+            <div class="t">Doblar lo que pegó · 10 variaciones del ganador<small>iterar sobre el hook que convirtió</small></div>
+            <span class="pill coral">día 10+</span>
+          </li>
+        </ol>
+      </div>
+
+      <div class="kpi-grid anim d4">
+        <div class="kpi"><div class="n">25</div><div class="lbl">Guiones listos</div></div>
+        <div class="kpi coral"><div class="n">5</div><div class="lbl">Personajes rendidos</div></div>
+        <div class="kpi dark"><div class="n">72h</div><div class="lbl">Primer video online</div></div>
+        <div class="kpi"><div class="n">&lt;$30</div><div class="lbl">Costo primer lote</div></div>
+        <div class="kpi dark"><div class="n">3×</div><div class="lbl">Publicaciones/sem · personaje</div></div>
+        <div class="kpi coral"><div class="n">60d</div><div class="lbl">Plazo medir tracción</div></div>
+      </div>
+    </div>
+    <div class="side-num">12</div>
+  </section>
+
+  <!-- ══ SLIDE 13 — CLOSE ═══════════════════════════════════════════════ -->
+  <section class="slide" data-title="Q&amp;A · fin">
+    <div class="close">
+      <div class="orbit"></div>
+      <div>
+        <div class="eyebrow anim d1" style="justify-content:center; display:inline-flex;">Fin del briefing</div>
+        <div class="mega anim d2" style="margin-top: 22px;">
+          Happy <em>tails</em><br>on a <em class="coral">daily.</em>
+        </div>
+        <div class="sub anim d3">Preguntas · objeciones · lo que te haga ruido.</div>
+        <div class="signoff anim d4">
+          <span class="pill cobalt"><span class="dot"></span>Kevin R.</span>
+          <span class="pill"><span class="dot"></span>taily · abril 2026</span>
+          <span class="pill"><span class="dot"></span>v 0.1 · internal</span>
+        </div>
+      </div>
+    </div>
+    <div class="side-num">—</div>
+  </section>
+
+</div>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════════════════
+   Deck controller
+═══════════════════════════════════════════════════════════════════════════ */
+const slides = Array.from(document.querySelectorAll('.slide'));
+const total = slides.length;
+const progress = document.getElementById('progress');
+const slideCount = document.getElementById('slide-count');
+const titleLbl = document.getElementById('slide-title-lbl');
+const numHud = document.getElementById('num-hud');
+let current = 0;
+let transitioning = false;
+
+// Build progress ticks
+slides.forEach(() => {
+  const t = document.createElement('div');
+  t.className = 'tick';
+  progress.appendChild(t);
+});
+
+function renderUI(){
+  const fmt = n => String(n+1).padStart(2,'0');
+  slideCount.textContent = `${fmt(current)} / ${String(total).padStart(2,'0')}`;
+  titleLbl.textContent = slides[current].dataset.title || '';
+  numHud.textContent = fmt(current);
+  progress.querySelectorAll('.tick').forEach((t, i) => {
+    t.classList.toggle('active', i === current);
+    t.classList.toggle('done', i < current);
+  });
+}
+
+function go(nxt, dir){
+  if (transitioning || nxt === current || nxt < 0 || nxt >= total) return;
+  transitioning = true;
+  const leaving = slides[current];
+  const entering = slides[nxt];
+  const leaveClass = dir > 0 ? 'leaving-left'  : 'leaving-right';
+  const enterClass = dir > 0 ? 'entering-left' : 'entering-right';
+  leaving.classList.add(leaveClass);
+  entering.classList.remove('leaving-left','leaving-right','entering-left','entering-right');
+  entering.classList.add('active', enterClass);
+  setTimeout(() => {
+    leaving.classList.remove('active', leaveClass);
+    entering.classList.remove(enterClass);
+    current = nxt;
+    renderUI();
+    transitioning = false;
+  }, 460);
+}
+const next = () => go(current + 1,  1);
+const prev = () => go(current - 1, -1);
+
+renderUI();
+
+/* Particles */
+const particlesEl = document.getElementById('particles');
+for (let i = 0; i < 28; i++){
+  const p = document.createElement('div');
+  p.className = 'particle';
+  const x = Math.random() * 100;
+  p.style.left = x + 'vw';
+  p.style.setProperty('--dur', (9 + Math.random() * 12) + 's');
+  p.style.setProperty('--delay', (-Math.random() * 15) + 's');
+  p.style.setProperty('--drift', ((Math.random() - 0.5) * 120) + 'px');
+  p.style.setProperty('--op', (0.25 + Math.random() * 0.55).toFixed(2));
+  const colors = ['#2e7cf4', '#ff6a4d', '#b3a6ff', '#f0b52d'];
+  const c = colors[Math.floor(Math.random() * colors.length)];
+  p.style.background = c;
+  p.style.boxShadow = `0 0 10px 2px ${c}aa`;
+  particlesEl.appendChild(p);
+}
+
+/* Keyboard */
+const keyGhost = document.getElementById('key-ghost');
+function flashKey(label){
+  keyGhost.textContent = label;
+  keyGhost.style.left = (innerWidth / 2) + 'px';
+  keyGhost.style.top  = (innerHeight / 2) + 'px';
+  keyGhost.classList.remove('on');
+  void keyGhost.offsetWidth;
+  keyGhost.classList.add('on');
+}
+
+document.addEventListener('keydown', (e) => {
+  const k = e.key;
+  if (k === 'ArrowRight' || k === ' ' || k === 'PageDown'){ e.preventDefault(); next(); return; }
+  if (k === 'ArrowLeft'  || k === 'PageUp'){ e.preventDefault(); prev(); return; }
+  if (k === 'Home'){ e.preventDefault(); go(0,-1); return; }
+  if (k === 'End') { e.preventDefault(); go(total-1, 1); return; }
+  if (k === 'e' || k === 'E'){ e.preventDefault(); flashKey('E'); toggleFullscreen(); return; }
+  if (k === 'p' || k === 'P'){ e.preventDefault(); flashKey('P'); togglePointer(); return; }
+  if (k === 'Escape' && document.body.classList.contains('pointer-on')) togglePointer();
+});
+
+function toggleFullscreen(){
+  const doc = document, el = doc.documentElement;
+  if (!doc.fullscreenElement){
+    (el.requestFullscreen || el.webkitRequestFullscreen || el.mozRequestFullScreen || el.msRequestFullscreen).call(el);
+  } else {
+    (doc.exitFullscreen || doc.webkitExitFullscreen || doc.mozCancelFullScreen || doc.msExitFullscreen).call(doc);
+  }
+}
+
+/* Pointer mode */
+const ptr = document.getElementById('ptr');
+let pointerActive = false;
+function togglePointer(){
+  pointerActive = !pointerActive;
+  document.body.classList.toggle('pointer-on', pointerActive);
+  ptr.classList.toggle('on', pointerActive);
+}
+document.addEventListener('mousemove', (e) => {
+  if (!pointerActive) return;
+  ptr.style.left = e.clientX + 'px';
+  ptr.style.top  = e.clientY + 'px';
+  spawnTrail(e.clientX, e.clientY);
+});
+function spawnTrail(x, y){
+  const t = document.createElement('div');
+  t.className = 'ptr-trail';
+  t.style.left = x + 'px';
+  t.style.top = y + 'px';
+  document.body.appendChild(t);
+  const birth = performance.now();
+  (function tick(now){
+    const p = (now - birth) / 700;
+    if (p >= 1){ t.remove(); return; }
+    t.style.opacity = String(0.5 * (1 - p));
+    t.style.transform = `translate(-50%,-50%) scale(${1 - p * 0.55})`;
+    requestAnimationFrame(tick);
+  })(birth);
+}
+
+/* Trackpad horizontal swipe */
+let wheelLock = false;
+document.addEventListener('wheel', (e) => {
+  if (wheelLock) return;
+  if (Math.abs(e.deltaX) < 35) return;
+  wheelLock = true;
+  e.deltaX > 0 ? next() : prev();
+  setTimeout(() => wheelLock = false, 600);
+}, { passive: true });
+</script>
+
+</body>
+</html>
