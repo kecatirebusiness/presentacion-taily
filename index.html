@@ -1598,114 +1598,113 @@ body.pointer-on, body.pointer-on *{ cursor: none !important; }
   text-align: right;
 }
 
-/* ═════════ MOBILE PIPELINE — vertical SVG diagram with branches + pulses ══ */
+/* ═════════ MOBILE PIPELINE — HTML card timeline with animated connectors ═ */
 .pipe-mobile{ display: none; width: 100%; max-width: 440px; margin: 0 auto; }
-.diagram-m{
-  width: 100%;
-  height: auto;
-  display: block;
-}
-.pipe-timeline{
+.m-pipe{
   list-style: none; padding: 0; margin: 0;
   display: flex; flex-direction: column;
 }
-.pipe-timeline .mstage{
+.m-node{
   display: grid;
-  grid-template-columns: 52px 1fr;
+  grid-template-columns: 44px 1fr;
   gap: 16px;
-  position: relative;
+  align-items: stretch;
 }
-.pipe-timeline .mstage-gutter{
-  display: flex; flex-direction: column; align-items: center;
-}
-.pipe-timeline .mstage-dot{
-  width: 44px; height: 44px; border-radius: 50%;
+.m-dot{
+  width: 44px; height: 44px;
+  border-radius: 50%;
   display: grid; place-items: center;
-  font-family: var(--ff-mono); font-weight: 700; font-size: 11.5px;
-  letter-spacing: 0.04em; color: var(--cream);
-  background: radial-gradient(circle at 35% 30%, #2a3170, #0a0d1f);
-  border: 1px solid rgba(255,255,255,0.18);
-  box-shadow: 0 0 18px rgba(46,124,244,0.35);
-  z-index: 2; flex-shrink: 0;
-}
-.pipe-timeline .mstage.s1 .mstage-dot{ background: radial-gradient(circle at 35% 30%, #3a86f8, #0c3fa0); box-shadow: 0 0 20px var(--cobalt-glow); }
-.pipe-timeline .mstage.s2 .mstage-dot{ background: radial-gradient(circle at 35% 30%, #ff8666, #c8422a); box-shadow: 0 0 20px var(--coral-glow); }
-.pipe-timeline .mstage.s3 .mstage-dot{ background: radial-gradient(circle at 35% 30%, #3a86f8, #0c3fa0); box-shadow: 0 0 20px var(--cobalt-glow); }
-.pipe-timeline .mstage.s4 .mstage-dot{ background: radial-gradient(circle at 35% 30%, #f7c95c, #a77c12); color: #0a0d1f; box-shadow: 0 0 20px rgba(240,181,45,0.5); }
-.pipe-timeline .mstage.s5 .mstage-dot{ background: radial-gradient(circle at 35% 30%, #9ac185, #4d6b3c); color: #0a0d1f; box-shadow: 0 0 20px rgba(131,164,114,0.5); }
-.pipe-timeline .mstage-line{
-  flex: 1;
-  width: 2px;
+  background: var(--tint, var(--cobalt));
+  color: var(--pure);
+  font-family: var(--ff-mono); font-weight: 700; font-size: 12px;
+  letter-spacing: 0.04em;
+  box-shadow: 0 8px 20px -8px color-mix(in srgb, var(--tint, var(--cobalt)) 55%, transparent),
+              0 0 0 4px var(--paper),
+              0 0 0 5px color-mix(in srgb, var(--tint, var(--cobalt)) 25%, transparent);
+  z-index: 2;
+  flex-shrink: 0;
   position: relative;
-  background: linear-gradient(to bottom, rgba(255,255,255,0.22), rgba(255,255,255,0.04));
-  margin: 2px 0;
-  overflow: hidden;
-  min-height: 34px;
 }
-.pipe-timeline .mstage:last-child .mstage-line{ display: none; }
-.pipe-timeline .mstage-line::before{
-  content:"";
-  position: absolute; left: 50%; transform: translateX(-50%);
-  width: 8px; height: 8px; border-radius: 50%;
-  background: var(--cobalt-bright);
-  box-shadow: 0 0 10px var(--cobalt-glow);
-  animation: flowDown 2.4s linear infinite;
-  animation-delay: var(--flow-d, 0s);
-  top: -12px;
+.m-dot::after{
+  content: "";
+  position: absolute; inset: -8px;
+  border-radius: 50%;
+  border: 1.5px solid color-mix(in srgb, var(--tint, var(--cobalt)) 35%, transparent);
+  animation: mDotPulse 2.4s ease-out infinite;
 }
-.pipe-timeline .mstage.s2 .mstage-line::before{ background: var(--coral); box-shadow: 0 0 10px var(--coral-glow); }
-.pipe-timeline .mstage.s3 .mstage-line::before{ background: var(--mustard); box-shadow: 0 0 10px rgba(240,181,45,0.5); }
-.pipe-timeline .mstage.s4 .mstage-line::before{ background: var(--sage); box-shadow: 0 0 10px rgba(131,164,114,0.5); }
-@keyframes flowDown{
-  0%  { top: -12px; opacity: 0; }
-  12% { opacity: 1; }
-  88% { opacity: 1; }
-  100%{ top: 110%; opacity: 0; }
+@keyframes mDotPulse{
+  0%,100%{ transform: scale(1); opacity: 0.7; }
+  50%    { transform: scale(1.25); opacity: 0; }
 }
-.pipe-timeline .mstage-card{
-  padding: 14px 16px 18px;
+.m-num{ color: var(--pure); }
+
+.m-card{
+  background: var(--pure);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--tint, var(--cobalt));
   border-radius: 12px;
-  background: linear-gradient(160deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
-  border: 1px solid rgba(255,255,255,0.08);
-  margin-bottom: 14px;
-  position: relative;
-  overflow: hidden;
+  padding: 14px 16px 16px;
+  box-shadow: 0 10px 24px -16px rgba(12,14,26,0.2);
+  min-width: 0;
 }
-.pipe-timeline .mstage.s2 .mstage-card{ border-color: rgba(255,106,77,0.25); background: linear-gradient(160deg, rgba(255,106,77,0.08), rgba(255,255,255,0.02)); }
-.pipe-timeline .mstage.s3 .mstage-card{ border-color: rgba(46,124,244,0.25); background: linear-gradient(160deg, rgba(46,124,244,0.1), rgba(255,255,255,0.02)); }
-.pipe-timeline .mstage.s4 .mstage-card{ border-color: rgba(240,181,45,0.25); background: linear-gradient(160deg, rgba(240,181,45,0.08), rgba(255,255,255,0.02)); }
-.pipe-timeline .mstage.s5 .mstage-card{ border-color: rgba(131,164,114,0.3); background: linear-gradient(160deg, rgba(131,164,114,0.1), rgba(255,255,255,0.02)); }
-.pipe-timeline .mstage-tool{
-  font-family: var(--ff-mono); font-size: 10px;
+.m-tool{
+  font-family: var(--ff-mono); font-size: 10px; font-weight: 700;
   letter-spacing: 0.22em; text-transform: uppercase;
-  color: rgba(243,236,222,0.55);
+  color: var(--ink-muted);
 }
-.pipe-timeline .mstage h3{
+.m-card h3{
   font-family: var(--ff-display);
-  font-weight: 500; font-size: 22px;
-  letter-spacing: -0.025em;
+  font-weight: 800;
+  font-size: 20px;
+  letter-spacing: -0.022em;
+  text-transform: lowercase;
   margin: 4px 0 6px; line-height: 1.1;
+  color: var(--ink);
 }
-.pipe-timeline .mstage p{
+.m-card p{
   margin: 0; font-size: 13px; line-height: 1.42;
-  color: rgba(243,236,222,0.78);
+  color: var(--ink-soft);
 }
-.pipe-timeline .agents-mini{
+.m-agents{
   display: flex; gap: 5px; margin-top: 10px; flex-wrap: wrap;
 }
-.pipe-timeline .agents-mini span{
-  font-family: var(--ff-mono); font-size: 9.5px; font-weight: 500;
-  letter-spacing: 0.1em; text-transform: uppercase;
+.m-agents span{
+  font-family: var(--ff-mono); font-size: 9.5px; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
   padding: 4px 8px; border-radius: 4px;
-  color: var(--cream);
-  background: rgba(255,255,255,0.07);
-  border: 1px solid rgba(255,255,255,0.12);
+  color: var(--c, var(--ink));
+  background: color-mix(in srgb, var(--c, var(--ink)) 8%, transparent);
+  border: 1px solid color-mix(in srgb, var(--c, var(--ink)) 35%, transparent);
 }
-.pipe-timeline .agents-mini span.c1{ border-color: rgba(77,134,255,0.45); color: #bcd4ff; }
-.pipe-timeline .agents-mini span.c2{ border-color: rgba(255,122,179,0.45); color: #ffc9e0; }
-.pipe-timeline .agents-mini span.c3{ border-color: rgba(224,120,65,0.45); color: #ffcaa9; }
-.pipe-timeline .agents-mini span.c4{ border-color: rgba(212,165,99,0.45); color: #efd6a8; }
-.pipe-timeline .agents-mini span.c5{ border-color: rgba(255,128,80,0.45); color: #ffc8a8; }
+
+/* connector between cards — vertical line with traveling dot */
+.m-conn{
+  list-style: none;
+  margin-left: 21px;
+  height: 40px;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--border-strong), color-mix(in srgb, var(--flow, var(--cobalt)) 30%, transparent));
+  position: relative;
+  overflow: visible;
+}
+.m-conn::before{
+  content: "";
+  position: absolute;
+  left: 50%; transform: translateX(-50%);
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--flow, var(--cobalt));
+  box-shadow: 0 0 10px color-mix(in srgb, var(--flow, var(--cobalt)) 50%, transparent);
+  top: -10px;
+  animation: mFlowDown 2.4s linear infinite;
+  animation-delay: var(--d, 0s);
+}
+@keyframes mFlowDown{
+  0%  { top: -12px; opacity: 0; transform: translateX(-50%) scale(0.7); }
+  15% { opacity: 1; transform: translateX(-50%) scale(1); }
+  85% { opacity: 1; transform: translateX(-50%) scale(1); }
+  100%{ top: calc(100% + 4px); opacity: 0; transform: translateX(-50%) scale(0.7); }
+}
 
 /* ═════════ MOBILE LAYOUT ════════════════════════════════════════════════ */
 .m-hint{ display: none; }
@@ -2741,207 +2740,67 @@ body.pointer-on, body.pointer-on *{ cursor: none !important; }
         </svg>
       </div>
 
-      <!-- MOBILE pipeline — vertical diagram (simplified for reliability) -->
+      <!-- MOBILE pipeline — HTML+CSS vertical timeline (reliable in any browser) -->
       <div class="pipe-mobile anim d4">
-        <svg xmlns="http://www.w3.org/2000/svg" class="diagram-m"
-             width="400" height="980"
-             viewBox="0 0 400 980"
-             preserveAspectRatio="xMidYMid meet">
+        <ol class="m-pipe">
+          <li class="m-node m-input">
+            <div class="m-dot">
+              <span class="m-num">01</span>
+            </div>
+            <div class="m-card">
+              <div class="m-tool">.md · input</div>
+              <h3>guión + 5 agentes</h3>
+              <p>El guion entra como markdown. 5 agentes IA lo adaptan al tono de cada personaje.</p>
+              <div class="m-agents">
+                <span style="--c: var(--c-frank)">F · Frank</span>
+                <span style="--c: var(--c-yuki)">Y · Yuki</span>
+                <span style="--c: var(--c-lupe)">L · Lupe</span>
+                <span style="--c: var(--c-marcus)">M · Marcus</span>
+                <span style="--c: var(--c-niamh)">N · Niamh</span>
+              </div>
+            </div>
+          </li>
+          <li class="m-conn" style="--flow: var(--cobalt); --d: 0s;"></li>
 
-          <!-- ═══ Gradients (simple, no filters) ═══ -->
-          <defs>
-            <radialGradient id="gInk" cx="50%" cy="28%" r="80%">
-              <stop offset="0%" stop-color="#2a2e48"/>
-              <stop offset="100%" stop-color="#0c0e1a"/>
-            </radialGradient>
-            <radialGradient id="gCoral" cx="50%" cy="28%" r="80%">
-              <stop offset="0%" stop-color="#ff8466"/>
-              <stop offset="100%" stop-color="#c8422a"/>
-            </radialGradient>
-            <radialGradient id="gCobalt" cx="50%" cy="28%" r="80%">
-              <stop offset="0%" stop-color="#3a86f8"/>
-              <stop offset="100%" stop-color="#0c3fa0"/>
-            </radialGradient>
-            <radialGradient id="gMustard" cx="50%" cy="28%" r="80%">
-              <stop offset="0%" stop-color="#f2c155"/>
-              <stop offset="100%" stop-color="#a77c12"/>
-            </radialGradient>
-            <radialGradient id="gSage" cx="50%" cy="28%" r="80%">
-              <stop offset="0%" stop-color="#9ac185"/>
-              <stop offset="100%" stop-color="#4d6b3c"/>
-            </radialGradient>
-          </defs>
+          <li class="m-node" style="--tint: var(--coral);">
+            <div class="m-dot"><span class="m-num">02</span></div>
+            <div class="m-card">
+              <div class="m-tool">nano banana pro · image</div>
+              <h3>avatar fotográfico</h3>
+              <p>Gemini 3 Pro Image genera la cara del personaje con consistencia entre escenas.</p>
+            </div>
+          </li>
+          <li class="m-conn" style="--flow: var(--coral); --d: 0.3s;"></li>
 
-          <!-- ═══ Paths (drawn first, behind nodes) ═══ -->
-          <!-- guion → 5 agents (fan out, blue) -->
-          <path id="fa1" d="M200 85 C 200 135, 62 165, 62 202" stroke="#155DD7" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0.55"/>
-          <path id="fa2" d="M200 85 C 200 135, 131 165, 131 202" stroke="#155DD7" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0.72"/>
-          <path id="fa3" d="M200 85 L 200 202" stroke="#155DD7" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.9"/>
-          <path id="fa4" d="M200 85 C 200 135, 269 165, 269 202" stroke="#155DD7" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0.72"/>
-          <path id="fa5" d="M200 85 C 200 135, 338 165, 338 202" stroke="#155DD7" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0.55"/>
+          <li class="m-node" style="--tint: var(--cobalt);">
+            <div class="m-dot"><span class="m-num">03</span></div>
+            <div class="m-card">
+              <div class="m-tool">heygen · talking head</div>
+              <h3>cabeza hablante</h3>
+              <p>Avatar + voz española + guion → video vertical 720×1280 con sync labial.</p>
+            </div>
+          </li>
+          <li class="m-conn" style="--flow: var(--cobalt); --d: 0.6s;"></li>
 
-          <!-- 5 agents → Nano Banana (converge, coral) -->
-          <path id="cb1" d="M62 248 C 62 300, 200 310, 200 340" stroke="#ef5f4a" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0.55"/>
-          <path id="cb2" d="M131 248 C 131 300, 200 310, 200 340" stroke="#ef5f4a" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0.72"/>
-          <path id="cb3" d="M200 248 L 200 340" stroke="#ef5f4a" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.9"/>
-          <path id="cb4" d="M269 248 C 269 300, 200 310, 200 340" stroke="#ef5f4a" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0.72"/>
-          <path id="cb5" d="M338 248 C 338 300, 200 310, 200 340" stroke="#ef5f4a" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0.55"/>
+          <li class="m-node" style="--tint: var(--mustard);">
+            <div class="m-dot"><span class="m-num">04</span></div>
+            <div class="m-card">
+              <div class="m-tool">higgsfield · b-roll</div>
+              <h3>cortes cinemáticos</h3>
+              <p>Perros corriendo, primer plano del pelaje, botella en cámara. Premium grade.</p>
+            </div>
+          </li>
+          <li class="m-conn" style="--flow: var(--mustard); --d: 0.9s;"></li>
 
-          <!-- agents → Seedance (scripts feed b-roll, dashed, blue faded) -->
-          <path id="scr" d="M200 248 C 270 300, 310 490, 310 596" stroke="#155DD7" stroke-width="1.4" fill="none" stroke-linecap="round" opacity="0.32" stroke-dasharray="3 6"/>
-
-          <!-- Nano Banana → HeyGen -->
-          <path id="nh" d="M200 405 L 200 470" stroke="#2970e3" stroke-width="2.4" fill="none" stroke-linecap="round" opacity="0.9"/>
-
-          <!-- HeyGen → Editor (merge) -->
-          <path id="he" d="M200 540 C 200 600, 180 680, 175 720" stroke="#2970e3" stroke-width="2.4" fill="none" stroke-linecap="round" opacity="0.9"/>
-
-          <!-- Seedance → Editor (merge) -->
-          <path id="se" d="M310 650 C 310 690, 240 710, 225 720" stroke="#d9a21c" stroke-width="2.4" fill="none" stroke-linecap="round" opacity="0.9"/>
-
-          <!-- Editor → .mp4 -->
-          <path id="out" d="M200 828 L 200 894" stroke="#6f9360" stroke-width="2.6" fill="none" stroke-linecap="round" opacity="0.95"/>
-
-          <!-- ═══ Pulses (inline circles with animateMotion) ═══ -->
-          <g>
-            <circle r="4" fill="#ffffff"><animateMotion dur="2.8s" repeatCount="indefinite"><mpath href="#fa1"/></animateMotion></circle>
-            <circle r="4" fill="#ffffff"><animateMotion dur="2.8s" begin="0.4s" repeatCount="indefinite"><mpath href="#fa2"/></animateMotion></circle>
-            <circle r="4" fill="#ffffff"><animateMotion dur="2.8s" begin="0.8s" repeatCount="indefinite"><mpath href="#fa3"/></animateMotion></circle>
-            <circle r="4" fill="#ffffff"><animateMotion dur="2.8s" begin="1.2s" repeatCount="indefinite"><mpath href="#fa4"/></animateMotion></circle>
-            <circle r="4" fill="#ffffff"><animateMotion dur="2.8s" begin="1.6s" repeatCount="indefinite"><mpath href="#fa5"/></animateMotion></circle>
-
-            <circle r="4" fill="#ffffff"><animateMotion dur="2.6s" begin="0.2s" repeatCount="indefinite"><mpath href="#cb1"/></animateMotion></circle>
-            <circle r="4" fill="#ffffff"><animateMotion dur="2.6s" begin="0.6s" repeatCount="indefinite"><mpath href="#cb2"/></animateMotion></circle>
-            <circle r="4" fill="#ffffff"><animateMotion dur="2.6s" begin="1.0s" repeatCount="indefinite"><mpath href="#cb3"/></animateMotion></circle>
-            <circle r="4" fill="#ffffff"><animateMotion dur="2.6s" begin="1.4s" repeatCount="indefinite"><mpath href="#cb4"/></animateMotion></circle>
-            <circle r="4" fill="#ffffff"><animateMotion dur="2.6s" begin="1.8s" repeatCount="indefinite"><mpath href="#cb5"/></animateMotion></circle>
-
-            <circle r="3.5" fill="#2970e3" opacity="0.6"><animateMotion dur="4s" begin="0.8s" repeatCount="indefinite"><mpath href="#scr"/></animateMotion></circle>
-
-            <circle r="5" fill="#ffffff"><animateMotion dur="1.7s" repeatCount="indefinite"><mpath href="#nh"/></animateMotion></circle>
-            <circle r="5" fill="#ffffff"><animateMotion dur="2.2s" begin="0.3s" repeatCount="indefinite"><mpath href="#he"/></animateMotion></circle>
-            <circle r="5" fill="#ffffff"><animateMotion dur="2s" begin="0.6s" repeatCount="indefinite"><mpath href="#se"/></animateMotion></circle>
-            <circle r="6" fill="#6f9360"><animateMotion dur="1.7s" repeatCount="indefinite"><mpath href="#out"/></animateMotion></circle>
-            <circle r="2.5" fill="#ffffff"><animateMotion dur="1.7s" repeatCount="indefinite"><mpath href="#out"/></animateMotion></circle>
-          </g>
-
-          <!-- ═══ NODE 1: guion.md ═══ -->
-          <g transform="translate(140, 22)">
-            <rect x="0" y="0" width="120" height="62" rx="10" fill="url(#gInk)" stroke="rgba(12,14,26,0.35)" stroke-width="1"/>
-            <rect x="10" y="10" width="46" height="6" rx="1.5" fill="rgba(255,255,255,0.6)"/>
-            <rect x="10" y="22" width="100" height="3" rx="1" fill="rgba(255,255,255,0.28)"/>
-            <rect x="10" y="29" width="82" height="3" rx="1" fill="rgba(255,255,255,0.28)"/>
-            <rect x="10" y="36" width="92" height="3" rx="1" fill="rgba(255,255,255,0.28)"/>
-            <text x="60" y="55" text-anchor="middle" font-family="Open Sans, sans-serif" font-weight="500" font-size="13" fill="#f3ecde">guión.md</text>
-          </g>
-
-          <!-- ═══ NODE 2: 5 Agents (circles + initial + name) ═══ -->
-          <g font-family="Open Sans, sans-serif">
-            <g transform="translate(62, 225)">
-              <circle r="23" fill="url(#gInk)" stroke="#2970e3" stroke-width="1.6"/>
-              <circle r="7.5" fill="#2970e3"><animate attributeName="r" values="6;9.5;6" dur="2.4s" repeatCount="indefinite"/></circle>
-              <text y="3.5" text-anchor="middle" font-size="9" font-weight="700" fill="#ffffff">F</text>
-              <text y="40" text-anchor="middle" font-family="Geist Mono, monospace" font-size="7.5" letter-spacing="1.1" font-weight="700" fill="rgba(12,14,26,0.65)">FRANK</text>
-            </g>
-            <g transform="translate(131, 225)">
-              <circle r="23" fill="url(#gInk)" stroke="#e85a95" stroke-width="1.6"/>
-              <circle r="7.5" fill="#e85a95"><animate attributeName="r" values="6;9.5;6" dur="2.6s" begin="0.3s" repeatCount="indefinite"/></circle>
-              <text y="3.5" text-anchor="middle" font-size="9" font-weight="700" fill="#ffffff">Y</text>
-              <text y="40" text-anchor="middle" font-family="Geist Mono, monospace" font-size="7.5" letter-spacing="1.1" font-weight="700" fill="rgba(12,14,26,0.65)">YUKI</text>
-            </g>
-            <g transform="translate(200, 225)">
-              <circle r="23" fill="url(#gInk)" stroke="#d26831" stroke-width="1.6"/>
-              <circle r="7.5" fill="#d26831"><animate attributeName="r" values="6;9.5;6" dur="2.8s" begin="0.6s" repeatCount="indefinite"/></circle>
-              <text y="3.5" text-anchor="middle" font-size="9" font-weight="700" fill="#ffffff">L</text>
-              <text y="40" text-anchor="middle" font-family="Geist Mono, monospace" font-size="7.5" letter-spacing="1.1" font-weight="700" fill="rgba(12,14,26,0.65)">LUPE</text>
-            </g>
-            <g transform="translate(269, 225)">
-              <circle r="23" fill="url(#gInk)" stroke="#b8864a" stroke-width="1.6"/>
-              <circle r="7.5" fill="#b8864a"><animate attributeName="r" values="6;9.5;6" dur="2.5s" begin="0.9s" repeatCount="indefinite"/></circle>
-              <text y="3.5" text-anchor="middle" font-size="8" font-weight="700" fill="#ffffff">M</text>
-              <text y="40" text-anchor="middle" font-family="Geist Mono, monospace" font-size="7.5" letter-spacing="1.1" font-weight="700" fill="rgba(12,14,26,0.65)">MARCUS</text>
-            </g>
-            <g transform="translate(338, 225)">
-              <circle r="23" fill="url(#gInk)" stroke="#ea6438" stroke-width="1.6"/>
-              <circle r="7.5" fill="#ea6438"><animate attributeName="r" values="6;9.5;6" dur="2.7s" begin="1.2s" repeatCount="indefinite"/></circle>
-              <text y="3.5" text-anchor="middle" font-size="9" font-weight="700" fill="#ffffff">N</text>
-              <text y="40" text-anchor="middle" font-family="Geist Mono, monospace" font-size="7.5" letter-spacing="1.1" font-weight="700" fill="rgba(12,14,26,0.65)">NIAMH</text>
-            </g>
-          </g>
-
-          <!-- ═══ NODE 3: Nano Banana Pro ═══ -->
-          <g transform="translate(200, 372)">
-            <circle r="46" fill="none" stroke="rgba(239,95,74,0.35)" stroke-width="1.2" stroke-dasharray="3 5">
-              <animateTransform attributeName="transform" type="rotate" from="0 0 0" to="360 0 0" dur="22s" repeatCount="indefinite"/>
-            </circle>
-            <circle r="36" fill="url(#gCoral)" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
-            <g transform="translate(0, -3)">
-              <path d="M-10 0 a10 10 0 1 0 20 0 a10 10 0 1 0 -20 0" fill="none" stroke="#fff3ea" stroke-width="1.5"/>
-              <circle cx="-3.5" cy="-2.5" r="1.5" fill="#fff3ea"/>
-              <circle cx="3.5" cy="-2.5" r="1.5" fill="#fff3ea"/>
-              <path d="M-4 2 Q 0 6 4 2" stroke="#fff3ea" stroke-width="1.3" fill="none" stroke-linecap="round"/>
-            </g>
-            <text y="22" text-anchor="middle" font-family="Open Sans, sans-serif" font-weight="600" font-size="11" fill="#fff3ea">Nano Banana</text>
-            <text y="33" text-anchor="middle" font-family="Geist Mono, monospace" font-size="6.5" letter-spacing="1.2" font-weight="700" fill="rgba(255,243,234,0.8)">GEMINI 3 PRO</text>
-          </g>
-
-          <!-- ═══ NODE 4: HeyGen ═══ -->
-          <g transform="translate(200, 505)">
-            <circle r="42" fill="none" stroke="rgba(46,124,244,0.35)" stroke-width="1.2" stroke-dasharray="3 5">
-              <animateTransform attributeName="transform" type="rotate" from="360 0 0" to="0 0 0" dur="24s" repeatCount="indefinite"/>
-            </circle>
-            <circle r="34" fill="url(#gCobalt)" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
-            <g transform="translate(0, -2)">
-              <rect x="-14" y="-9" width="28" height="18" rx="3" fill="none" stroke="#f3ecde" stroke-width="1.4"/>
-              <circle cx="-6" cy="0" r="1.5" fill="#f3ecde"/>
-              <circle cx="6" cy="0" r="1.5" fill="#f3ecde"/>
-              <path d="M-4 4 Q 0 6 4 4" stroke="#f3ecde" stroke-width="1.2" fill="none" stroke-linecap="round"/>
-              <path d="M-11 -2 L -17 -5 M -11 0 L -17 0 M -11 2 L -17 4" stroke="#f3ecde" stroke-width="1.1" stroke-linecap="round"/>
-            </g>
-            <text y="21" text-anchor="middle" font-family="Open Sans, sans-serif" font-weight="600" font-size="11" fill="#f3ecde">HeyGen</text>
-            <text y="32" text-anchor="middle" font-family="Geist Mono, monospace" font-size="6.5" letter-spacing="1.2" font-weight="700" fill="rgba(243,236,222,0.8)">TALKING HEAD</text>
-          </g>
-
-          <!-- ═══ NODE 5: Seedance 2.0 ═══ -->
-          <g transform="translate(310, 628)">
-            <circle r="40" fill="none" stroke="rgba(217,162,28,0.35)" stroke-width="1.2" stroke-dasharray="3 5">
-              <animateTransform attributeName="transform" type="rotate" from="0 0 0" to="360 0 0" dur="20s" repeatCount="indefinite"/>
-            </circle>
-            <circle r="33" fill="url(#gMustard)" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
-            <g transform="translate(0, -3)">
-              <path d="M-10 -4 L 0 -7 L 10 -4 L 10 4 L 0 7 L -10 4 Z" fill="none" stroke="#0c0e1a" stroke-width="1.4" stroke-linejoin="round"/>
-              <path d="M 0 -7 L 0 7" stroke="#0c0e1a" stroke-width="1.1"/>
-            </g>
-            <text y="17" text-anchor="middle" font-family="Open Sans, sans-serif" font-weight="600" font-size="10" fill="#0c0e1a">Seedance</text>
-            <text y="28" text-anchor="middle" font-family="Geist Mono, monospace" font-size="6.5" font-weight="700" letter-spacing="1.2" fill="rgba(12,14,26,0.75)">B-ROLL 2.0</text>
-          </g>
-
-          <!-- ═══ NODE 6: Editor ═══ -->
-          <g transform="translate(148, 722)">
-            <rect width="104" height="104" rx="13" fill="url(#gInk)" stroke="rgba(12,14,26,0.3)" stroke-width="1"/>
-            <g transform="translate(52, 40)">
-              <rect x="-30" y="-13" width="60" height="6.5" rx="1.5" fill="#2970e3" opacity="0.85"/>
-              <rect x="-30" y="-3.5" width="60" height="6.5" rx="1.5" fill="#ef5f4a" opacity="0.85"/>
-              <rect x="-30" y="6"    width="60" height="6.5" rx="1.5" fill="#d9a21c" opacity="0.85"/>
-              <rect x="-1" y="-18" width="2" height="36" fill="#6f9360"/>
-              <circle cx="0" cy="-18" r="2.5" fill="#6f9360"/>
-            </g>
-            <text x="52" y="80" text-anchor="middle" font-family="Open Sans, sans-serif" font-weight="600" font-size="12" fill="#f3ecde">Editor</text>
-            <text x="52" y="92" text-anchor="middle" font-family="Geist Mono, monospace" font-size="6.5" letter-spacing="1.2" font-weight="700" fill="rgba(243,236,222,0.7)">CAPTIONS · SFX</text>
-          </g>
-
-          <!-- ═══ NODE 7: .mp4 output ═══ -->
-          <g transform="translate(157, 898)">
-            <rect width="86" height="56" rx="12" fill="url(#gSage)" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
-            <g transform="translate(22, 28)">
-              <path d="M -7 -9 L 9 0 L -7 9 Z" fill="#0c0e1a"/>
-            </g>
-            <text x="55" y="24" text-anchor="middle" font-family="Open Sans, sans-serif" font-weight="700" font-size="14" fill="#0c0e1a">.mp4</text>
-            <text x="55" y="37" text-anchor="middle" font-family="Geist Mono, monospace" font-weight="700" font-size="6" letter-spacing="1.1" fill="rgba(12,14,26,0.72)">PUBLISH</text>
-            <text x="55" y="49" text-anchor="middle" font-family="Geist Mono, monospace" font-weight="600" font-size="5.5" letter-spacing="0.9" fill="rgba(12,14,26,0.52)">TT · REELS · YT</text>
-          </g>
-
-        </svg>
+          <li class="m-node" style="--tint: var(--sage);">
+            <div class="m-dot"><span class="m-num">05</span></div>
+            <div class="m-card">
+              <div class="m-tool">editor · publish</div>
+              <h3>video final .mp4</h3>
+              <p>Captions, SFX, música. Listo para TikTok, Reels y Shorts.</p>
+            </div>
+          </li>
+        </ol>
       </div>
 
       <!-- (legacy wrapper no longer used) -->
